@@ -2192,6 +2192,22 @@ https://github.com/RUB-NDS/PRET
 
 #Add burp cert to root cert:
 	(adb)
+        #Convert cert into right format
+        openssl x509 -inform DER -in burp.der -out burp.pem
+        openssl x509 -inform PEM -subject_hash_old -in burp.pem|head -1
+        mv burp.pem 9a5ba575.0
+
+        emulator -list-avds
+        emulator -avd android_11 -writable-system
+        adb root
+        adb shell avbctl disable-verification
+        adb reboot
+        adb root
+        adb remount (if adb tell you that you need to reboot, reboot again adb reboot and run adb remount again)
+        adb push 9a5ba575.0 /system/etc/security/cacerts
+        adb shell chmod 664 /system/etc/security/cacerts/9a5ba575.0
+        adb reboot
+
 	or install Root Certificat Manager
 
 #View log:
