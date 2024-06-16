@@ -115,28 +115,6 @@
 	  
 
 <hr>
-
-<h2 id="remote-debugging">Remote Debugging</h2>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#From remote machine:
-    java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:9898 -jar NumberGame.jar
-
-#Local machine
-    #Load libraries if needed
-        unzip -j NumberGame.jar "BOOT-INF/lib/*" -d NumberGame/lib/
-    #Create launch.json
-    #Add configuration > Java: Attach to Remote Program > setup Hostname & Port
-    #Click run debug
-
-</code></pre></div></div>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Method 2: Using Remote-SSH VSCode extension
-1. Open a Remote Window
-2. Enter ssh creds
-3. Transfer source code to remote server (scp)
-</code></pre></div></div>
-
-<hr>
-
 <h2 id="exercise-notes">Exercise Notes</h2>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xfreerdp +nego +sec-rdp +sec-tls +sec-nla /d: /u: /p: /v:dnn /u:administrator /p:studentlab /size:1180x708 /tls-seclevel:0
@@ -156,6 +134,26 @@
     # Debug > Break All
     # Debug > Windows > Modules > Right click any module > Open All Modules
 </code></pre></div></div>
+<hr>
+<h2 id="remote-debugging">Remote Debugging</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#From remote machine:
+    java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:9898 -jar NumberGame.jar
+
+#Local machine
+    #Load libraries if needed
+        unzip -j NumberGame.jar "BOOT-INF/lib/*" -d NumberGame/lib/
+    #Create launch.json
+    #Add configuration > Java: Attach to Remote Program > setup Hostname & Port
+    #Click run debug
+
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Method 2: Using Remote-SSH VSCode extension
+1. Open a Remote Window
+2. Enter ssh creds
+3. Transfer source code to remote server (scp)
+</code></pre></div></div>
+
 <hr>
 
 <h2 id="SQL-injection-RCE">SQL Injection RCE</h2>
