@@ -154,6 +154,16 @@
 3. Transfer source code to remote server (scp)
 </code></pre></div></div>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### DB enable logging
+    # MySQL
+        sudo nano /etc/mysql/my.cnf
+        (uncomment the following lines)
+            general_log_file        = /var/log/mysql/mysql.log
+            general_log             = 1
+        sudo systemctl restart mysql
+        sudo tail -f /var/log/mysql/mysql.log
+</code></pre></div></div>
+
 <hr>
 
 <h2 id="SQL-injection-RCE">SQL Injection RCE</h2>
