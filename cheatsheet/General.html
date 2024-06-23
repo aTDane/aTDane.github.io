@@ -2143,6 +2143,13 @@ Content-Length: 52<br><br>
 ###>Deliver exploit to victim > check access log
 </code></pre></div></div>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Preflight request [OPTIONS]
+- A preflight request will be sent to check if a non-standard POST request should be sent (from different origin)
+(GET request or standard POST request is not required a preflight request)
+    Standard =      Content-Type: application/x-www-form-urlencoded; multipart/form-data
+    Non-standard =  Content-Type: application/json
+</code></pre></div></div>
+
 <h3 id="websocket">WebSocket</h3>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#obfuscated XSS payload
 &lt;img src=1 oNeRrOr=alert`1`&gt;
