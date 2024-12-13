@@ -95,6 +95,9 @@
     <p><a href="#vpn">VPN</a></p>
   </li>
   <li>
+    <p><a href="#origin-ip">Origin IP Behind WAF</a></p>
+  </li>
+  <li>
     <p><a href="#ngrok">Ngrok</a></p>
   </li>
   <li>
@@ -301,6 +304,26 @@ root           1  0.2  0.2 166612 11356 ?        Ss   00:47   0:00 /sbin/init
 #warp-cli register
 sudo systemctl start warp-svc.service
 warp-cli connect
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="origin-ip">Origin IP Behind WAF</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shodan.io:
+    Ssl.cert.subject.CN:"rapfame.app" 200
+    ssl:"rapfame.app" 200
+
+# Favicon hash:
+    Go to https://favicons.teamtailor-cdn.com/
+        Search for: https://example.com/
+
+    Then https://favicon-hash.kmsec.uk/
+        Paste favicon.ico link
+            Search Censys
+
+# Censys:
+
 </code></pre></div></div>
 
 <hr>
@@ -2048,6 +2071,10 @@ alert?.(1337,)?.()
 			X-Forwarded-Host: EXPLOIT.net
 			X-Host: EXPLOIT.net
 			X-Forwarded-Server: EXPLOIT.net
+            X-Original-Host: EXPLOIT.net
+
+            X-Forwarded-Proto: http
+            X-Forwarded-Host: EXPLOIT.net
 		)
 	- Check if the hostname reflected in response, ie: 
 		&lt;script type="text/javascript" src="//exploit-id.exploit-server.net/resources/js/tracking.js">&lt;/script>
