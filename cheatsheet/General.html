@@ -2499,6 +2499,14 @@ jad ./com/pentesterlab/demo/MainActivity.class (-> MainActivity.jad -> change fi
     Solution: check and redirect user to login functionality - not allow directly access.
 </code></pre></div></div>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- Remote Port Forwarding (5555) to VMware:
+    (kali) systemctl start ssh.service
+    (kali) adb kill-server
+    (Wins) ssh -R 5555:127.0.0.1:5555 kali@192.168.157.128
+
+    (kali) adb devices
+</code></pre></div></div>
+
 <h4 id="mobile-pentest-process">Process</h4>	  
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><img src="D:\Workspace\2022\OSCP\OSCP personal cheatsheet_files\Workflow.jpg">
 </code></pre></div></div>
