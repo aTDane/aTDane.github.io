@@ -136,6 +136,13 @@
   <li>
     <p><a href="#mobile-pentest">Mobile Pentest</a></p>
   </li>
+  <li>
+    <p><a href="#infrastructure-pentest">Infrastructure Pentest</a></p>
+        <ul>
+            <li><a href="#infra-windows">Windows</a></li>
+            <li><a href="#infra-linux">Linux</a></li>
+        </ul>
+  </li>
 </ul>
 <!-- sidebar.html end -->
 
@@ -2510,6 +2517,36 @@ jad ./com/pentesterlab/demo/MainActivity.class (-> MainActivity.jad -> change fi
 <h4 id="mobile-pentest-process">Process</h4>	  
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><img src="D:\Workspace\2022\OSCP\OSCP personal cheatsheet_files\Workflow.jpg">
 </code></pre></div></div>
+
+<hr>
+<h2 id="infrastructure-pentest">Infrastructure Pentest</h2>
+
+<h3 id="infra-windows">Windows</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><b style="color:red">Objective: Ensure users have only necessary privileges.</b>
+    <b>#Find unquoted path & contained space in path</b>
+        wmic service get name,displayname,pathname,startmode | findstr "Program Files"
+
+    <b>#Check if any misconfigured service allows privilege escalation</b>
+        accesschk.exe -uwcqv "Authenticated Users" *
+
+    <b>#Check permission</b>
+        whoami /priv -> refer to OSCP cheatsheet
+        whoami /groups
+
+<b style="color:red">Objective: Identify weak or hardcoded credentials.</b>
+    cmdkey /list  (To exploit -> OSCP cheatsheet)
+    findstr /si password C:\Users\
+    mimikatz.exe → privilege::debug → sekurlsa::logonpasswords  (dump hash from memory - normally required local admin priv)
+
+<b style="color:red">Objective: Ensure SMB and LDAP services are not exposed insecurely.</b>
+    Run nmap -p 445 --script smb-security-mode &lt;target-IP> to check SMB security.
+    Use ldapsearch to check if LDAP binds allow anonymous access.
+</code></pre></div></div>
+
+<h3 id="infra-linux">Linux</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
 		
 		<ul class="list-inline">
 		  <li><i class="fa fa-tags"></i></li>
