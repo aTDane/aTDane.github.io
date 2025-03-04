@@ -137,6 +137,13 @@
     <p><a href="#mobile-pentest">Mobile Pentest</a></p>
   </li>
   <li>
+    <p><a href="#client-app">Client App</a></p>
+        <ul>
+            <li><a href="#client-app-windows">Windows</a></li>
+            <li><a href="#client-app-macos">MacOS</a></li>
+        </ul>
+  </li>
+  <li>
     <p><a href="#infrastructure-pentest">Infrastructure Pentest</a></p>
         <ul>
             <li><a href="#infra-windows">Windows</a></li>
@@ -2516,6 +2523,28 @@ jad ./com/pentesterlab/demo/MainActivity.class (-> MainActivity.jad -> change fi
 
 <h4 id="mobile-pentest-process">Process</h4>	  
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><img src="D:\Workspace\2022\OSCP\OSCP personal cheatsheet_files\Workflow.jpg">
+</code></pre></div></div>
+
+<hr>
+<h2 id="client-app">Client App</h2>
+<h3 id="client-app-windows">Windows</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Identify the language and frameworks
+
+# Decompile the thick client
+    dnSpy (.NET) - Ghidra (.exe)
+
+# Review the application source code: obfucated? hardcoded creds? weak business logic flow? misconfiguration?
+
+# Review application folder and file components: sensitive data? permisison?
+</code></pre></div></div>
+<h3 id="client-app-macos">MacOS</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Identify the language and frameworks: pkgutil or xar (to unpack MacOS flat package installer .pgk)
+    xar -xf "file.pkg"
+
+# Decompile:
+    JD-GUI (.jar)
+
+https://www.youtube.com/watch?v=eauv9PnAl5M
 </code></pre></div></div>
 
 <hr>
