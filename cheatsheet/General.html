@@ -2564,7 +2564,7 @@ https://www.youtube.com/watch?v=eauv9PnAl5M
 
 <b style="color:red">Objective: Identify weak or hardcoded credentials.</b>
     cmdkey /list  (To exploit -> OSCP cheatsheet)
-    findstr /si password C:\Users\
+    cd C:\ && findstr /si password *.*
     mimikatz.exe → privilege::debug → sekurlsa::logonpasswords  (dump hash from memory - normally required local admin priv)
 
 <b style="color:red">Objective: Ensure SMB and LDAP services are not exposed insecurely.</b>
