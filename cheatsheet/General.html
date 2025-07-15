@@ -2584,7 +2584,8 @@ https://www.youtube.com/watch?v=eauv9PnAl5M
 </code></pre></div></div>
 
 <h3 id="infra-linux">Linux</h3>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><b style="color:red">Objective: Identify hardcoded credentials.</b>
+    sudo grep -irE '(password|pwd|pass)[[:space:]]*=[[:space:]]*[[:alpha:]]+'* 2>/dev/null
 </code></pre></div></div>
 
 		
