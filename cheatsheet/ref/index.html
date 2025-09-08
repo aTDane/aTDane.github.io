@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Directory Lister</title>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; max-width:900px; margin:2rem auto; }
+    h1 { color:#0b63a5; }
+    button, input[type=file] { padding:.5rem 1rem; font-size:1rem; margin-right:.5rem; }
+    table { width:100%; border-collapse:collapse; margin-top:1rem; }
+    th, td { padding:.5rem; border:1px solid #ddd; text-align:left; }
+    th { background:#f6f8fa; }
+    .muted { color:#666; font-size:.9rem; }
+  </style>
+</head>
+<body>
+  <h1>Directory Lister</h1>
+  <p class="muted">Choose a directory to list files. Uses the File System Access API when available, otherwise falls back to a directory file picker.</p>
+
+  <div>
+    <button id="pickDirBtn">Choose directory (showDirectoryPicker)</button>
+    <label style="display:inline-block">
+      <span class="muted">Fallback:</span>
+      <input id="fallbackInput" type="file" webkitdirectory directory multiple style="vertical-align:middle;">
+    </label>
+    <button id="clearBtn">Clear</button>
+  </div>
+
+  <div id="info" class="muted" style="margin-top:1rem;"></div>
+
+  <table id="fileTable" aria-live="polite" hidden>
+    <thead>
+      <tr><th>#</th><th>Path / Name</th><th>Size (bytes)</th><th>Modified</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+<script>
+const pickBtn = document.getElementById('pickDirBtn');
+const fallbackInput = document.getElementById('fallbackInput');
+const fileTable = document.getElementById('fileTable');
+const tbody = fileTable.querySelector('tbody');
+const info = document.getElementById('info');
+const clearBtn = document.getElementById('clearBtn');
+
+function showInfo(msg) { info.textContent = msg; }
+
+async function listFromHandle(dirHandle) {
+  tbody.innerHTML = '';
+  fileTable.hidden = true;
+  showInfo('Reading directory...');
+  let index = 0;
+
+  // recursive
+  async function walk(handle, path = '') {
+    for await (const entry of handle.values()) {
+      const entryPath = path ? `${path}/${entry.name}` : entry.name;
+      if (entry.kind === 'file') {
+        const file = await entry.getFile();
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${++index}</td>
+                        <td>${escapeHtml(entryPath)}</td>
+                        <td>${file.size}</td>
+                        <td>${file.lastModified ? new Date(file.lastModified).toLocaleString() : ''}</td>`;
+        tbody.appendChild(tr);
+      } else if (entry.kind === 'directory') {
+        await walk(entry, entryPath);
+      }
+    }
+  }
+
+  try {
+    await walk(dirHandle);
+    fileTable.hidden = false;
+    showInfo(`Listed ${index} file(s).`);
+  } catch (e) {
+    console.error(e);
+    showInfo('Error reading directory: ' + e.message);
+  }
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// Button uses modern API
+pickBtn.addEventListener('click', async () => {
+  if (window.showDirectoryPicker) {
+    try {
+      const dirHandle = await window.showDirectoryPicker();
+      await listFromHandle(dirHandle);
+    } catch (err) {
+      if (err.name !== 'AbortError') console.error(err);
+      showInfo('Directory selection cancelled or permission denied.');
+    }
+  } else {
+    showInfo('showDirectoryPicker() not supported in this browser — use the fallback input (choose a folder).');
+  }
+});
+
+// Fallback input (webkitdirectory)
+fallbackInput.addEventListener('change', (ev) => {
+  const files = Array.from(ev.target.files || []);
+  tbody.innerHTML = '';
+  if (!files.length) {
+    showInfo('No files selected.');
+    fileTable.hidden = true;
+    return;
+  }
+  files.sort((a,b) => (a.webkitRelativePath || a.name).localeCompare(b.webkitRelativePath || b.name));
+  files.forEach((f, i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${i+1}</td>
+                    <td>${escapeHtml(f.webkitRelativePath || f.name)}</td>
+                    <td>${f.size}</td>
+                    <td>${f.lastModified ? new Date(f.lastModified).toLocaleString() : ''}</td>`;
+    tbody.appendChild(tr);
+  });
+  fileTable.hidden = false;
+  showInfo(`Listed ${files.length} file(s) via fallback picker.`);
+});
+
+clearBtn.addEventListener('click', () => {
+  tbody.innerHTML = '';
+  fileTable.hidden = true;
+  fallbackInput.value = '';
+  showInfo('');
+});
+</script>
+</body>
+</html>
