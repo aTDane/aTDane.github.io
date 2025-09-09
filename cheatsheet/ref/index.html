@@ -12,11 +12,13 @@
     th, td { padding:.5rem; border:1px solid #ddd; text-align:left; }
     th { background:#f6f8fa; }
     .muted { color:#666; font-size:.9rem; }
+    ul.links { padding-left:1rem; margin-top:1rem; }
+    ul.links li { margin:0.4rem 0; }
   </style>
 </head>
 <body>
   <h1>Directory Lister</h1>
-  <p class="muted">Choose a directory to list files. Uses the File System Access API when available, otherwise falls back to a directory file picker.</p>
+  <p class="muted">Choose a directory to list files, or load a <code>list.txt</code> file placed in the same folder as this page (server required).</p>
 
   <div>
     <button id="pickDirBtn">Choose directory (showDirectoryPicker)</button>
@@ -24,6 +26,7 @@
       <span class="muted">Fallback:</span>
       <input id="fallbackInput" type="file" webkitdirectory directory multiple style="vertical-align:middle;">
     </label>
+    <button id="loadListBtn">Load from list.txt</button>
     <button id="clearBtn">Clear</button>
   </div>
 
@@ -36,6 +39,11 @@
     <tbody></tbody>
   </table>
 
+  <div id="listLinks" hidden>
+    <h3>Files from <code>list.txt</code></h3>
+    <ul class="links" id="linksUl"></ul>
+  </div>
+
 <script>
 const pickBtn = document.getElementById('pickDirBtn');
 const fallbackInput = document.getElementById('fallbackInput');
@@ -43,16 +51,20 @@ const fileTable = document.getElementById('fileTable');
 const tbody = fileTable.querySelector('tbody');
 const info = document.getElementById('info');
 const clearBtn = document.getElementById('clearBtn');
+const loadListBtn = document.getElementById('loadListBtn');
+const listLinks = document.getElementById('listLinks');
+const linksUl = document.getElementById('linksUl');
 
 function showInfo(msg) { info.textContent = msg; }
 
+/* ---------- existing directory-listing logic ---------- */
 async function listFromHandle(dirHandle) {
   tbody.innerHTML = '';
   fileTable.hidden = true;
+  listLinks.hidden = true;
   showInfo('Reading directory...');
   let index = 0;
 
-  // recursive
   async function walk(handle, path = '') {
     for await (const entry of handle.values()) {
       const entryPath = path ? `${path}/${entry.name}` : entry.name;
@@ -80,11 +92,12 @@ async function listFromHandle(dirHandle) {
   }
 }
 
+/* ---------- helper ---------- */
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-// Button uses modern API
+/* ---------- pick dir ---------- */
 pickBtn.addEventListener('click', async () => {
   if (window.showDirectoryPicker) {
     try {
@@ -99,10 +112,11 @@ pickBtn.addEventListener('click', async () => {
   }
 });
 
-// Fallback input (webkitdirectory)
+/* ---------- fallback input ---------- */
 fallbackInput.addEventListener('change', (ev) => {
   const files = Array.from(ev.target.files || []);
   tbody.innerHTML = '';
+  listLinks.hidden = true;
   if (!files.length) {
     showInfo('No files selected.');
     fileTable.hidden = true;
@@ -121,11 +135,65 @@ fallbackInput.addEventListener('change', (ev) => {
   showInfo(`Listed ${files.length} file(s) via fallback picker.`);
 });
 
+/* ---------- clear ---------- */
 clearBtn.addEventListener('click', () => {
   tbody.innerHTML = '';
   fileTable.hidden = true;
   fallbackInput.value = '';
+  listLinks.hidden = true;
+  linksUl.innerHTML = '';
   showInfo('');
+});
+
+/* ---------- new: load list.txt ---------- */
+async function parseListTxt(text) {
+  // Split into lines, trim, ignore blank lines and lines starting with '#' (comments)
+  return text.split(/\r?\n/).map(l => l.trim()).filter(l => l && !l.startsWith('#'));
+}
+
+loadListBtn.addEventListener('click', async () => {
+  showInfo('Fetching list.txt...');
+  fileTable.hidden = true;
+  linksUl.innerHTML = '';
+  listLinks.hidden = true;
+
+  try {
+    const resp = await fetch('list.txt', {cache: "no-store"});
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const text = await resp.text();
+    const items = await parseListTxt(text);
+
+    if (!items.length) {
+      showInfo('list.txt is empty or contains only comments.');
+      return;
+    }
+
+    // Build links list. Each item is interpreted as a relative path from current directory.
+    items.forEach((line, idx) => {
+      const li = document.createElement('li');
+
+      // Ensure proper encoding in href while preserving path separators
+      const parts = line.split('/').map(encodeURIComponent).join('/');
+      const href = `./${parts}`;
+
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = line;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+
+      li.appendChild(a);
+
+      // Optionally show size/last-mod is not possible without extra server-side support.
+      linksUl.appendChild(li);
+    });
+
+    listLinks.hidden = false;
+    showInfo(`Loaded ${items.length} file link(s) from list.txt.`);
+  } catch (err) {
+    console.error(err);
+    showInfo('Unable to fetch list.txt — make sure file exists and you are serving via HTTP (same directory). Error: ' + err.message);
+  }
 });
 </script>
 </body>
