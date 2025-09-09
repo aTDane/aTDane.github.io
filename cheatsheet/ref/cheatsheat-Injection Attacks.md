@@ -1,3 +1,6 @@
+---
+layout: default
+---
 ## XPath Injection
 
 #### XPath Syntax
