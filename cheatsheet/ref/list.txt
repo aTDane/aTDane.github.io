@@ -1,2 +1,2 @@
-cheatsheat-Advanced SQL Injections.md
-cheatsheat-Injection Attacks.md
+cheatsheat-Advanced SQL Injections
+cheatsheat-Injection Attacks
