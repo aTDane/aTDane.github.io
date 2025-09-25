@@ -1881,6 +1881,27 @@ Project options > Sessions > Session Handling Rules > Add
     + Input "1" as the secret to sign token
 </code></pre></div></div>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Algorithm Confusion
+If web app use asymmetric algorithm (e.g., <b>RS256</b>) - a <b>private key</b> is used to compute the signature.
+    And a <b>public key</b> is used to verify the signature
+-> Confuse the web app to use symmetric algorithm (e.g., <b>HS256</b>) -> token's signature can be verified with the same key used to sign the JWT.
+
+Steps:
+    1. Obtain the Public Key
+    # Generate 2 different JWT tokens
+    # <b>sudo docker run --rm -it portswigger/sig2n &lt;token1> &lt;token2></b>
+
+    # Script outputs:
+        + A Base64-encoded PEM key in both X.509 and PKCS1 format.
+        + A forged JWT signed using each of these keys.
+
+    # Try each forged JWT to identify the only one that will be accepted by the server.
+    # Copy the base64 decoded value -> CyberChef -> JWT Sign
+    # Note: we need to add a newline (\n) at the end of the public key
+<img src="./OSCP%20personal%20cheatsheet_files/jwt_algorithm_confusion.png">
+
+</code></pre></div></div>
+
 <h3 id="multiple-request-csrf">CSRF</h3>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Multiple requests CSRF
 &lt;html&gt;
