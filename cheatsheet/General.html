@@ -1881,6 +1881,42 @@ Project options > Sessions > Session Handling Rules > Add
     + Input "1" as the secret to sign token
 </code></pre></div></div>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### JWT header parameter injections
+# jwk parameter
+    # Ideally, servers should only use a limited whitelist of public keys to verify JWT signatures. However, misconfigured servers sometimes use any key that's embedded in the jwk parameter.
+    # Can be exploit by signing a modified JWT using our own RSA <b>private key</b> -> embed the matching <b>public key</b> in the <b>jwk</b> header
+
+        ### Exploitation:
+        1. Use <b>JWT Editor</b> Burp's extension -> go to <b>Keys</b> tab
+        2. Generate a new RSA key:
+            New RSA Key > Generate (or paste an existing key) > [Edit key as required] > OK to save
+        3. Send a request containing a JWT to Burp Repeater
+        4. Go to JSON Web Token tab > modify token's payload
+        5. Click <b>Attack</b>, then select <b>Embedded JWK</b> > Select the newly generated RSA key.
+        6. Send request to test how server responds.
+
+
+# jku parameter (covered in #JWKS Spoofing ~ "jku" attribute)
+    # Same as above (self-signed JWTs), but instead of embedding public key directly using <b>jwk</b> header parameter -> use "jku" - server fetches the relevant key from this URL.
+
+# kid parameter (covered - combine with path traversal or SQLi)
+    # Servers may use several cryptographic keys for signing different kinds of data, not just JWTs. For this reason, the header of a JWT may contain a kid (Key ID) parameter, which helps the server identify which key to use when verifying the signature.
+    # Verification keys are often stored as a JWK Set. In this case, the server may simply look for the JWK with the same kid as the token. However, the JWS specification doesn't define a concrete structure for this ID - it's just an arbitrary string of the developer's choosing. For example, they might use the kid parameter to point to a particular entry in a database, or even the name of a file.
+    # If this parameter is also vulnerable to directory traversal, an attacker could potentially force the server to use an arbitrary file from its filesystem as the verification key.
+    {
+        "kid": "../../path/to/file",
+        "typ": "JWT",
+        "alg": "HS256",
+        "k": "asGsADas3421-dfh9DGN-AFDFDbasfd8-anfjkvc"
+    }
+
+# other parameters
+    cty (Content Type) - Sometimes used to declare a media type for the content in the JWT payload. This is usually omitted from the header, but the underlying parsing library may support it anyway. If you have found a way to bypass signature verification, you can try injecting a cty header to change the content type to text/xml or application/x-java-serialized-object, which can potentially enable new vectors for XXE and deserialization attacks.
+
+    x5c (X.509 Certificate Chain) - Sometimes used to pass the X.509 public key certificate or certificate chain of the key used to digitally sign the JWT. This header parameter can be used to inject self-signed certificates, similar to the jwk header injection attacks discussed above. Due to the complexity of the X.509 format and its extensions, parsing these certificates can also introduce vulnerabilities. Details of these attacks are beyond the scope of these materials, but for more details, check out CVE-2017-2800 and CVE-2018-2633.
+
+</code></pre></div></div>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### Algorithm Confusion
 If web app use asymmetric algorithm (e.g., <b>RS256</b>) - a <b>private key</b> is used to compute the signature.
     And a <b>public key</b> is used to verify the signature
