@@ -110,6 +110,8 @@
     <ul>
       <li><a href="#process">Process</a></li>
       <li><a href="#jwt">JWT</a></li>
+      <li><a href="#oauth">OAuth</a></li>
+      <li><a href="#saml">SAML</a></li>
       <li><a href="#multiple-request-csrf">Multiple request CSRF</a></li>
       <li><a href="#click-jacking">Click jacking</a></li>
       <li><a href="#ssti">SSTI</a></li>
@@ -1900,6 +1902,21 @@ Steps:
     # Note: we need to add a newline (\n) at the end of the public key
 <img src="./OSCP%20personal%20cheatsheet_files/jwt_algorithm_confusion.png">
 
+</code></pre></div></div>
+
+<h3 id="oauth">OAuth</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Investigate if the <b>redirect_uri</b> is properly validated
+    # Bypass validation (start or contain http://academy.htb) using:
+    Subdomains
+        http://academy.htb.attacker.htb/callback
+    Basic Authentication Credentials
+        http://academy.htb@attacker.htb/callback
+    Query parameters
+        http://attacker.htb/callback?a=http://academy.htb
+    URL fragments
+        http://attacker.htb/callback#http://academy.htb
+# Investigate if a <b>state</b> parameter is present and properly validated
+# Investigate for possible XSS vulnerabilities from reflected OAuth parameters
 </code></pre></div></div>
 
 <h3 id="multiple-request-csrf">CSRF</h3>
