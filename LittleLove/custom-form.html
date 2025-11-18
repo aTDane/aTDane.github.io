@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Tinos:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body {
+    margin: 0;
+    padding: 20px;
+    background: #f5f5f5;
+    font-family: 'Tinos', serif;
+}
+
+/* Form xác nhận tham dự mới - Style giống hình */
+#new-rsvp-form {
+    background: #581010;
+    padding: 30px 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+#new-rsvp-form .subtitle {
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-size: 13px;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.4;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.form-group {
+    margin-bottom: 12px;
+    flex: 1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+    color: white;
+    font-family: 'Tinos', serif;
+}
+
+.form-group input[type="text"],
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+    font-family: 'Tinos', serif;
+    background: white;
+}
+
+.form-group input[type="text"]:focus,
+.form-group select:focus {
+    outline: 2px solid rgba(255,255,255,0.5);
+}
+
+.form-group input::placeholder {
+    color: #999;
+}
+
+/* Removed radio group styles - using dropdown instead */
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.submit-btn {
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: Arial, sans-serif;
+}
+
+.btn-primary {
+    background: #dc3545;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    width: 153px;
+    height: 40px;
+    margin: 0 auto;
+}
+
+.btn-primary:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+.btn-secondary {
+    background: #85080e;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    width: 195px;
+    height: 42px;
+    margin: 0 auto;
+}
+
+.btn-secondary:hover {
+    background: #6a0609;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+/* Popup QR Code */
+.qr-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.qr-popup-overlay.active {
+    display: flex;
+}
+
+.qr-popup-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    text-align: center;
+}
+
+.qr-popup-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+}
+
+.qr-popup-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #811C2E;
+    font-family: 'Dancing Script', cursive;
+}
+
+.qr-codes-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.qr-code-item {
+    flex: 1;
+    min-width: 200px;
+}
+
+.qr-code-item h4 {
+    margin-bottom: 10px;
+    color: #333;
+    font-family: 'Tinos', serif;
+}
+
+.qr-placeholder {
+    width: 200px;
+    height: 200px;
+    background: #f5f5f5;
+    border: 2px dashed #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    border-radius: 10px;
+    color: #999;
+    font-size: 14px;
+}
+
+/* Notification Popup */
+#notification-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    backdrop-filter: blur(3px);
+}
+
+#notification-popup.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.notification-content {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    animation: slideUp 0.4s ease;
+    position: relative;
+}
+
+.notification-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+    animation: scaleIn 0.5s ease;
+}
+
+.notification-icon.success {
+    color: #4CAF50;
+}
+
+.notification-icon.error {
+    color: #f44336;
+}
+
+.notification-icon.warning {
+    color: #ff9800;
+}
+
+.notification-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.notification-message {
+    font-family: 'Tinos', serif;
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.notification-btn {
+    background: #811C2E;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Tinos', serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(129, 28, 46, 0.3);
+}
+
+.notification-btn:hover {
+    background: #a02339;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(129, 28, 46, 0.4);
+}
+
+.notification-btn:active {
+    transform: translateY(0);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Form mới giống hình -->
+<div id="new-rsvp-form">
+    <p class="subtitle">Cảm ơn tất cả tình cảm mà mọi người<br>đã dành cho chúng mình</p>
+    
+    <form id="rsvp-form" onsubmit="handleFormSubmit(event)">
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" name="fullname" placeholder="Tên Của Bạn" required>
+            </div>
+            
+            <div class="form-group">
+                <select name="guest_type" required>
+                    <option value="" disabled selected>Bạn Là Khách Mời Của</option>
+                    <option value="bride">Cô Dâu</option>
+                    <option value="groom">Chú Rể</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <select name="attendance" id="attendance" required onchange="handleAttendanceChange()">
+                <option value="" disabled selected>Bạn sẽ tham dự chứ?</option>
+                <option value="yes">Có, tôi sẽ tham dự</option>
+                <option value="no">Tôi bận, rất tiếc không thể tham dự</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <select name="guest_count" id="guest_count" required>
+                <option value="" disabled selected>Số lượng người tham dự</option>
+                <option value="1">1 người</option>
+                <option value="2">2 người</option>
+                <option value="3">3+ người</option>
+                <option value="0" style="display:none;">0 người</option>
+            </select>
+        </div>
+        
+        <div class="button-group">
+            <button type="submit" class="submit-btn btn-primary">Xác Nhận</button>
+            <button type="button" class="submit-btn btn-secondary" onclick="openQRPopup()">Gửi Mừng Cưới</button>
+        </div>
+    </form>
+</div>
+
+<!-- Popup QR Code -->
+<div class="qr-popup-overlay" id="qr-popup" onclick="closeQRPopup(event)">
+    <div class="qr-popup-content" onclick="event.stopPropagation()">
+        <span class="qr-popup-close" onclick="closeQRPopup()">&times;</span>
+        <h2 class="qr-popup-title">Gửi Mừng Cưới</h2>
+        <p style="margin-bottom:20px;color:#666;">Quý khách có thể gửi lời chúc mừng qua:</p>
+        
+        <div class="qr-codes-container">
+            <div class="qr-code-item">
+                <h4>Cô Dâu</h4>
+                <div class="qr-placeholder">
+                    QR Code<br>Cô Dâu<br>(Ảnh minh họa)
+                </div>
+            </div>
+            <div class="qr-code-item">
+                <h4>Chú Rể</h4>
+                <div class="qr-placeholder">
+                    QR Code<br>Chú Rể<br>(Ảnh minh họa)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification Popup -->
+<div id="notification-popup">
+    <div class="notification-content">
+        <div class="notification-icon" id="notification-icon">✓</div>
+        <h3 class="notification-title" id="notification-title">Thành công!</h3>
+        <p class="notification-message" id="notification-message">Thông tin đã được ghi nhận.</p>
+        <button class="notification-btn" onclick="closeNotification()">Đóng</button>
+    </div>
+</div>
+
+<script>
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzokdAannbQBAHGGsccaM8FxChu0aB0yRJjm-3pdQ1rzOiqUDWbXiMVMLVMTtL8G0bo/exec';
+
+function handleAttendanceChange() {
+    const attendance = document.getElementById('attendance');
+    const guestCount = document.getElementById('guest_count');
+    
+    if (attendance.value === 'no') {
+        guestCount.value = '0';
+        guestCount.disabled = true;
+        guestCount.style.opacity = '0.5';
+        guestCount.style.cursor = 'not-allowed';
+    } else {
+        guestCount.disabled = false;
+        guestCount.style.opacity = '1';
+        guestCount.style.cursor = 'pointer';
+        if (guestCount.value === '0') {
+            guestCount.value = '';
+        }
+    }
+}
+
+function handleFormSubmit(event) {
+    event.preventDefault();
+    
+    const submitBtn = event.target.querySelector('.btn-primary');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Đang gửi...';
+    submitBtn.disabled = true;
+
+    const formData = new FormData(event.target);
+    
+    // Thêm timestamp
+    formData.append('timestamp', new Date().toLocaleString('vi-VN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    }));
+    
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.result === 'success') {
+          // Check attendance status
+          const attendance = formData.get('attendance');
+          if (attendance === 'no') {
+            showNotification('success', 'Cảm ơn bạn!', 'Chúng tôi đã nhận được phản hồi của bạn. Rất tiếc vì bạn không thể tham dự, chúng tôi hy vọng sẽ có dịp gặp lại bạn sớm!');
+          } else {
+            showNotification('success', 'Cảm ơn bạn!', 'Thông tin xác nhận đã được ghi nhận. Chúng tôi rất mong được gặp bạn trong ngày trọng đại!');
+          }
+          event.target.reset();
+        } else {
+          showNotification('error', 'Gửi thất bại', 'Không thể gửi thông tin. Vui lòng kiểm tra lại và thử lại sau.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('warning', 'Có lỗi xảy ra', 'Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối mạng và thử lại sau.');
+    })
+    .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    });
+}
+
+function showNotification(type, title, message) {
+    const popup = document.getElementById('notification-popup');
+    const icon = document.getElementById('notification-icon');
+    const titleEl = document.getElementById('notification-title');
+    const messageEl = document.getElementById('notification-message');
+    
+    // Set icon based on type
+    if (type === 'success') {
+        icon.textContent = '✓';
+        icon.className = 'notification-icon success';
+    } else if (type === 'error') {
+        icon.textContent = '✕';
+        icon.className = 'notification-icon error';
+    } else if (type === 'warning') {
+        icon.textContent = '⚠';
+        icon.className = 'notification-icon warning';
+    }
+    
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+    popup.classList.add('active');
+}
+
+function closeNotification() {
+    document.getElementById('notification-popup').classList.remove('active');
+}
+
+function openQRPopup() {
+    document.getElementById('qr-popup').classList.add('active');
+}
+
+function closeQRPopup(event) {
+    if (!event || event.target.id === 'qr-popup' || event.target.className === 'qr-popup-close') {
+        document.getElementById('qr-popup').classList.remove('active');
+    }
+}
+</script>
+
+</body>
+</html>
