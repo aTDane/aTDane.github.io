@@ -570,7 +570,12 @@
     // Nếu nhạc đang phát thì tiếp tục phát với bài mới
     if (wasPlaying) {
       music.currentTime = 0;
-      music.play();
+      const playPromise = music.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log("Audio play on hash change failed:", error);
+        });
+      }
     }
   });
 
@@ -588,8 +593,23 @@
     if (music.paused) {
       music.currentTime = 0;
       music.volume = 0.65;
-      music.play();
-      isPlaying = true;
+      
+      // Handle play promise for Android compatibility
+      const playPromise = music.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          isPlaying = true;
+        }).catch(error => {
+          console.log("Audio play failed:", error);
+          // Retry on next user interaction
+          document.addEventListener('touchend', function retryPlay() {
+            music.play().then(() => {
+              isPlaying = true;
+              document.removeEventListener('touchend', retryPlay);
+            }).catch(err => console.log("Retry failed:", err));
+          }, { once: true });
+        });
+      }
     }
 
     // Cuộn trang - sử dụng cách cuộn tương thích với mobile
@@ -623,7 +643,12 @@
     } else {
       music.currentTime = 10;
       music.volume = 0.65;
-      music.play();
+      const playPromise = music.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log("Audio toggle play failed:", error);
+        });
+      }
     }
     isPlaying = !isPlaying;
   });
