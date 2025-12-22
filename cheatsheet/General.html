@@ -2630,6 +2630,14 @@ jad ./com/pentesterlab/demo/MainActivity.class (-> MainActivity.jad -> change fi
     (kali) adb devices
 </code></pre></div></div>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### ROOT AVD (adb root = root cho ADB daemon ≠ root cho app Android)
+    Tạo AVD đúng loại image (chọn Google APIs, không chọn Google Play) -> ko chạy vội
+    TÌM FILE ramdisk.img
+        C:\Users\username\.android\avd
+    cmd: rootAVD.bat system-images\android-27\default\x86_64\ramdisk.img (git clone https://github.com/newbit1/rootAVD.git)
+    adb shell > su > id (grant permission trên UI)
+</code></pre></div></div>
+
 <h4 id="mobile-pentest-process">iOS Setup</h4>      
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Connect iphone device with Kali VM
 <img src="./OSCP%20personal%20cheatsheet_files/iphone_connect_device.png">
@@ -2638,6 +2646,8 @@ jad ./com/pentesterlab/demo/MainActivity.class (-> MainActivity.jad -> change fi
     ideviceinstaller install &lt;file.ipa>
 3. Verify installed app in iphone:
     Settings > General > VPN & Device Management
+
+# If not able to capture request in Burp -> ensure to Activate the toggle switch for Portswigger CA: https://portswigger.net/burp/documentation/desktop/mobile/config-ios-device
 </code></pre></div></div>
 
 <h4 id="mobile-pentest-process">Process</h4>	  
