@@ -2503,8 +2503,11 @@ https://github.com/RUB-NDS/PRET
     adb shell pm list packages | grep -i {name}
     adb shell pm path {package}
     adb pull {path}
-        -> base.apk (only contains app code - no framework/library included)
+        -> base.apk (only contains app code - no framework/library included) (*)
     (rooted => retrieve the original APK of any user application that is installed on the Android device)
+
+    (*) To install fully the app, beside base.apk, pull all the other split_config.apk into one folder. Then:
+        adb install-multiple base.apk split_config.arm64_v8a.apk split_config.en.apk split_config.xxhdpi.apk
 
 #Download unencrypted .ipa file (iOS):
     sudo usbbfluxd -f -n    #tab1
@@ -2638,9 +2641,10 @@ jad ./com/pentesterlab/demo/MainActivity.class (-> MainActivity.jad -> change fi
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>### ROOT AVD (adb root = root cho ADB daemon ≠ root cho app Android)
-    Tạo AVD đúng loại image (chọn Google APIs, không chọn Google Play) -> ko chạy vội
+    Tạo AVD đúng loại image (chọn Google APIs, không chọn Google Play)
     TÌM FILE ramdisk.img
-        C:\Users\username\.android\avd
+        emulator -list-avds
+        emulator -avd Medium_Phone_API_27 (see cmd output message to get ramdisk.img path)
     cmd: rootAVD.bat system-images\android-27\default\x86_64\ramdisk.img (git clone https://github.com/newbit1/rootAVD.git)
     adb shell > su > id (grant permission trên UI)
 </code></pre></div></div>
