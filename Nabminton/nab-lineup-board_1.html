@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bàn cờ đội hình NAB Hà Nội</title>
+<style>:root{color-scheme:light dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#F1F3EF; --surface:#FFFFFF; --surface-2:#F7F8F5; --line:#DCE0D6; --line-soft:#E8EBE3;
+  --ink:#1B1F1C; --ink-2:#4A5149; --muted:#79806F;
+  --accent:#1F6F4A; --accent-soft:#E2EFE7; --accent-ink:#145336;
+  --ok:#2E7D4F; --warn:#9A6B10; --warn-bg:#FBF1DC; --err:#B23A2B; --err-bg:#FAE7E4;
+  --t1:#BF4230; --t2:#2D6CB5; --t3:#B5830F; --t4:#75509E;
+  --t1-bg:#FBEAE7; --t2-bg:#E6EFFA; --t3-bg:#FAF1DC; --t4-bg:#F1EAF9;
+  --shadow:0 1px 2px rgba(27,31,28,.06),0 4px 14px rgba(27,31,28,.05);
+  --r:10px;
+  --m-g:#F0D07A;--m-gi:#4A3505;--m-s:#D6DAD8;--m-si:#33393A;--m-b:#E4BD96;--m-bi:#4B3116;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#141715; --surface:#1D211E; --surface-2:#232823; --line:#343A34; --line-soft:#2A2F2A;
+    --ink:#E9EDE5; --ink-2:#BCC3B8; --muted:#8C947F;
+    --accent:#56B486; --accent-soft:#1D3A2C; --accent-ink:#8FD7B2;
+    --ok:#56B486; --warn:#D9A64A; --warn-bg:#332914; --err:#E2705E; --err-bg:#3A201C;
+    --t1:#E8705B; --t2:#6BA3E0; --t3:#DDAE4B; --t4:#B48BD8;
+    --t1-bg:#3A231E; --t2-bg:#1C2B3D; --t3-bg:#332A15; --t4-bg:#2C2338;
+    --m-g:#7A6212;--m-gi:#FFE9A8;--m-s:#4A4F50;--m-si:#E4E9EA;--m-b:#6A4726;--m-bi:#F3D8BB;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.28);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#141715; --surface:#1D211E; --surface-2:#232823; --line:#343A34; --line-soft:#2A2F2A;
+  --ink:#E9EDE5; --ink-2:#BCC3B8; --muted:#8C947F;
+  --accent:#56B486; --accent-soft:#1D3A2C; --accent-ink:#8FD7B2;
+  --ok:#56B486; --warn:#D9A64A; --warn-bg:#332914; --err:#E2705E; --err-bg:#3A201C;
+  --t1:#E8705B; --t2:#6BA3E0; --t3:#DDAE4B; --t4:#B48BD8;
+  --t1-bg:#3A231E; --t2-bg:#1C2B3D; --t3-bg:#332A15; --t4-bg:#2C2338;
+  --m-g:#7A6212;--m-gi:#FFE9A8;--m-s:#4A4F50;--m-si:#E4E9EA;--m-b:#6A4726;--m-bi:#F3D8BB;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:600;margin:0;text-wrap:balance;letter-spacing:.01em}
+.num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1500px;margin:0 auto;padding-inline:16px;padding-block:0 56px}
+
+/* ---------- header ---------- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--ground) 92%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1500px;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.brand{display:flex;align-items:baseline;gap:10px;min-width:0}
+.brand h1{font-size:23px;line-height:1.1;text-transform:uppercase;letter-spacing:.02em}
+.brand .sub{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;font-weight:500;white-space:nowrap}
+.tabs{display:flex;gap:2px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px}
+.tabs button{appearance:none;border:0;background:transparent;color:var(--ink-2);font:inherit;font-weight:500;font-size:13px;
+  padding:6px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--accent);color:#fff}
+.tabs button:focus-visible,.btn:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.spacer{flex:1 1 auto}
+.status{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;
+  border:1px solid var(--line);background:var(--surface);white-space:nowrap}
+.status .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}
+.status.bad{background:var(--err-bg);border-color:transparent;color:var(--err)}
+.status.bad .dot{background:var(--err)}
+.status.mid{background:var(--warn-bg);border-color:transparent;color:var(--warn)}
+.status.mid .dot{background:var(--warn)}
+
+/* ---------- controls ---------- */
+.toolrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0 14px}
+.btn{appearance:none;font:inherit;font-size:12.5px;font-weight:500;padding:7px 13px;border-radius:8px;cursor:pointer;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.btn:hover{border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.08);color:#fff}
+.field{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);font-weight:500}
+.field select{font:inherit;font-size:12.5px;padding:6px 9px;border-radius:8px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink)}
+.field input[type=range]{width:120px;accent-color:var(--accent)}
+.eyebrow{font-family:"Barlow Condensed",sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- board ---------- */
+.board-scroll{overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);box-shadow:var(--shadow)}
+.board{min-width:1080px;display:grid;grid-template-columns:232px repeat(4,minmax(200px,1fr))}
+.bh{position:sticky;top:0;z-index:6;background:var(--surface-2);
+  border-bottom:1px solid var(--line);padding:9px 12px;font-family:"Barlow Condensed",sans-serif;font-weight:600;
+  font-size:15px;letter-spacing:.03em;text-transform:uppercase}
+.bh:first-child{left:0;z-index:8}
+.bh.tcol{border-left:1px solid var(--line-soft)}
+.bh.tcol span{display:inline-block;border-bottom:3px solid currentColor;padding-bottom:1px}
+.ev{position:sticky;left:0;z-index:3;padding:11px 12px;border-top:1px solid var(--line-soft);
+  background:var(--surface-2);border-right:1px solid var(--line)}
+.ev .no{font-family:"Barlow Condensed",sans-serif;font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+.ev .nm{font-weight:600;font-size:13.5px;line-height:1.3;margin-top:1px}
+.ev .meta{margin-top:5px;display:flex;flex-wrap:wrap;gap:4px}
+.chip{font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:5px;background:var(--surface);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+.chip.cap{background:var(--accent-soft);border-color:transparent;color:var(--accent-ink)}
+.cell{padding:9px 10px;border-top:1px solid var(--line-soft);border-left:1px solid var(--line-soft);display:flex;flex-direction:column;gap:6px}
+.cell.focus{background:var(--surface-2)}
+.tag{display:none;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+select.pick{width:100%;font:inherit;font-size:12.5px;padding:6px 8px;border-radius:7px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink);cursor:pointer;text-overflow:ellipsis}
+select.pick.empty{color:var(--muted);border-style:dashed}
+select.pick.bad{border-color:var(--err);background:var(--err-bg)}
+.sum{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:1px}
+.sum .tot{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:15px;font-weight:600}
+.sum .note{font-size:10.5px;color:var(--muted);text-align:right;line-height:1.25}
+.sum .note.err{color:var(--err);font-weight:600}
+.pill{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;letter-spacing:.03em}
+.pill.g{background:var(--m-g);color:var(--m-gi)}
+.pill.s{background:var(--m-s);color:var(--m-si)}
+.pill.b{background:var(--m-b);color:var(--m-bi)}.pill.f{background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
+</style>
+<style>
+/* ---------- issues ---------- */
+.issues{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;margin-top:14px}
+.icard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:11px 13px;box-shadow:var(--shadow)}
+.icard h3{font-size:15px;display:flex;align-items:center;justify-content:space-between;gap:8px;text-transform:uppercase;letter-spacing:.04em}
+.icard ul{margin:8px 0 0;padding-left:16px;display:flex;flex-direction:column;gap:5px}
+.icard li{font-size:12px;line-height:1.4;color:var(--ink-2)}
+.icard li.e{color:var(--err)}.icard li.w{color:var(--warn)}
+.icard .clean{font-size:12px;color:var(--ok);font-weight:500;margin-top:8px}
+.slotbar{height:5px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:9px}
+.slotbar i{display:block;height:100%;background:var(--accent)}
+
+/* ---------- analysis ---------- */
+.proj{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin-bottom:18px}
+.pcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px;box-shadow:var(--shadow);
+  border-top:4px solid var(--tc)}
+.pcard .rk{font-family:"Barlow Condensed",sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.pcard h3{font-size:19px;color:var(--tc);text-transform:uppercase}
+.pcard .big{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:30px;font-weight:600;line-height:1.05;margin-top:6px}
+.pcard .big small{font-size:12px;font-weight:500;color:var(--muted);margin-left:5px;font-family:"IBM Plex Sans",sans-serif}
+.pcard .kv{margin-top:9px;display:flex;flex-direction:column;gap:3px;font-size:11.5px;color:var(--muted)}
+.pcard .kv b{color:var(--ink-2);font-weight:600}
+
+.ecard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+.ecard>header{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;padding:11px 14px;background:var(--surface-2);border-bottom:1px solid var(--line-soft)}
+.ecard>header h3{font-size:17px;text-transform:uppercase}
+.ecard>header .no{font-family:"Barlow Condensed",sans-serif;font-weight:700;color:var(--accent);font-size:13px;letter-spacing:.08em}
+.ecard>header .gap{margin-left:auto;font-size:11.5px;color:var(--muted)}
+.ebody{padding:12px 14px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:18px}
+.rank{display:flex;flex-direction:column;gap:8px}
+.rrow{display:grid;grid-template-columns:22px minmax(0,1fr) 52px;gap:9px;align-items:center}
+.rrow .pos{font-family:"Barlow Condensed",sans-serif;font-size:16px;font-weight:700;color:var(--muted);text-align:center}
+.rrow .who{min-width:0}
+.rrow .tm{font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--tc);text-transform:uppercase}
+.rrow .names{font-size:12.5px;line-height:1.35;overflow-wrap:anywhere}
+.rrow .names em{font-style:normal;color:var(--muted)}
+.rrow .bar{height:7px;border-radius:4px;background:var(--line-soft);margin-top:5px;overflow:hidden;
+  background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(16.666% - 1px),var(--line) calc(16.666% - 1px),var(--line) 16.666%)}
+.rrow .bar i{display:block;height:100%;background:var(--tc);border-radius:4px}
+.rrow .pt{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:16px;font-weight:600}
+.rrow .pt small{display:block;font-size:9.5px;font-weight:500;color:var(--muted);font-family:"IBM Plex Sans",sans-serif;letter-spacing:.02em}
+.rrow.me{background:var(--surface-2);border-radius:8px;padding:5px 6px 5px 3px;margin:-5px -6px;box-shadow:inset 3px 0 0 var(--tc)}
+
+.h2h{overflow-x:auto}
+.h2h table{border-collapse:collapse;width:100%;font-size:11.5px}
+.h2h th,.h2h td{padding:5px 6px;text-align:center;border:1px solid var(--line-soft)}
+.h2h th{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
+.h2h th.rowh{text-align:left;color:var(--tc)}
+.h2h td{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-weight:500}
+.h2h td.self{background:var(--surface-2);color:var(--muted)}
+.h2h caption{caption-side:top;text-align:left;font-size:11px;color:var(--muted);padding-bottom:6px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+.w-hi{color:var(--ok);font-weight:600}.w-lo{color:var(--err)}.w-ev{color:var(--warn)}
+.empty{padding:18px 14px;font-size:12.5px;color:var(--muted)}
+
+/* ---------- roster ---------- */
+.rost{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:12px}
+.rcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;border-top:4px solid var(--tc)}
+.rcard>header{padding:10px 13px;display:flex;align-items:baseline;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line-soft)}
+.rcard>header h3{font-size:18px;color:var(--tc);text-transform:uppercase}
+.rcard>header span{font-size:11px;color:var(--muted);font-weight:500}
+.plist{display:flex;flex-direction:column}
+.p{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:6px 13px;border-top:1px solid var(--line-soft);font-size:12.5px}
+.p:first-child{border-top:0}
+.p.unused{background:var(--warn-bg)}
+.p.over{background:var(--err-bg)}
+.tier{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;padding:2px 5px;border-radius:5px;min-width:26px;text-align:center;
+  background:var(--surface-2);border:1px solid var(--line);color:var(--ink-2)}
+.tier.S{background:#4A2E6B;color:#EDD9FF;border-color:transparent}
+.tier[data-t="A+"]{background:#7A2E2E;color:#FFD9D9;border-color:transparent}
+.tier.A{background:#8A5410;color:#FFE7C2;border-color:transparent}
+.tier.B{background:#1F5C7A;color:#D2ECFA;border-color:transparent}
+.p .nm{overflow-wrap:anywhere;line-height:1.3}
+.p .nm i{font-style:normal;color:var(--muted);font-size:10.5px;margin-left:4px}
+.p .sc{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:12px;color:var(--ink-2)}
+.dots{display:flex;gap:3px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--line);display:block}
+.dots i.on{background:var(--accent)}
+.dots i.ov{background:var(--err)}
+.pev{grid-column:2/-1;font-size:10.5px;color:var(--muted);line-height:1.3;margin-top:-2px;padding-bottom:2px}
+
+/* ---------- io ---------- */
+.io{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px;box-shadow:var(--shadow)}
+.io textarea{width:100%;min-height:90px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;padding:9px;border-radius:8px;
+  border:1px solid var(--line);background:var(--surface-2);color:var(--ink);resize:vertical;margin-top:9px}
+.io .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px;align-items:center}
+.io .msg{font-size:11.5px;color:var(--ok);font-weight:500}
+.hint{font-size:11.5px;color:var(--muted);line-height:1.5;margin-top:5px}
+footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);line-height:1.6}
+
+@media (min-width:901px){
+  .board-scroll{max-height:calc(100vh - 176px);min-height:420px}
+}
+@media (max-width:900px){
+  .board-scroll{overflow:visible;max-height:none}
+  .ev{position:static}
+  .board{min-width:0;grid-template-columns:1fr}
+  .bh{display:none}
+  .ev{border-top:2px solid var(--accent)}
+  .cell{border-left:0}
+  .tag{display:block;color:var(--tc)}
+  .ebody{grid-template-columns:1fr;gap:14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <h1>Bàn cờ đội hình</h1>
+      <span class="sub">NAB Hà Nội 2026 · 9 nội dung · 4 đội</span>
+    </div>
+    <div class="spacer"></div>
+    <div class="tabs" role="tablist">
+      <button id="tabBoard" role="tab" aria-selected="true" aria-controls="viewBoard">Xếp đôi</button>
+      <button id="tabAnalysis" role="tab" aria-selected="false" aria-controls="viewAnalysis">Tương quan</button>
+      <button id="tabRoster" role="tab" aria-selected="false" aria-controls="viewRoster">Suất & VĐV</button>
+    </div>
+    <span class="status" id="statusChip"><span class="dot"></span><span id="statusText">Chưa xếp</span></span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ TAB 1 ============ -->
+  <section id="viewBoard" role="tabpanel" aria-labelledby="tabBoard">
+    <div class="toolrow">
+      <label class="field" for="focusTeam">Góc nhìn
+        <select id="focusTeam">
+          <option value="">Trung lập</option>
+          <option value="team1">Đội 1</option>
+          <option value="team2" selected>Đội 2</option>
+          <option value="team3">Đội 3</option>
+          <option value="team4">Đội 4</option>
+        </select>
+      </label>
+      <div class="spacer"></div>
+      <button class="btn" id="btnFill">Xếp nháp theo điểm</button>
+      <button class="btn" id="btnClear">Xoá toàn bộ</button>
+    </div>
+
+    <div class="board-scroll">
+      <div class="board" id="board"></div>
+    </div>
+
+    <div class="issues" id="issues"></div>
+
+    <div class="io">
+      <div class="eyebrow">Lưu & chia sẻ đội hình</div>
+      <p class="hint">Đội hình tự lưu trong trình duyệt này. Dán JSON bên dưới để nạp một phương án khác, hoặc sao chép để gửi cho ban huấn luyện.</p>
+      <textarea id="ioBox" spellcheck="false" aria-label="JSON đội hình"></textarea>
+      <div class="row">
+        <button class="btn" id="btnExport">Kết xuất JSON</button>
+        <button class="btn" id="btnCopy">Sao chép</button>
+        <button class="btn primary" id="btnImport">Nạp JSON</button>
+        <span class="msg" id="ioMsg"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TAB 2 ============ -->
+  <section id="viewAnalysis" role="tabpanel" aria-labelledby="tabAnalysis" hidden>
+    <div class="toolrow">
+      <label class="field" for="kSlider">Độ nhạy chênh lệch
+        <input type="range" id="kSlider" min="0.6" max="3" step="0.1" value="1.5">
+        <b class="num" id="kVal" style="color:var(--ink)">1.5</b>
+      </label>
+      <span class="hint" style="margin:0">Số nhỏ = chênh lệch điểm quyết định mạnh hơn; số lớn = giải đấu nhiều bất ngờ hơn.</span>
+    </div>
+    <div class="eyebrow">Dự báo điểm đội toàn giải</div>
+    <div class="proj" id="proj" style="margin-top:8px"></div>
+    <div class="eyebrow">Tương quan từng nội dung</div>
+    <div id="events" style="margin-top:8px"></div>
+  </section>
+
+  <!-- ============ TAB 3 ============ -->
+  <section id="viewRoster" role="tabpanel" aria-labelledby="tabRoster" hidden>
+    <p class="hint" style="margin:14px 0 12px">Mỗi đội có 18 suất (9 nội dung × 2 VĐV). Mỗi VĐV tối thiểu 1, tối đa 2 nội dung. Nền vàng = chưa được xếp nội dung nào; nền đỏ = quá 2 nội dung.</p>
+    <div class="rost" id="roster"></div>
+  </section>
+
+  <footer>
+    Dữ liệu VĐV và luật trần hạng lấy theo Điều lệ NAB Hanoi Badminton Championship 2026 (ban hành 17/09/2026) và danh sách chia đội chính thức.
+    Điểm đôi = tổng điểm 2 VĐV; xác suất và dự báo huy chương do công cụ mô phỏng, chỉ dùng để tham khảo chiến thuật.
+  </footer>
+</div>
+<script>
+/* =====================================================================
+   DỮ LIỆU — sửa trực tiếp ở đây khi danh sách đội thay đổi
+   g: "M" nam | "F" nữ   ·   t: hạng S / A+ / A / B / C / D   ·   s: điểm
+   ===================================================================== */
+const TEAMS = [
+  { id:"team1", name:"Đội 1", color:"var(--t1)", players:[
+    {id:1,  n:"Harris Nguyen Khoa", g:"M", t:"S",  s:4.40},
+    {id:2,  n:"Andy Ho",            g:"M", t:"A+", s:3.93},
+    {id:3,  n:"AV Hiep Dao",        g:"M", t:"A+", s:3.64},
+    {id:4,  n:"An Tran",            g:"F", t:"A+", s:3.32},
+    {id:5,  n:"Lee Khuc",           g:"M", t:"A",  s:3.15},
+    {id:6,  n:"Loc Ngo",            g:"M", t:"A",  s:2.86},
+    {id:7,  n:"Chris Ho",           g:"M", t:"B",  s:2.75},
+    {id:8,  n:"Luc Nguyen",         g:"M", t:"B",  s:2.72},
+    {id:9,  n:"MINH HOANG",         g:"M", t:"B",  s:2.26},
+    {id:10, n:"Otis Xa",            g:"M", t:"B",  s:2.51},
+    {id:11, n:"Thien Nguyen",       g:"F", t:"B",  s:2.66, backup:true},
+    {id:12, n:"Kris Nguyen",        g:"M", t:"C",  s:2.09},
+    {id:13, n:"Lukas Bui",          g:"M", t:"C",  s:1.87},
+    {id:14, n:"Myah Vu",            g:"F", t:"D",  s:1.59}
+  ]},
+  { id:"team2", name:"Đội 2", color:"var(--t2)", players:[
+    {id:15, n:"Luong Tran",         g:"M", t:"S",  s:4.50},
+    {id:17, n:"Richard Dau",        g:"M", t:"A+", s:3.73},
+    {id:16, n:"Collin Nguyen",      g:"M", t:"A+", s:3.66},
+    {id:18, n:"Andy Dang",          g:"M", t:"A",  s:3.17},
+    {id:19, n:"Binh Nguyen",        g:"M", t:"A",  s:3.10},
+    {id:22, n:"Tuan Anh Tran",      g:"M", t:"B",  s:2.68},
+    {id:20, n:"Felix Phan",         g:"M", t:"B",  s:2.64},
+    {id:21, n:"Quan Nguyen",        g:"M", t:"B",  s:2.61},
+    {id:23, n:"Kún Bé",             g:"F", t:"B",  s:2.51},
+    {id:24, n:"Lee Nguyen",         g:"F", t:"B",  s:2.38},
+    {id:25, n:"TU NGHIEM",          g:"M", t:"C",  s:2.07},
+    {id:26, n:"Vincent Dinh",       g:"M", t:"C",  s:1.91},
+    {id:27, n:"Adrian Tran",        g:"M", t:"D",  s:1.48}
+  ]},
+  { id:"team3", name:"Đội 3", color:"var(--t3)", players:[
+    {id:28, n:"Tuyen Bui",          g:"M", t:"S",  s:4.53},
+    {id:29, n:"Andy Bui",           g:"M", t:"A+", s:3.77},
+    {id:30, n:"Ross Nguyen",        g:"M", t:"A+", s:3.33},
+    {id:31, n:"Thuan Ngo Xuan",     g:"M", t:"A",  s:3.23},
+    {id:32, n:"Anh Pham",           g:"F", t:"A",  s:3.07},
+    {id:34, n:"Kent Le",            g:"M", t:"B",  s:2.76},
+    {id:36, n:"Tung Duong",         g:"M", t:"B",  s:2.73},
+    {id:35, n:"Thái Hữu Công",      g:"M", t:"B",  s:2.61},
+    {id:33, n:"Hung Luong",         g:"M", t:"B",  s:2.25},
+    {id:37, n:"Hanh Ngo",           g:"F", t:"B",  s:2.20},
+    {id:38, n:"Duy Le",             g:"M", t:"C",  s:2.18},
+    {id:39, n:"Hieu Bach",          g:"M", t:"C",  s:2.07},
+    {id:40, n:"Tony Tran",          g:"M", t:"C",  s:2.00}
+  ]},
+  { id:"team4", name:"Đội 4", color:"var(--t4)", players:[
+    {id:41, n:"Thinh An",           g:"M", t:"S",  s:5.00},
+    {id:43, n:"Hoa Tran",           g:"M", t:"A+", s:3.73},
+    {id:42, n:"Ethan Trinh",        g:"M", t:"A+", s:3.48},
+    {id:45, n:"Viet Vu",            g:"M", t:"A",  s:3.29},
+    {id:44, n:"Ngô Chiên",          g:"M", t:"A",  s:3.16},
+    {id:48, n:"Kien Ly",            g:"M", t:"B",  s:2.74},
+    {id:49, n:"Ellie Nguyen",       g:"F", t:"B",  s:2.74},
+    {id:47, n:"Dat Pham",           g:"M", t:"B",  s:2.64},
+    {id:50, n:"Phạm Quỳnh Giang",   g:"F", t:"B",  s:2.50},
+    {id:46, n:"Charlie Trinh",      g:"M", t:"B",  s:2.23},
+    {id:51, n:"An Vu",              g:"M", t:"C",  s:2.13},
+    {id:53, n:"Son Vu",             g:"M", t:"C",  s:2.06},
+    {id:52, n:"Peter Do",           g:"M", t:"C",  s:1.95},
+    {id:54, n:"Hai Nguyen",         g:"M", t:"D",  s:1.00}
+  ]}
+];
+
+/* Thứ tự trình độ: S > A+ > A > B > C > D. Được đánh lên, cấm đánh xuống. */
+const TIERS = ["S","A+","A","B","C","D"];
+const below = cap => TIERS.slice(TIERS.indexOf(cap));   // hạng từ trần trở xuống
+
+const EVENTS = [
+  {id:"E1", no:1, name:"Đôi nam cao cấp 1",   slots:["M","M"], capM:"S",  note:"Nội dung đỉnh cao, mở cho mọi trình độ nam"},
+  {id:"E2", no:2, name:"Đôi nam cao cấp 2",   slots:["M","M"], capM:"A+", note:"Không dành cho VĐV hạng S"},
+  {id:"E3", no:3, name:"Đôi nam trung cấp 1", slots:["M","M"], capM:"A",  note:"Song song trần với Trung cấp 2"},
+  {id:"E4", no:4, name:"Đôi nam trung cấp 2", slots:["M","M"], capM:"A",  note:"Song song trần với Trung cấp 1"},
+  {id:"E5", no:5, name:"Đôi nam sơ cấp 1",    slots:["M","M"], capM:"B",  note:"Sân chơi hạng B trở xuống"},
+  {id:"E6", no:6, name:"Đôi nam sơ cấp 2",    slots:["M","M"], capM:"C",
+     exc:{tier:"B", maxScore:2.30, maxPair:4.40, max:1},
+     note:"Bảo vệ newbie: tối đa 1 Nam B, điểm ≤ 2.30 và tổng đôi ≤ 4.40"},
+  {id:"E7", no:7, name:"Đôi nam nữ cao cấp",  slots:["M","F"], capM:"S", capF:"S", note:"Đúng 1 Nam và 1 Nữ, mọi hạng"},
+  {id:"E8", no:8, name:"Đôi nam nữ trung cấp",slots:["M","F"], capM:"B", capF:"B", softF:true,
+     note:"Đội thiếu nữ hạng B trở xuống được BTC xét miễn trần nữ"},
+  {id:"E9", no:9, name:"Đôi nữ",              slots:["F","F"], capF:"S", note:"Không giới hạn hạng, mọi nữ VĐV"}
+];
+
+const MEDAL = [6,4,2,1];
+const MEDAL_LABEL = ["HCV","HCB","HCĐ","Hạng 4"];
+const MEDAL_CLASS = ["g","s","b","f"];
+</script>
+<script>
+/* ===================== TRẠNG THÁI ===================== */
+const KEY = "nab_lineup_v1";
+const byId = new Map();
+TEAMS.forEach(t => t.players.forEach(p => byId.set(p.id, Object.assign({team:t.id}, p))));
+
+/** lineup[teamId][eventId] = [playerId|null, playerId|null] */
+let lineup = {};
+function blankLineup(){
+  const L = {};
+  TEAMS.forEach(t => { L[t.id] = {}; EVENTS.forEach(e => L[t.id][e.id] = [null,null]); });
+  return L;
+}
+function loadState(){
+  lineup = blankLineup();
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw) merge(JSON.parse(raw));
+  }catch(err){ /* riêng tư / bị chặn — dùng đội hình rỗng */ }
+}
+function merge(data){
+  if(!data || typeof data !== "object") return;
+  TEAMS.forEach(t => EVENTS.forEach(e => {
+    const v = data?.[t.id]?.[e.id];
+    if(!Array.isArray(v)) return;
+    lineup[t.id][e.id] = [0,1].map(i => {
+      const id = Number(v[i]);
+      const p = byId.get(id);
+      return (p && p.team === t.id) ? id : null;
+    });
+  }));
+}
+function saveState(){
+  try{ localStorage.setItem(KEY, JSON.stringify(lineup)); }catch(err){}
+}
+
+/* ===================== LUẬT ===================== */
+function capFor(ev, gender){ return gender === "F" ? ev.capF : ev.capM; }
+
+/** Người này có được phép đánh nội dung này không (chưa xét ngoại lệ E6)? */
+function tierOK(ev, p){
+  const cap = capFor(ev, p.g);
+  if(!cap) return false;
+  return below(cap).includes(p.t);
+}
+/** Ngoại lệ Nam B của Đôi nam sơ cấp 2 */
+function excOK(ev, p){
+  return !!(ev.exc && p.g === "M" && p.t === ev.exc.tier && p.s <= ev.exc.maxScore);
+}
+function usage(teamId){
+  const u = new Map();
+  EVENTS.forEach(e => lineup[teamId][e.id].forEach(id => {
+    if(id != null) u.set(id, (u.get(id) || 0) + 1);
+  }));
+  return u;
+}
+function eventsOf(teamId, pid){
+  return EVENTS.filter(e => lineup[teamId][e.id].includes(pid));
+}
+function pairOf(teamId, evId){
+  return lineup[teamId][evId].map(id => id == null ? null : byId.get(id));
+}
+function pairScore(teamId, evId){
+  const [a,b] = pairOf(teamId, evId);
+  return (a && b) ? +(a.s + b.s).toFixed(2) : null;
+}
+
+/** Lỗi của riêng một ô (đôi) — trả về mảng chuỗi */
+function cellIssues(teamId, ev){
+  const [a,b] = pairOf(teamId, ev.id);
+  const out = [];
+  if(a && b && a.id === b.id) out.push("Trùng một VĐV trong cùng đôi");
+  [a,b].forEach((p,i) => {
+    if(!p) return;
+    const need = ev.slots[i];
+    if(p.g !== need) out.push(`${p.n} không đúng giới tính ô ${need === "M" ? "nam" : "nữ"}`);
+    else if(!tierOK(ev, p)){
+      if(excOK(ev, p)) { /* hợp lệ theo ngoại lệ, kiểm tra thêm bên dưới */ }
+      else out.push(`${p.n} (${p.t}) vượt trần ${capFor(ev,p.g)}`);
+    }
+  });
+  if(ev.exc){
+    const bs = [a,b].filter(p => p && p.t === ev.exc.tier && p.g === "M");
+    if(bs.length > ev.exc.max) out.push(`Chỉ được tối đa ${ev.exc.max} Nam B`);
+    bs.forEach(p => { if(p.s > ev.exc.maxScore) out.push(`${p.n} ${p.s.toFixed(2)}đ > ${ev.exc.maxScore.toFixed(2)}đ`); });
+    if(bs.length && a && b){
+      const tot = a.s + b.s;
+      if(tot > ev.exc.maxPair) out.push(`Tổng đôi ${tot.toFixed(2)}đ > ${ev.exc.maxPair.toFixed(2)}đ`);
+    }
+  }
+  return out;
+}
+
+/** Cảnh báo mềm của một ô */
+function cellWarns(teamId, ev){
+  const out = [];
+  if(ev.softF){
+    pairOf(teamId, ev.id).forEach((p,i) => {
+      if(p && ev.slots[i] === "F" && !tierOK(ev, p))
+        out.push(`${p.n} (${p.t}) vượt trần nữ — cần BTC xét miễn`);
+    });
+  }
+  return out;
+}
+
+/** Toàn bộ vấn đề của một đội */
+function teamReport(teamId){
+  const team = TEAMS.find(t => t.id === teamId);
+  const errors = [], warns = [];
+  let filled = 0;
+  EVENTS.forEach(ev => {
+    const slots = lineup[teamId][ev.id];
+    filled += slots.filter(x => x != null).length;
+    cellIssues(teamId, ev).forEach(m => errors.push(`${ev.name}: ${m}`));
+    cellWarns(teamId, ev).forEach(m => warns.push(`${ev.name}: ${m}`));
+  });
+  const u = usage(teamId);
+  team.players.forEach(p => {
+    const c = u.get(p.id) || 0;
+    if(c > 2) errors.push(`${p.n} đánh ${c} nội dung (tối đa 2)`);
+    if(c === 0) warns.push(`${p.n} chưa có nội dung nào (luật yêu cầu tối thiểu 1)`);
+  });
+  if(filled < 18) warns.push(`Còn thiếu ${18 - filled}/18 suất`);
+  return {errors, warns, filled, total:18};
+}
+</script>
+<script>
+/* ===================== BẢNG XẾP ĐÔI ===================== */
+const boardEl = document.getElementById("board");
+const TEAM_VAR = {team1:"--t1", team2:"--t2", team3:"--t3", team4:"--t4"};
+
+function buildBoard(){
+  const frag = document.createDocumentFragment();
+  const h0 = document.createElement("div");
+  h0.className = "bh"; h0.textContent = "Nội dung";
+  frag.appendChild(h0);
+  TEAMS.forEach(t => {
+    const h = document.createElement("div");
+    h.className = "bh tcol";
+    h.style.color = `var(${TEAM_VAR[t.id]})`;
+    h.innerHTML = `<span>${t.name}</span>`;
+    frag.appendChild(h);
+  });
+
+  EVENTS.forEach(ev => {
+    const c = document.createElement("div");
+    c.className = "ev";
+    const caps = [];
+    if(ev.capM) caps.push(`Nam ≤ ${ev.capM}`);
+    if(ev.capF) caps.push(`Nữ ≤ ${ev.capF}`);
+    c.innerHTML =
+      `<div class="no">NỘI DUNG ${ev.no}</div>
+       <div class="nm">${ev.name}</div>
+       <div class="meta">${caps.map(x => `<span class="chip cap">${x}</span>`).join("")}
+       ${ev.exc ? '<span class="chip">1 Nam B ≤ 2.30</span>' : ""}
+       ${ev.softF ? '<span class="chip">miễn trần nữ</span>' : ""}</div>`;
+    c.title = ev.note;
+    frag.appendChild(c);
+
+    TEAMS.forEach(t => {
+      const cell = document.createElement("div");
+      cell.className = "cell";
+      cell.dataset.team = t.id; cell.dataset.ev = ev.id;
+      cell.style.setProperty("--tc", `var(${TEAM_VAR[t.id]})`);
+      const tag = document.createElement("div");
+      tag.className = "tag"; tag.textContent = t.name;
+      cell.appendChild(tag);
+      [0,1].forEach(i => {
+        const sel = document.createElement("select");
+        sel.className = "pick";
+        sel.id = `sel-${t.id}-${ev.id}-${i}`;
+        sel.setAttribute("aria-label", `${t.name} — ${ev.name} — VĐV ${i+1}`);
+        sel.addEventListener("change", () => {
+          const v = sel.value ? Number(sel.value) : null;
+          lineup[t.id][ev.id][i] = v;
+          refresh();
+        });
+        cell.appendChild(sel);
+      });
+      const sum = document.createElement("div");
+      sum.className = "sum";
+      cell.appendChild(sum);
+      frag.appendChild(cell);
+    });
+  });
+  boardEl.appendChild(frag);
+}
+
+function optionLabel(p){ return `${p.n} · ${p.t} · ${p.s.toFixed(2)}`; }
+
+function fillOptions(sel, teamId, ev, i){
+  const team = TEAMS.find(t => t.id === teamId);
+  const need = ev.slots[i];
+  const cur = lineup[teamId][ev.id][i];
+  const partner = lineup[teamId][ev.id][1 - i];
+  const u = usage(teamId);
+
+  const groups = {ok:[], exc:[], full:[], cap:[]};
+  team.players.forEach(p => {
+    if(p.g !== need) return;
+    if(p.id === partner) return;
+    const used = u.get(p.id) || 0;
+    const isCur = p.id === cur;
+    const legal = tierOK(ev, p);
+    const excl  = !legal && excOK(ev, p);
+    if(!legal && !excl) groups.cap.push(p);
+    else if(used >= 2 && !isCur) groups.full.push(p);
+    else (excl ? groups.exc : groups.ok).push(p);
+  });
+
+  const mk = (label, arr, disabled) => {
+    if(!arr.length) return "";
+    const opts = arr.map(p => {
+      const used = u.get(p.id) || 0;
+      const suffix = used ? ` (${used} nội dung)` : "";
+      return `<option value="${p.id}"${disabled ? " disabled" : ""}${p.id === cur ? " selected" : ""}>${optionLabel(p)}${suffix}</option>`;
+    }).join("");
+    return `<optgroup label="${label}">${opts}</optgroup>`;
+  };
+
+  sel.innerHTML =
+    `<option value=""${cur == null ? " selected" : ""}>— chọn VĐV ${need === "M" ? "nam" : "nữ"} —</option>` +
+    mk("Khả dụng", groups.ok, false) +
+    mk(`Ngoại lệ Nam B ≤ ${ev.exc ? ev.exc.maxScore.toFixed(2) : ""}`, groups.exc, false) +
+    mk("Đã đủ 2 nội dung", groups.full, true) +
+    mk("Vượt trần hạng", groups.cap, true);
+
+  if(cur != null && !sel.value){            // người đang chọn nằm trong nhóm bị khoá
+    const p = byId.get(cur);
+    sel.insertAdjacentHTML("afterbegin", `<option value="${cur}" selected>⚠ ${optionLabel(p)}</option>`);
+  }
+  sel.classList.toggle("empty", cur == null);
+}
+
+function renderBoard(){
+  const focus = document.getElementById("focusTeam").value;
+  boardEl.querySelectorAll(".cell").forEach(cell => {
+    const teamId = cell.dataset.team, evId = cell.dataset.ev;
+    const ev = EVENTS.find(e => e.id === evId);
+    cell.classList.toggle("focus", !!focus && focus === teamId);
+    const sels = cell.querySelectorAll("select");
+    sels.forEach((sel,i) => fillOptions(sel, teamId, ev, i));
+
+    const errs = cellIssues(teamId, ev), wrns = cellWarns(teamId, ev);
+    sels.forEach(s => s.classList.toggle("bad", errs.length > 0));
+    const sc = pairScore(teamId, evId);
+    const note = errs.length ? `<div class="note err">${errs[0]}</div>`
+               : wrns.length ? `<div class="note" style="color:var(--warn)">${wrns[0]}</div>`
+               : "";
+    cell.querySelector(".sum").innerHTML =
+      `<span class="tot">${sc == null ? "—" : sc.toFixed(2)}</span>${note}`;
+  });
+  renderIssues();
+}
+
+function renderIssues(){
+  const host = document.getElementById("issues");
+  host.innerHTML = TEAMS.map(t => {
+    const r = teamReport(t.id);
+    const pct = Math.round(r.filled / r.total * 100);
+    const li = [
+      ...r.errors.map(m => `<li class="e">${m}</li>`),
+      ...r.warns.map(m => `<li class="w">${m}</li>`)
+    ];
+    return `<div class="icard" style="--tc:var(${TEAM_VAR[t.id]})">
+      <h3 style="color:var(${TEAM_VAR[t.id]})">${t.name}
+        <span class="num" style="font-size:13px;color:var(--muted)">${r.filled}/18 suất</span></h3>
+      <div class="slotbar"><i style="width:${pct}%;background:var(${TEAM_VAR[t.id]})"></i></div>
+      ${li.length ? `<ul>${li.join("")}</ul>` : `<div class="clean">Hợp lệ — không có vấn đề nào.</div>`}
+    </div>`;
+  }).join("");
+
+  const allErr = TEAMS.reduce((a,t) => a + teamReport(t.id).errors.length, 0);
+  const filled = TEAMS.reduce((a,t) => a + teamReport(t.id).filled, 0);
+  const chip = document.getElementById("statusChip"), txt = document.getElementById("statusText");
+  chip.className = "status" + (allErr ? " bad" : (filled < 72 ? " mid" : ""));
+  txt.textContent = allErr ? `${allErr} lỗi luật`
+                  : filled < 72 ? `${filled}/72 suất` : "Đủ 72 suất · hợp lệ";
+}
+</script>
+<script>
+/* ===================== MÔ PHỎNG TƯƠNG QUAN ===================== */
+let K = 1.5;                                   // độ nhạy chênh lệch điểm
+const SIMS = 3000;
+const RR = [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]];
+
+function winProb(a, b){ return 1 / (1 + Math.pow(10, (b - a) / K)); }
+
+/** Mô phỏng một nội dung. entries = [{team, score}] đúng 4 đội và đủ đôi. */
+function simulate(entries){
+  const n = entries.length;
+  const pts = new Array(n).fill(0), gold = new Array(n).fill(0), pod = new Array(n).fill(0);
+  const p = RR.map(([i,j]) => winProb(entries[i].score, entries[j].score));
+  for(let s = 0; s < SIMS; s++){
+    const w = new Array(n).fill(0);
+    RR.forEach(([i,j], m) => { if(Math.random() < p[m]) w[i]++; else w[j]++; });
+    const order = entries.map((e,i) => i).sort((x,y) =>
+      (w[y] - w[x]) || (entries[y].score - entries[x].score) || (Math.random() - .5));
+    const [r0,r1,r2,r3] = order;
+    const f1 = Math.random() < winProb(entries[r0].score, entries[r1].score) ? [r0,r1] : [r1,r0];
+    const f2 = Math.random() < winProb(entries[r2].score, entries[r3].score) ? [r2,r3] : [r3,r2];
+    pts[f1[0]] += 6; pts[f1[1]] += 4; pts[f2[0]] += 2; pts[f2[1]] += 1;
+    gold[f1[0]]++; pod[f1[0]]++; pod[f1[1]]++; pod[f2[0]]++;
+  }
+  return entries.map((e,i) => ({
+    team:e.team, score:e.score,
+    exp: pts[i] / SIMS, gold: gold[i] / SIMS, podium: pod[i] / SIMS
+  }));
+}
+
+function analyse(){
+  const perEvent = EVENTS.map(ev => {
+    const entries = TEAMS.map(t => ({team:t.id, score:pairScore(t.id, ev.id)}));
+    const ready = entries.every(e => e.score != null);
+    return {ev, entries, ready, rows: ready ? simulate(entries) : null};
+  });
+  const totals = {};
+  TEAMS.forEach(t => totals[t.id] = {pts:0, gold:0, done:0});
+  perEvent.forEach(pe => {
+    if(!pe.ready) return;
+    pe.rows.forEach(r => { totals[r.team].pts += r.exp; totals[r.team].gold += r.gold; totals[r.team].done++; });
+  });
+  return {perEvent, totals};
+}
+
+/* ===================== TAB TƯƠNG QUAN ===================== */
+function fmtPair(teamId, evId){
+  const [a,b] = pairOf(teamId, evId);
+  if(!a || !b) return `<em>chưa xếp đủ</em>`;
+  return `${a.n} <em>${a.t}·${a.s.toFixed(2)}</em> &nbsp;+&nbsp; ${b.n} <em>${b.t}·${b.s.toFixed(2)}</em>`;
+}
+function probClass(p){ return p >= .6 ? "w-hi" : p <= .4 ? "w-lo" : "w-ev"; }
+
+function renderAnalysis(){
+  const focus = document.getElementById("focusTeam").value;
+  const {perEvent, totals} = analyse();
+  const nameOf = id => TEAMS.find(t => t.id === id).name;
+
+  const ranked = TEAMS.map(t => ({t, ...totals[t.id]})).sort((a,b) => b.pts - a.pts);
+  document.getElementById("proj").innerHTML = ranked.map((r,i) => `
+    <div class="pcard" style="--tc:var(${TEAM_VAR[r.t.id]})">
+      <div class="rk">Dự báo hạng ${i+1}</div>
+      <h3>${r.t.name}</h3>
+      <div class="big">${r.pts.toFixed(1)}<small>/ 54 điểm</small></div>
+      <div class="kv">
+        <span>Số HCV kỳ vọng · <b class="num">${r.gold.toFixed(2)}</b></span>
+        <span>Nội dung đã xếp đủ · <b class="num">${r.done}/9</b></span>
+        ${r.done < 9 ? `<span style="color:var(--warn)">Chưa tính ${9 - r.done} nội dung còn thiếu</span>` : ""}
+      </div>
+    </div>`).join("");
+
+  document.getElementById("events").innerHTML = perEvent.map(pe => {
+    const ev = pe.ev;
+    if(!pe.ready){
+      const missing = pe.entries.filter(e => e.score == null).map(e => nameOf(e.team)).join(", ");
+      return `<div class="ecard">
+        <header><span class="no">ND ${ev.no}</span><h3>${ev.name}</h3></header>
+        <div class="empty">Chưa so sánh được — còn thiếu đôi của: <b>${missing}</b>.</div>
+      </div>`;
+    }
+    const rows = [...pe.rows].sort((a,b) => b.exp - a.exp);
+    const max = Math.max(...rows.map(r => r.score));
+    const min = Math.min(...rows.map(r => r.score));
+    const spread = (max - min).toFixed(2);
+    const order = pe.entries.map(e => e.team);
+
+    const rankHtml = rows.map((r,i) => `
+      <div class="rrow ${focus === r.team ? "me" : ""}" style="--tc:var(${TEAM_VAR[r.team]})">
+        <div class="pos">${i+1}</div>
+        <div class="who">
+          <div class="tm">${nameOf(r.team)} · <span class="num">${r.score.toFixed(2)}</span>đ
+            <span class="pill ${MEDAL_CLASS[i]}" style="margin-left:4px">${(r.gold*100).toFixed(0)}% HCV</span></div>
+          <div class="names">${fmtPair(r.team, ev.id)}</div>
+          <div class="bar" title="Điểm kỳ vọng ${r.exp.toFixed(2)}/6"><i style="width:${(r.exp / 6 * 100).toFixed(1)}%"></i></div>
+        </div>
+        <div class="pt">${r.exp.toFixed(2)}<small>điểm KV</small></div>
+      </div>`).join("");
+
+    const head = order.map(id => `<th>${nameOf(id).replace("Đội ","Đ")}</th>`).join("");
+    const body = order.map((a,i) => {
+      const cells = order.map((b,j) => {
+        if(i === j) return `<td class="self">—</td>`;
+        const p = winProb(pe.entries[i].score, pe.entries[j].score);
+        return `<td class="${probClass(p)}">${(p*100).toFixed(0)}%</td>`;
+      }).join("");
+      return `<tr><th class="rowh" style="--tc:var(${TEAM_VAR[a]})">${nameOf(a)}</th>${cells}</tr>`;
+    }).join("");
+
+    return `<div class="ecard">
+      <header>
+        <span class="no">ND ${ev.no}</span><h3>${ev.name}</h3>
+        <span class="gap">Chênh lệch mạnh–yếu <b class="num">${spread}</b>đ · ${ev.note}</span>
+      </header>
+      <div class="ebody">
+        <div class="rank">${rankHtml}</div>
+        <div class="h2h">
+          <table>
+            <caption>Xác suất thắng của đội hàng trước đội cột</caption>
+            <thead><tr><th></th>${head}</tr></thead>
+            <tbody>${body}</tbody>
+          </table>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+/* ===================== TAB SUẤT & VĐV ===================== */
+function renderRoster(){
+  document.getElementById("roster").innerHTML = TEAMS.map(t => {
+    const u = usage(t.id);
+    const rows = t.players.map(p => {
+      const c = u.get(p.id) || 0;
+      const evs = eventsOf(t.id, p.id);
+      const dots = [0,1].map(i => `<i class="${c > i ? (c > 2 ? "ov" : "on") : ""}"></i>`).join("")
+                 + (c > 2 ? `<i class="ov"></i>`.repeat(c - 2) : "");
+      return `<div class="p ${c === 0 ? "unused" : ""} ${c > 2 ? "over" : ""}">
+          <span class="tier ${p.t === "A+" ? "" : p.t}" data-t="${p.t}">${p.t}</span>
+          <span class="nm">${p.n}${p.g === "F" ? ' <i>nữ</i>' : ""}${p.backup ? ' <i>dự bị</i>' : ""}</span>
+          <span class="sc">${p.s.toFixed(2)}</span>
+          <span class="dots" title="${c} nội dung">${dots}</span>
+          ${evs.length ? `<span class="pev">${evs.map(e => `ND${e.no} ${e.name}`).join(" · ")}</span>` : ""}
+        </div>`;
+    }).join("");
+    const r = teamReport(t.id);
+    return `<div class="rcard" style="--tc:var(${TEAM_VAR[t.id]})">
+      <header><h3>${t.name}</h3><span>${t.players.length} VĐV · ${r.filled}/18 suất</span></header>
+      <div class="plist">${rows}</div>
+    </div>`;
+  }).join("");
+}
+</script>
+<script>
+/* ===================== ĐIỀU PHỐI ===================== */
+let refreshTimer = null;
+function refresh(){
+  renderBoard();
+  renderRoster();
+  clearTimeout(refreshTimer);
+  refreshTimer = setTimeout(renderAnalysis, 60);
+  saveState();
+}
+
+/* --- tabs --- */
+const TABS = [["tabBoard","viewBoard"],["tabAnalysis","viewAnalysis"],["tabRoster","viewRoster"]];
+TABS.forEach(([btnId, viewId]) => {
+  document.getElementById(btnId).addEventListener("click", () => {
+    TABS.forEach(([b,v]) => {
+      const on = b === btnId;
+      document.getElementById(b).setAttribute("aria-selected", String(on));
+      document.getElementById(v).hidden = !on;
+    });
+    if(viewId === "viewAnalysis") renderAnalysis();
+    try{ localStorage.setItem(KEY + "_tab", btnId); }catch(e){}
+  });
+});
+
+/* --- điều khiển --- */
+document.getElementById("focusTeam").addEventListener("change", () => { renderBoard(); renderAnalysis(); });
+document.getElementById("kSlider").addEventListener("input", e => {
+  K = parseFloat(e.target.value);
+  document.getElementById("kVal").textContent = K.toFixed(1);
+  renderAnalysis();
+});
+
+document.getElementById("btnClear").addEventListener("click", () => {
+  lineup = blankLineup();
+  refresh();
+});
+
+/**
+ * Xếp nháp: điền các ô còn trống bằng VĐV hợp lệ mạnh nhất còn suất,
+ * ưu tiên nội dung có trần hạng chặt nhất để không "khoá" người ở cuối.
+ */
+document.getElementById("btnFill").addEventListener("click", () => {
+  const order = ["E6","E5","E9","E8","E4","E3","E2","E7","E1"];
+  TEAMS.forEach(t => {
+    order.forEach(evId => {
+      const ev = EVENTS.find(e => e.id === evId);
+      [0,1].forEach(i => {
+        if(lineup[t.id][ev.id][i] != null) return;
+        const u = usage(t.id);
+        const partner = lineup[t.id][ev.id][1 - i];
+        const cand = t.players.filter(p =>
+          p.g === ev.slots[i] && p.id !== partner &&
+          (u.get(p.id) || 0) < 2 && (tierOK(ev, p) || excOK(ev, p)));
+        if(!cand.length) return;
+        // ưu tiên người chưa đánh nội dung nào, rồi tới điểm cao
+        cand.sort((a,b) => ((u.get(a.id)||0) - (u.get(b.id)||0)) || (b.s - a.s));
+        let pick = cand[0];
+        if(ev.exc){                       // tôn trọng trần tổng đôi của ND6
+          const other = partner ? byId.get(partner) : null;
+          const fit = cand.find(p => {
+            const isB = p.g === "M" && p.t === ev.exc.tier;
+            if(isB && p.s > ev.exc.maxScore) return false;
+            if(other){
+              const oB = other.g === "M" && other.t === ev.exc.tier;
+              if(isB && oB) return false;                                 // tối đa 1 Nam B
+              if((isB || oB) && (other.s + p.s) > ev.exc.maxPair) return false;  // trần tổng đôi
+            }
+            return true;
+          });
+          if(fit) pick = fit;
+        }
+        lineup[t.id][ev.id][i] = pick.id;
+      });
+    });
+  });
+  refresh();
+});
+
+/* --- JSON --- */
+const ioBox = document.getElementById("ioBox"), ioMsg = document.getElementById("ioMsg");
+function say(m, bad){ ioMsg.textContent = m; ioMsg.style.color = bad ? "var(--err)" : "var(--ok)";
+  setTimeout(() => ioMsg.textContent = "", 4000); }
+document.getElementById("btnExport").addEventListener("click", () => {
+  ioBox.value = JSON.stringify(lineup); say("Đã kết xuất đội hình hiện tại.");
+});
+document.getElementById("btnCopy").addEventListener("click", async () => {
+  if(!ioBox.value) ioBox.value = JSON.stringify(lineup);
+  try{ await navigator.clipboard.writeText(ioBox.value); say("Đã sao chép vào clipboard."); }
+  catch(e){ ioBox.select(); say("Hãy nhấn Ctrl/Cmd + C để sao chép.", true); }
+});
+document.getElementById("btnImport").addEventListener("click", () => {
+  try{
+    const data = JSON.parse(ioBox.value);
+    lineup = blankLineup(); merge(data); refresh();
+    say("Đã nạp đội hình.");
+  }catch(e){ say("JSON không hợp lệ.", true); }
+});
+
+/* --- khởi động --- */
+loadState();
+buildBoard();
+refresh();
+renderAnalysis();
+try{
+  const tab = localStorage.getItem(KEY + "_tab");
+  if(tab && document.getElementById(tab)) document.getElementById(tab).click();
+}catch(e){}
+</script>
+
+</body>
+</html>
