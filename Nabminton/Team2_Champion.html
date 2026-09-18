@@ -22,6 +22,13 @@ img{max-width:100%}[hidden]{display:none!important}</style>
   --shadow:0 1px 2px rgba(27,31,28,.06),0 4px 14px rgba(27,31,28,.05);
   --r:10px;
   --m-g:#F0D07A;--m-gi:#4A3505;--m-s:#D6DAD8;--m-si:#33393A;--m-b:#E4BD96;--m-bi:#4B3116;
+  /* Thang hạng S>A+>A>B>C>D — dải đơn sắc, càng đậm càng mạnh (đã kiểm tra tương phản chữ >= 4.5:1) */
+  --rk-S:#083B57;  --rk-Sx:#FFFFFF;
+  --rk-Ap:#0C6488; --rk-Apx:#FFFFFF;
+  --rk-A:#137F98;  --rk-Ax:#FFFFFF;
+  --rk-B:#45B2C2;  --rk-Bx:#04212A;
+  --rk-C:#86CDD4;  --rk-Cx:#04212A;
+  --rk-D:#C2E7EA;  --rk-Dx:#04212A;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -32,6 +39,20 @@ img{max-width:100%}[hidden]{display:none!important}</style>
     --t1:#E8705B; --t2:#6BA3E0; --t3:#DDAE4B; --t4:#B48BD8;
     --t1-bg:#3A231E; --t2-bg:#1C2B3D; --t3-bg:#332A15; --t4-bg:#2C2338;
     --m-g:#7A6212;--m-gi:#FFE9A8;--m-s:#4A4F50;--m-si:#E4E9EA;--m-b:#6A4726;--m-bi:#F3D8BB;
+  /* dải hạng cho nền tối: chọn riêng, càng sáng càng mạnh */
+  --rk-S:#9AE2EF;  --rk-Sx:#04212A;
+  --rk-Ap:#66C8DD; --rk-Apx:#04212A;
+  --rk-A:#3FA6C0;  --rk-Ax:#04212A;
+  --rk-B:#287E93;  --rk-Bx:#FFFFFF;
+  --rk-C:#1C5A6D;  --rk-Cx:#FFFFFF;
+  --rk-D:#1B3540;  --rk-Dx:#FFFFFF;
+    /* dải hạng cho nền tối: chọn riêng, càng sáng càng mạnh */
+    --rk-S:#9AE2EF;  --rk-Sx:#04212A;
+    --rk-Ap:#66C8DD; --rk-Apx:#04212A;
+    --rk-A:#3FA6C0;  --rk-Ax:#04212A;
+    --rk-B:#287E93;  --rk-Bx:#FFFFFF;
+    --rk-C:#1C5A6D;  --rk-Cx:#FFFFFF;
+    --rk-D:#1B3540;  --rk-Dx:#FFFFFF;
     --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.28);
   }
 }
@@ -43,6 +64,13 @@ img{max-width:100%}[hidden]{display:none!important}</style>
   --t1:#E8705B; --t2:#6BA3E0; --t3:#DDAE4B; --t4:#B48BD8;
   --t1-bg:#3A231E; --t2-bg:#1C2B3D; --t3-bg:#332A15; --t4-bg:#2C2338;
   --m-g:#7A6212;--m-gi:#FFE9A8;--m-s:#4A4F50;--m-si:#E4E9EA;--m-b:#6A4726;--m-bi:#F3D8BB;
+  /* dải hạng cho nền tối: chọn riêng, càng sáng càng mạnh */
+  --rk-S:#9AE2EF;  --rk-Sx:#04212A;
+  --rk-Ap:#66C8DD; --rk-Apx:#04212A;
+  --rk-A:#3FA6C0;  --rk-Ax:#04212A;
+  --rk-B:#287E93;  --rk-Bx:#FFFFFF;
+  --rk-C:#1C5A6D;  --rk-Cx:#FFFFFF;
+  --rk-D:#1B3540;  --rk-Dx:#FFFFFF;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.28);
 }
 *{box-sizing:border-box}
@@ -104,6 +132,9 @@ h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:60
 .chip{font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:5px;background:var(--surface);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
 .chip.cap{background:var(--accent-soft);border-color:transparent;color:var(--accent-ink)}
 .cell{padding:9px 10px;border-top:1px solid var(--line-soft);border-left:1px solid var(--line-soft);display:flex;flex-direction:column;gap:6px}
+.slot{display:grid;grid-template-columns:30px minmax(0,1fr);gap:7px;align-items:center}
+.slot .tier{min-width:0;width:100%;padding:3px 0}
+.slot select.pick{border-left:4px solid var(--rk,var(--line))}
 .cell.focus{background:var(--surface-2)}
 .tag{display:none;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
 select.pick{width:100%;font:inherit;font-size:12.5px;padding:6px 8px;border-radius:7px;border:1px solid var(--line);
@@ -155,6 +186,7 @@ select.pick.bad{border-color:var(--err);background:var(--err-bg)}
 .rrow .tm{font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--tc);text-transform:uppercase}
 .rrow .names{font-size:12.5px;line-height:1.35;overflow-wrap:anywhere}
 .rrow .names em{font-style:normal;color:var(--muted)}
+.rrow .names .tier{display:inline-block;font-size:9.5px;min-width:24px;padding:1px 4px;vertical-align:1px}
 .rrow .bar{height:7px;border-radius:4px;background:var(--line-soft);margin-top:5px;overflow:hidden;
   background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(16.666% - 1px),var(--line) calc(16.666% - 1px),var(--line) 16.666%)}
 .rrow .bar i{display:block;height:100%;background:var(--tc);border-radius:4px}
@@ -184,12 +216,19 @@ select.pick.bad{border-color:var(--err);background:var(--err-bg)}
 .p:first-child{border-top:0}
 .p.unused{background:var(--warn-bg)}
 .p.over{background:var(--err-bg)}
-.tier{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;padding:2px 5px;border-radius:5px;min-width:26px;text-align:center;
-  background:var(--surface-2);border:1px solid var(--line);color:var(--ink-2)}
-.tier.S{background:#4A2E6B;color:#EDD9FF;border-color:transparent}
-.tier[data-t="A+"]{background:#7A2E2E;color:#FFD9D9;border-color:transparent}
-.tier.A{background:#8A5410;color:#FFE7C2;border-color:transparent}
-.tier.B{background:#1F5C7A;color:#D2ECFA;border-color:transparent}
+.tier{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;padding:2px 5px;border-radius:5px;
+  min-width:28px;text-align:center;letter-spacing:.02em;border:1px solid transparent;
+  background:var(--rk,var(--surface-2));color:var(--rk-ink,var(--ink-2))}
+.tier[data-t="S"] {--rk:var(--rk-S); --rk-ink:var(--rk-Sx)}
+.tier[data-t="A+"]{--rk:var(--rk-Ap);--rk-ink:var(--rk-Apx)}
+.tier[data-t="A"] {--rk:var(--rk-A); --rk-ink:var(--rk-Ax)}
+.tier[data-t="B"] {--rk:var(--rk-B); --rk-ink:var(--rk-Bx)}
+.tier[data-t="C"] {--rk:var(--rk-C); --rk-ink:var(--rk-Cx)}
+.tier[data-t="D"] {--rk:var(--rk-D); --rk-ink:var(--rk-Dx)}
+.tier[data-t=""]  {background:transparent;border:1px dashed var(--line);color:var(--muted)}
+.rklegend{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)}
+.rklegend .tier{font-size:10px;min-width:26px}
+.rklegend b{font-weight:600;color:var(--ink-2);letter-spacing:.02em}
 .p .nm{overflow-wrap:anywhere;line-height:1.3}
 .p .nm i{font-style:normal;color:var(--muted);font-size:10.5px;margin-left:4px}
 .p .sc{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:12px;color:var(--ink-2)}
@@ -253,6 +292,11 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-si
           <option value="team4">Đội 4</option>
         </select>
       </label>
+      <div class="rklegend" aria-label="Chú giải màu hạng">
+        <b>Hạng</b>
+        <span class="tier" data-t="S">S</span><span class="tier" data-t="A+">A+</span><span class="tier" data-t="A">A</span><span class="tier" data-t="B">B</span><span class="tier" data-t="C">C</span><span class="tier" data-t="D">D</span>
+        <span>mạnh → yếu</span>
+      </div>
       <div class="spacer"></div>
       <button class="btn" id="btnFill">Xếp nháp theo điểm</button>
       <button class="btn" id="btnClear">Xoá toàn bộ</button>
@@ -294,7 +338,12 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-si
 
   <!-- ============ TAB 3 ============ -->
   <section id="viewRoster" role="tabpanel" aria-labelledby="tabRoster" hidden>
-    <p class="hint" style="margin:14px 0 12px">Mỗi đội có 18 suất (9 nội dung × 2 VĐV). Mỗi VĐV tối thiểu 1, tối đa 2 nội dung. Nền vàng = chưa được xếp nội dung nào; nền đỏ = quá 2 nội dung.</p>
+    <div class="rklegend" style="margin:16px 0 10px" aria-label="Chú giải màu hạng">
+      <b>Hạng</b>
+      <span class="tier" data-t="S">S</span><span class="tier" data-t="A+">A+</span><span class="tier" data-t="A">A</span><span class="tier" data-t="B">B</span><span class="tier" data-t="C">C</span><span class="tier" data-t="D">D</span>
+      <span>mạnh → yếu</span>
+    </div>
+    <p class="hint" style="margin:0 0 12px">Mỗi đội có 18 suất (9 nội dung × 2 VĐV). Mỗi VĐV tối thiểu 1, tối đa 2 nội dung. Nền vàng = chưa được xếp nội dung nào; nền đỏ = quá 2 nội dung.</p>
     <div class="rost" id="roster"></div>
   </section>
 
@@ -564,6 +613,11 @@ function buildBoard(){
       tag.className = "tag"; tag.textContent = t.name;
       cell.appendChild(tag);
       [0,1].forEach(i => {
+        const slot = document.createElement("div");
+        slot.className = "slot";
+        const chip = document.createElement("span");
+        chip.className = "tier"; chip.dataset.t = ""; chip.textContent = "–";
+        chip.setAttribute("aria-hidden", "true");
         const sel = document.createElement("select");
         sel.className = "pick";
         sel.id = `sel-${t.id}-${ev.id}-${i}`;
@@ -573,7 +627,8 @@ function buildBoard(){
           lineup[t.id][ev.id][i] = v;
           refresh();
         });
-        cell.appendChild(sel);
+        slot.appendChild(chip); slot.appendChild(sel);
+        cell.appendChild(slot);
       });
       const sum = document.createElement("div");
       sum.className = "sum";
@@ -637,7 +692,16 @@ function renderBoard(){
     const ev = EVENTS.find(e => e.id === evId);
     cell.classList.toggle("focus", !!focus && focus === teamId);
     const sels = cell.querySelectorAll("select");
-    sels.forEach((sel,i) => fillOptions(sel, teamId, ev, i));
+    sels.forEach((sel,i) => {
+      fillOptions(sel, teamId, ev, i);
+      const pid = lineup[teamId][evId][i];
+      const p = pid == null ? null : byId.get(pid);
+      const chip = sel.parentElement.querySelector(".tier");
+      chip.dataset.t = p ? p.t : "";
+      chip.textContent = p ? p.t : "–";
+      chip.title = p ? `${p.n} — hạng ${p.t} — ${p.s.toFixed(2)} điểm` : "Chưa chọn VĐV";
+      sel.style.setProperty("--rk", p ? `var(--rk-${p.t === "A+" ? "Ap" : p.t})` : "var(--line)");
+    });
 
     const errs = cellIssues(teamId, ev), wrns = cellWarns(teamId, ev);
     sels.forEach(s => s.classList.toggle("bad", errs.length > 0));
@@ -725,7 +789,8 @@ function analyse(){
 function fmtPair(teamId, evId){
   const [a,b] = pairOf(teamId, evId);
   if(!a || !b) return `<em>chưa xếp đủ</em>`;
-  return `${a.n} <em>${a.t}·${a.s.toFixed(2)}</em> &nbsp;+&nbsp; ${b.n} <em>${b.t}·${b.s.toFixed(2)}</em>`;
+  const one = p => `${p.n} <span class="tier" data-t="${p.t}">${p.t}</span> <em>${p.s.toFixed(2)}</em>`;
+  return `${one(a)} &nbsp;+&nbsp; ${one(b)}`;
 }
 function probClass(p){ return p >= .6 ? "w-hi" : p <= .4 ? "w-lo" : "w-ev"; }
 
@@ -813,7 +878,7 @@ function renderRoster(){
       const dots = [0,1].map(i => `<i class="${c > i ? (c > 2 ? "ov" : "on") : ""}"></i>`).join("")
                  + (c > 2 ? `<i class="ov"></i>`.repeat(c - 2) : "");
       return `<div class="p ${c === 0 ? "unused" : ""} ${c > 2 ? "over" : ""}">
-          <span class="tier ${p.t === "A+" ? "" : p.t}" data-t="${p.t}">${p.t}</span>
+          <span class="tier" data-t="${p.t}" title="Hạng ${p.t}">${p.t}</span>
           <span class="nm">${p.n}${p.g === "F" ? ' <i>nữ</i>' : ""}${p.backup ? ' <i>dự bị</i>' : ""}</span>
           <span class="sc">${p.s.toFixed(2)}</span>
           <span class="dots" title="${c} nội dung">${dots}</span>
