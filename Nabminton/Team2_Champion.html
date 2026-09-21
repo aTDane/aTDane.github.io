@@ -184,6 +184,7 @@ select.pick.bad{border-color:var(--err);background:var(--err-bg)}
 .rrow .pos{font-family:"Barlow Condensed",sans-serif;font-size:16px;font-weight:700;color:var(--muted);text-align:center}
 .rrow .who{min-width:0}
 .rrow .tm{font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--tc);text-transform:uppercase}
+.rrow .tm .pill{text-transform:none;letter-spacing:.02em}
 .rrow .names{font-size:12.5px;line-height:1.35;overflow-wrap:anywhere}
 .rrow .names em{font-style:normal;color:var(--muted)}
 .rrow .names .tier{display:inline-block;font-size:9.5px;min-width:24px;padding:1px 4px;vertical-align:1px}
@@ -204,6 +205,38 @@ select.pick.bad{border-color:var(--err);background:var(--err-bg)}
 .h2h caption{caption-side:top;text-align:left;font-size:11px;color:var(--muted);padding-bottom:6px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
 .w-hi{color:var(--ok);font-weight:600}.w-lo{color:var(--err)}.w-ev{color:var(--warn)}
 .empty{padding:18px 14px;font-size:12.5px;color:var(--muted)}
+
+/* ---------- bảng dự báo điểm đội ---------- */
+.convert{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:8px 0 10px;font-size:11.5px;color:var(--muted)}
+.convert b{font-weight:600;color:var(--ink-2);letter-spacing:.02em}
+.convert span{display:inline-flex;align-items:center;gap:5px;color:var(--ink-2)}
+.convert .pill{font-style:normal}
+.convert em{font-style:normal;flex:1 1 220px;min-width:0}
+.ptab{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow);margin-bottom:22px}
+.ptab table{border-collapse:collapse;width:100%;min-width:700px;font-size:12.5px}
+.ptab th,.ptab td{padding:7px 12px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+.ptab thead th{background:var(--surface-2);font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:15px;
+  letter-spacing:.03em;text-transform:uppercase;text-align:right;border-bottom:1px solid var(--line)}
+.ptab thead th.ev{text-align:left}
+.ptab th.ev{text-align:left;font-weight:500;color:var(--ink-2);font-size:12.5px;line-height:1.3}
+.ptab tbody th.ev{font-family:"IBM Plex Sans",sans-serif;text-transform:none;letter-spacing:0}
+.ptab th.ev .no{font-family:"Barlow Condensed",sans-serif;font-weight:700;color:var(--accent);
+  font-size:11.5px;letter-spacing:.06em;margin-right:5px}
+.ptab td{text-align:right;white-space:nowrap}
+.ptab td b{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:14px;font-weight:600}
+.ptab td .pill{display:inline-block;margin-left:7px;min-width:64px;text-align:center}
+.ptab td.best{background:var(--accent-soft)}
+.ptab td.na{color:var(--muted)}
+.ptab tbody tr:hover td{background:var(--surface-2)}
+.ptab tbody tr:hover td.best{background:var(--accent-soft)}
+.ptab tfoot th,.ptab tfoot td{background:var(--surface-2);border-top:2px solid var(--line);border-bottom:0}
+.ptab tfoot th.ev{font-weight:600;color:var(--ink)}
+.ptab tfoot th.ev em{font-style:normal;color:var(--muted);font-weight:400}
+.ptab tfoot td b.tot{font-size:18px}
+.ptab .gapv{display:inline-block;margin-left:7px;font-size:11px;font-weight:600}
+.ptab .gapv.neg{color:var(--err)}
+.ptab .gapv.zero{color:var(--ok)}
 
 /* ---------- roster ---------- */
 .rost{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:12px}
@@ -332,6 +365,17 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-si
     </div>
     <div class="eyebrow">Dự báo điểm đội toàn giải</div>
     <div class="proj" id="proj" style="margin-top:8px"></div>
+    <div class="eyebrow" style="margin-top:20px">Dự báo điểm đội theo từng nội dung</div>
+    <div class="convert">
+      <b>Quy đổi điểm đội</b>
+      <span><i class="pill g">HCV</i> 6 điểm</span>
+      <span><i class="pill s">HCB</i> 4 điểm</span>
+      <span><i class="pill b">HCĐ</i> 2 điểm</span>
+      <span><i class="pill f">Hạng 4</i> 1 điểm</span>
+      <em>Mỗi ô là điểm nguyên theo thứ hạng dự báo, kèm độ chắc chắn của thứ hạng đó. Mỗi nội dung luôn chia đúng 13 điểm. Di chuột vào ô để xem đủ 4 khả năng.</em>
+    </div>
+    <div class="ptab" id="ptable"></div>
+
     <div class="eyebrow">Tương quan từng nội dung</div>
     <div id="events" style="margin-top:8px"></div>
   </section>
@@ -752,6 +796,7 @@ function winProb(a, b){ return 1 / (1 + Math.pow(10, (b - a) / K)); }
 function simulate(entries){
   const n = entries.length;
   const pts = new Array(n).fill(0), gold = new Array(n).fill(0), pod = new Array(n).fill(0);
+  const place = entries.map(() => [0,0,0,0]);          // xác suất về nhất / nhì / ba / tư
   const p = RR.map(([i,j]) => winProb(entries[i].score, entries[j].score));
   for(let s = 0; s < SIMS; s++){
     const w = new Array(n).fill(0);
@@ -761,12 +806,14 @@ function simulate(entries){
     const [r0,r1,r2,r3] = order;
     const f1 = Math.random() < winProb(entries[r0].score, entries[r1].score) ? [r0,r1] : [r1,r0];
     const f2 = Math.random() < winProb(entries[r2].score, entries[r3].score) ? [r2,r3] : [r3,r2];
-    pts[f1[0]] += 6; pts[f1[1]] += 4; pts[f2[0]] += 2; pts[f2[1]] += 1;
+    pts[f1[0]] += MEDAL[0]; pts[f1[1]] += MEDAL[1]; pts[f2[0]] += MEDAL[2]; pts[f2[1]] += MEDAL[3];
     gold[f1[0]]++; pod[f1[0]]++; pod[f1[1]]++; pod[f2[0]]++;
+    place[f1[0]][0]++; place[f1[1]][1]++; place[f2[0]][2]++; place[f2[1]][3]++;
   }
   return entries.map((e,i) => ({
     team:e.team, score:e.score,
-    exp: pts[i] / SIMS, gold: gold[i] / SIMS, podium: pod[i] / SIMS
+    exp: pts[i] / SIMS, gold: gold[i] / SIMS, podium: pod[i] / SIMS,
+    place: place[i].map(x => x / SIMS)
   }));
 }
 
@@ -774,13 +821,25 @@ function analyse(){
   const perEvent = EVENTS.map(ev => {
     const entries = TEAMS.map(t => ({team:t.id, score:pairScore(t.id, ev.id)}));
     const ready = entries.every(e => e.score != null);
-    return {ev, entries, ready, rows: ready ? simulate(entries) : null};
+    const rows = ready ? simulate(entries) : null;
+    if(rows){
+      // Xếp 4 đôi theo sức mạnh rồi gán thẳng thứ hạng 1-2-3-4.
+      // Nhờ vậy mỗi nội dung luôn chia đúng 6 + 4 + 2 + 1 = 13 điểm, không có số lẻ.
+      [...rows].sort((x,y) => (y.exp - x.exp) || (y.score - x.score))
+        .forEach((r,k) => { r.rank = k; r.pts = MEDAL[k]; r.conf = r.place[k]; });
+    }
+    return {ev, entries, ready, rows};
   });
   const totals = {};
-  TEAMS.forEach(t => totals[t.id] = {pts:0, gold:0, done:0});
+  TEAMS.forEach(t => totals[t.id] = {pts:0, gold:0, expPts:0, done:0});
   perEvent.forEach(pe => {
     if(!pe.ready) return;
-    pe.rows.forEach(r => { totals[r.team].pts += r.exp; totals[r.team].gold += r.gold; totals[r.team].done++; });
+    pe.rows.forEach(r => {
+      totals[r.team].pts    += r.pts;        // điểm nguyên theo thứ hạng dự báo
+      totals[r.team].expPts += r.exp;        // kỳ vọng xác suất, giữ để tham chiếu
+      totals[r.team].gold   += (r.rank === 0 ? 1 : 0);
+      totals[r.team].done++;
+    });
   });
   return {perEvent, totals};
 }
@@ -804,13 +863,51 @@ function renderAnalysis(){
     <div class="pcard" style="--tc:var(${TEAM_VAR[r.t.id]})">
       <div class="rk">Dự báo hạng ${i+1}</div>
       <h3>${r.t.name}</h3>
-      <div class="big">${r.pts.toFixed(1)}<small>/ 54 điểm</small></div>
+      <div class="big">${r.pts}<small>/ 54 điểm</small></div>
       <div class="kv">
-        <span>Số HCV kỳ vọng · <b class="num">${r.gold.toFixed(2)}</b></span>
+        <span>Huy chương dự báo · <b class="num">${r.gold}</b> HCV</span>
+        <span>Kỳ vọng xác suất · <b class="num">${r.expPts.toFixed(1)}</b> điểm</span>
         <span>Nội dung đã xếp đủ · <b class="num">${r.done}/9</b></span>
         ${r.done < 9 ? `<span style="color:var(--warn)">Chưa tính ${9 - r.done} nội dung còn thiếu</span>` : ""}
       </div>
     </div>`).join("");
+
+  // ---- Bảng dự báo điểm đội theo từng nội dung ----
+  const cell = (pe, teamId) => {
+    if(!pe.ready) return `<td class="na">—</td>`;
+    const r = pe.rows.find(x => x.team === teamId);
+    const tip = `Khả năng: ` + r.place.map((p,i) => `${MEDAL_LABEL[i]} ${(p*100).toFixed(0)}%`).join(" · ")
+              + ` — kỳ vọng xác suất ${r.exp.toFixed(2)} điểm`;
+    return `<td class="${r.rank === 0 ? "best" : ""}" title="${tip}">
+      <b class="num">${r.pts}</b>
+      <span class="pill ${MEDAL_CLASS[r.rank]}">${MEDAL_LABEL[r.rank]} ${(r.conf*100).toFixed(0)}%</span>
+    </td>`;
+  };
+  const stand = ranked.map((r,i) => [r.t.id, i+1]);
+  const rankOf = id => (stand.find(x => x[0] === id) || [,"—"])[1];
+  const lead = ranked.length ? ranked[0].pts : 0;
+
+  document.getElementById("ptable").innerHTML = `
+    <table>
+      <thead><tr><th class="ev">Nội dung</th>
+        ${TEAMS.map(t => `<th style="color:var(${TEAM_VAR[t.id]})">${t.name}</th>`).join("")}</tr></thead>
+      <tbody>
+        ${perEvent.map(pe => `<tr>
+          <th class="ev"><span class="no">ND${pe.ev.no}</span> ${pe.ev.name}</th>
+          ${TEAMS.map(t => cell(pe, t.id)).join("")}
+        </tr>`).join("")}
+      </tbody>
+      <tfoot>
+        <tr><th class="ev">Tổng điểm dự báo <em>/ 54</em></th>
+          ${TEAMS.map(t => `<td title="Kỳ vọng xác suất ${totals[t.id].expPts.toFixed(1)} điểm"><b class="num tot">${totals[t.id].pts}</b></td>`).join("")}</tr>
+        <tr><th class="ev">Hạng dự báo · chênh với đội dẫn đầu</th>
+          ${TEAMS.map(t => {
+            const d = totals[t.id].pts - lead;
+            return `<td><b class="num">#${rankOf(t.id)}</b>
+              <span class="gapv ${d < 0 ? "neg" : "zero"}">${d < 0 ? d : "dẫn đầu"}</span></td>`;
+          }).join("")}</tr>
+      </tfoot>
+    </table>`;
 
   document.getElementById("events").innerHTML = perEvent.map(pe => {
     const ev = pe.ev;
@@ -821,7 +918,7 @@ function renderAnalysis(){
         <div class="empty">Chưa so sánh được — còn thiếu đôi của: <b>${missing}</b>.</div>
       </div>`;
     }
-    const rows = [...pe.rows].sort((a,b) => b.exp - a.exp);
+    const rows = [...pe.rows].sort((a,b) => a.rank - b.rank);
     const max = Math.max(...rows.map(r => r.score));
     const min = Math.min(...rows.map(r => r.score));
     const spread = (max - min).toFixed(2);
@@ -832,11 +929,11 @@ function renderAnalysis(){
         <div class="pos">${i+1}</div>
         <div class="who">
           <div class="tm">${nameOf(r.team)} · <span class="num">${r.score.toFixed(2)}</span>đ
-            <span class="pill ${MEDAL_CLASS[i]}" style="margin-left:4px">${(r.gold*100).toFixed(0)}% HCV</span></div>
+            <span class="pill ${MEDAL_CLASS[i]}" style="margin-left:4px">${MEDAL_LABEL[i]} ${(r.conf*100).toFixed(0)}%</span></div>
           <div class="names">${fmtPair(r.team, ev.id)}</div>
-          <div class="bar" title="Điểm kỳ vọng ${r.exp.toFixed(2)}/6"><i style="width:${(r.exp / 6 * 100).toFixed(1)}%"></i></div>
+          <div class="bar" title="Sức mạnh tương đối — kỳ vọng xác suất ${r.exp.toFixed(2)}/6"><i style="width:${(r.exp / 6 * 100).toFixed(1)}%"></i></div>
         </div>
-        <div class="pt">${r.exp.toFixed(2)}<small>điểm KV</small></div>
+        <div class="pt">${r.pts}<small>điểm</small></div>
       </div>`).join("");
 
     const head = order.map(id => `<th>${nameOf(id).replace("Đội ","Đ")}</th>`).join("");
