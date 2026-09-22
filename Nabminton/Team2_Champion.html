@@ -245,18 +245,23 @@ select.pick.bad{border-color:var(--err);background:var(--err-bg)}
 .convert em{font-style:normal;flex:1 1 220px;min-width:0}
 .ptab{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
   box-shadow:var(--shadow);margin-bottom:22px}
-.ptab table{border-collapse:collapse;width:100%;min-width:700px;font-size:12.5px}
+.ptab table{border-collapse:collapse;width:100%;min-width:1040px;font-size:12.5px}
+.ptab tbody td b{font-size:15px}
 .ptab th,.ptab td{padding:7px 12px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
 .ptab thead th{background:var(--surface-2);font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:15px;
   letter-spacing:.03em;text-transform:uppercase;text-align:right;border-bottom:1px solid var(--line)}
 .ptab thead th.ev{text-align:left}
-.ptab th.ev{text-align:left;font-weight:500;color:var(--ink-2);font-size:12.5px;line-height:1.3}
+.ptab th.ev{text-align:left;font-weight:500;color:var(--ink-2);font-size:12.5px;line-height:1.3;
+  min-width:232px;white-space:nowrap}
 .ptab tbody th.ev{font-family:"IBM Plex Sans",sans-serif;text-transform:none;letter-spacing:0}
 .ptab th.ev .no{font-family:"Barlow Condensed",sans-serif;font-weight:700;color:var(--accent);
   font-size:11.5px;letter-spacing:.06em;margin-right:5px}
 .ptab td{text-align:right;white-space:nowrap}
+.ptab tbody td .pr{font-size:11.5px;color:var(--ink-2);margin-right:11px}
+.ptab tbody td .pr i{font-style:normal;color:var(--muted);margin:0 2px}
+.ptab tbody td.na{color:var(--muted)}
 .ptab td b{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:14px;font-weight:600}
-.ptab td .pill{display:inline-block;margin-left:7px;min-width:64px;text-align:center}
+.ptab td .pill{display:inline-block;margin-left:8px;min-width:54px;text-align:center}
 .ptab td.best{background:var(--accent-soft)}
 .ptab td.na{color:var(--muted)}
 .ptab tbody tr:hover td{background:var(--surface-2)}
@@ -1226,9 +1231,11 @@ function renderAnalysis(){
     const r = pe.rows.find(x => x.team === teamId);
     const tip = `Khả năng: ` + r.place.map((p,i) => `${MEDAL_LABEL[i]} ${(p*100).toFixed(0)}%`).join(" · ")
               + ` — kỳ vọng xác suất ${r.exp.toFixed(2)} điểm`;
+    const [a,b] = pairOf(teamId, pe.ev.id);
     return `<td class="${r.rank === 0 ? "best" : ""}" title="${tip}">
+      <span class="pr">(${a.n} <i>+</i> ${b.n})</span>
       <b class="num">${r.pts}</b>
-      <span class="pill ${MEDAL_CLASS[r.rank]}">${MEDAL_LABEL[r.rank]} ${(r.conf*100).toFixed(0)}%</span>
+      <span class="pill ${MEDAL_CLASS[r.rank]}">${MEDAL_LABEL[r.rank]}</span>
     </td>`;
   };
   const stand = ranked.map((r,i) => [r.t.id, i+1]);
