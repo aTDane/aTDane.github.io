@@ -377,10 +377,15 @@ select.pick.bad{border-color:var(--err);background:var(--err-bg)}
 .stdtab td{padding:5px 8px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
 .stdtab tr:last-child td{border-bottom:0}
 .stdtab td.gut{width:30px;min-width:30px;padding:0}
-.stdtab td.nd{white-space:nowrap;width:150px;font-family:"Barlow Condensed",sans-serif;font-weight:700;
-  font-size:13px;letter-spacing:.05em;color:var(--muted)}
+.stdtab td.nd{white-space:normal;width:186px;font-family:"Barlow Condensed",sans-serif;font-weight:700;
+  font-size:13px;letter-spacing:.05em;color:var(--muted);padding-top:7px;padding-bottom:7px}
 .stdtab td.nd i{display:block;font-style:normal;font-family:"IBM Plex Sans",sans-serif;font-weight:400;
   font-size:10.5px;letter-spacing:0;text-transform:none;line-height:1.25}
+.stdtab td.nd .caps{display:flex;flex-wrap:wrap;gap:3px 5px;align-items:center;margin-top:4px}
+.stdtab td.nd .caps b{display:inline-flex;align-items:center;gap:3px;font-family:"IBM Plex Sans",sans-serif;
+  font-weight:600;font-size:9.5px;letter-spacing:0;text-transform:none;line-height:1.3;
+  color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px}
+.stdtab td.nd .caps .tier{font-size:8.5px;min-width:17px;padding:0 3px}
 .stdtab td.sl{width:32%}
 .stdtab td.sc{text-align:right;width:56px;color:var(--ink-2);white-space:nowrap}
 .stdtab td.pt{text-align:right;width:112px;white-space:nowrap}
@@ -415,7 +420,8 @@ select.pick.bad{border-color:var(--err);background:var(--err-bg)}
 .bchip .tier{font-size:9.5px;min-width:20px;padding:1px 4px}
 .bchip i{font-style:normal;font-size:9.5px;color:var(--muted);margin-left:2px}
 @media (max-width:640px){
-  .stdtab{min-width:520px}
+  .stdtab{min-width:560px}
+  .stdtab td.nd{width:150px}
   .stdtab td.nd i{display:none}
 }
 
@@ -1466,6 +1472,20 @@ function randomLineup(teamId, tries = 300, fixed = null){
   return null;
 }
 const EV_ = id => EVENTS.find(e => e.id === id);
+
+/** Nhãn trần hạng gọn của một nội dung, dùng chip màu hạng cho đồng bộ với ô VĐV. */
+function capLabel(ev){
+  const chip = t => `<span class="tier" data-t="${t}">${t}</span>`;
+  const out = [];
+  const openM = ev.capM === "S", openF = ev.capF === "S";
+  if(ev.capM && ev.capF && openM && openF) out.push("Mọi hạng nam & nữ");
+  else {
+    if(ev.capM) out.push(openM ? "Nam: mọi hạng" : `Nam ≤ ${chip(ev.capM)}`);
+    if(ev.capF) out.push(openF ? "Nữ: mọi hạng"  : `Nữ ≤ ${chip(ev.capF)}`);
+  }
+  if(ev.exc) out.push(`+1 Nam ${chip(ev.exc.tier)} ≤ ${ev.exc.maxScore.toFixed(2)} · đôi ≤ ${ev.exc.maxPair.toFixed(2)}`);
+  return out.map(x => `<b>${x}</b>`).join("");
+}
 function shuffle(a){ a = [...a]; for(let i=a.length-1;i>0;i--){ const j=(Math.random()*(i+1))|0; [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
 /** Hàm mục tiêu: điểm kỳ vọng của đội, đối thủ lấy nguyên từ bảng hiện tại. */
@@ -1876,7 +1896,8 @@ function standardHTML(){
         <span class="sv">${p.s.toFixed(2)}</span></button></td>`;
     }).join("");
     return `<tr>
-      <td class="nd">ND${r.ev.no}<i>${r.ev.name.replace(/^Đôi /,"")}</i></td>
+      <td class="nd">ND${r.ev.no}<i>${r.ev.name.replace(/^Đôi /,"")}</i>
+        <span class="caps">${capLabel(r.ev)}</span></td>
       <td class="gut"></td>
       ${cells}
       <td class="sc num">${r.me.score.toFixed(2)}</td>
