@@ -151,6 +151,22 @@ select.pick.bad{border-color:var(--err);background:var(--err-bg)}
 .pill.b{background:var(--m-b);color:var(--m-bi)}.pill.f{background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
 </style>
 <style>
+/* ---------- khoá đôi ---------- */
+.cellfoot{display:flex;align-items:center;gap:8px}
+.cellfoot .sum{flex:1 1 auto;min-width:0}
+.lk{flex:none;appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--muted);
+  width:26px;height:24px;border-radius:7px;cursor:pointer;display:grid;place-items:center;padding:0}
+.lk:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.lk:disabled{opacity:.35;cursor:not-allowed}
+.lk .shackle{transform-origin:12px 10px;transition:transform .12s ease}
+.lk:not(.on) .shackle{transform:translateX(-3px) rotate(-18deg)}
+.lk.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.cell.locked{background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
+.cell.locked select.pick{background:var(--surface);opacity:.92;cursor:default;border-style:solid}
+.cell.locked .sum .tot{color:var(--accent-ink)}
+.lockinfo{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;
+  padding:5px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink)}
+
 /* ---------- issues ---------- */
 .issues{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;margin-top:14px}
 .icard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:11px 13px;box-shadow:var(--shadow)}
@@ -168,6 +184,9 @@ select.pick.bad{border-color:var(--err);background:var(--err-bg)}
   border-top:4px solid var(--tc)}
 .pcard .rk{font-family:"Barlow Condensed",sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
 .pcard h3{font-size:19px;color:var(--tc);text-transform:uppercase}
+.pcard .tb{display:inline-block;font-style:normal;font-size:10px;font-weight:700;letter-spacing:.02em;
+  text-transform:none;padding:1px 6px;border-radius:4px;background:var(--accent-soft);color:var(--accent-ink);margin-left:4px}
+.pcard .tb.warn{background:var(--warn-bg);color:var(--warn)}
 .pcard .big{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:30px;font-weight:600;line-height:1.05;margin-top:6px}
 .pcard .big small{font-size:12px;font-weight:500;color:var(--muted);margin-left:5px;font-family:"IBM Plex Sans",sans-serif}
 .pcard .kv{margin-top:9px;display:flex;flex-direction:column;gap:3px;font-size:11.5px;color:var(--muted)}
@@ -193,6 +212,18 @@ select.pick.bad{border-color:var(--err);background:var(--err-bg)}
 .rrow .bar i{display:block;height:100%;background:var(--tc);border-radius:4px}
 .rrow .pt{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:16px;font-weight:600}
 .rrow .pt small{display:block;font-size:9.5px;font-weight:500;color:var(--muted);font-family:"IBM Plex Sans",sans-serif;letter-spacing:.02em}
+.rrow{cursor:grab;border-radius:8px}
+.rrow:active{cursor:grabbing}
+.rrow:hover{background:var(--surface-2)}
+.rrow.dragging{opacity:.4;cursor:grabbing}
+.rrow.over{box-shadow:inset 0 3px 0 var(--accent);background:var(--accent-soft)}
+.manualtag{font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:2px 8px;border-radius:999px;
+  background:var(--warn-bg);color:var(--warn)}
+.ecard>header .rkreset{padding:3px 9px;font-size:11px}
+.ptab tr.manualrow td,.ptab tr.manualrow th{background:var(--warn-bg)}
+.ptab th.ev i.mk{font-style:normal;font-size:9.5px;font-weight:700;letter-spacing:.05em;padding:1px 5px;
+  border-radius:4px;background:var(--warn);color:var(--surface);text-transform:uppercase}
+#ovNote{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .rrow.me{background:var(--surface-2);border-radius:8px;padding:5px 6px 5px 3px;margin:-5px -6px;box-shadow:inset 3px 0 0 var(--tc)}
 
 .h2h{overflow-x:auto}
@@ -271,6 +302,123 @@ select.pick.bad{border-color:var(--err);background:var(--err-bg)}
 .dots i.ov{background:var(--err)}
 .pev{grid-column:2/-1;font-size:10.5px;color:var(--muted);line-height:1.3;margin-top:-2px;padding-bottom:2px}
 
+/* ---------- Tâm Cơ ---------- */
+.tcnote{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;
+  font-size:13px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:12px;align-items:center;box-shadow:var(--shadow)}
+.tcbar{flex:1 1 180px;height:6px;border-radius:3px;background:var(--line);overflow:hidden;min-width:120px}
+.tcbar i{display:block;height:100%;width:0;background:var(--accent);transition:width .15s linear}
+.tcsec{margin-bottom:26px}
+.tcsec h3{font-size:19px;text-transform:uppercase;letter-spacing:.03em;padding-bottom:6px;border-bottom:2px solid var(--accent)}
+.tcinfo{font-size:12px;color:var(--muted);margin:7px 0 12px;max-width:68ch;line-height:1.5}
+.tcopt{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);
+  margin-bottom:11px;overflow:hidden}
+.tcopt>header{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline;padding:10px 14px;
+  background:var(--surface-2);border-bottom:1px solid var(--line-soft)}
+.tcopt .ix{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:13px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted)}
+.tcopt .big{font-size:23px;font-weight:600}
+.tcopt .of{font-size:11px;color:var(--muted)}
+.tcopt .ex{font-size:11.5px;color:var(--muted)}
+.tcopt .spacer{flex:1 1 auto}
+.tcopt .apply{padding:5px 11px;font-size:11.5px}
+.tcopt .give{padding:8px 14px;font-size:11.5px;color:var(--err);background:var(--err-bg);
+  border-bottom:1px solid var(--line-soft)}
+.tcopt .give b{font-weight:600}
+.tcopt table{width:100%;border-collapse:collapse;font-size:12.5px}
+.tcopt td{padding:5px 14px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+.tcopt tr:last-child td{border-bottom:0}
+.tcopt tr.drop td{background:var(--err-bg)}
+.tcopt tr.drop td.nd{color:var(--err)}
+.tcopt tr.out td.pr{color:var(--muted)}
+.tcopt tr.dbl td.nd{box-shadow:inset 3px 0 0 var(--accent)}
+.tcopt tr.drop.dbl td.nd{box-shadow:inset 3px 0 0 var(--err)}
+.tcopt .why{display:inline-block;margin-left:7px;font-size:10px;font-weight:700;letter-spacing:.03em;
+  padding:1px 6px;border-radius:4px;background:var(--err);color:#fff;white-space:nowrap}
+.tcopt .why.out{background:transparent;color:var(--muted);border:1px solid var(--line);font-weight:500}
+.tcopt .give.none{background:var(--accent-soft);color:var(--accent-ink)}
+.tcopt td.nd{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.05em;
+  color:var(--muted);white-space:nowrap;width:62px}
+.tcopt td.nd i{font-style:normal;color:var(--accent);font-weight:700;margin-left:3px}
+.tcopt td.pr{line-height:1.45;overflow-wrap:anywhere}
+.tcopt td.pr b{color:var(--muted);font-weight:400;margin:0 3px}
+.tcopt td.pr .tier{display:inline-block;font-size:9.5px;min-width:22px;padding:1px 4px;vertical-align:1px}
+.tcopt td.sc{text-align:right;color:var(--ink-2);width:56px;white-space:nowrap}
+.tcopt td.pt{text-align:right;white-space:nowrap;width:118px}
+.tcopt td.pt b{font-size:14px}
+.tcopt td.pt .pill{margin-left:6px;min-width:52px;display:inline-block;text-align:center}
+@media (max-width:640px){
+  .tcopt td{padding:5px 10px}
+  .tcopt td.sc{display:none}
+}
+.tcverdict{border-radius:var(--r);padding:11px 14px;font-size:13px;margin-bottom:18px;border:1px solid transparent;line-height:1.5}
+.tcverdict.same{background:var(--warn-bg);color:var(--warn);border-color:currentColor}
+.tcverdict.win{background:var(--accent-soft);color:var(--accent-ink)}
+.tcverdict.lose{background:var(--err-bg);color:var(--err)}
+.tcverdict.lock{background:var(--accent-soft);color:var(--accent-ink)}
+.tcverdict b{font-weight:700}
+.tcinfo i.x2{font-style:normal;color:var(--accent);font-weight:700}
+
+/* ---------- Tâm Cơ · bảng tiêu chuẩn sửa được ---------- */
+.stdbox{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.stdbox>header{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline;padding:10px 14px;
+  background:var(--surface-2);border-bottom:1px solid var(--line-soft)}
+.stdbox .ix{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:13px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted)}
+.stdbox .big{font-size:23px;font-weight:600}
+.stdbox .of,.stdbox .ex{font-size:11.5px;color:var(--muted)}
+.stdbox .spacer{flex:1 1 auto}
+.btn.xsm{padding:5px 10px;font-size:11.5px}
+.stdbox .apply{padding:5px 11px;font-size:11.5px}
+.stdwrap{position:relative;overflow-x:auto}
+.swaparrows{position:absolute;inset:0;pointer-events:none;z-index:3;overflow:visible}
+.swaparrows .arr path{fill:none;stroke:var(--accent);stroke-width:1.7;stroke-dasharray:5 4;opacity:.85}
+.swaparrows marker path{fill:var(--accent);stroke:none}
+.stdtab{width:100%;border-collapse:collapse;font-size:12.5px;min-width:600px}
+.stdtab td{padding:5px 8px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+.stdtab tr:last-child td{border-bottom:0}
+.stdtab td.gut{width:30px;min-width:30px;padding:0}
+.stdtab td.nd{white-space:nowrap;width:150px;font-family:"Barlow Condensed",sans-serif;font-weight:700;
+  font-size:13px;letter-spacing:.05em;color:var(--muted)}
+.stdtab td.nd i{display:block;font-style:normal;font-family:"IBM Plex Sans",sans-serif;font-weight:400;
+  font-size:10.5px;letter-spacing:0;text-transform:none;line-height:1.25}
+.stdtab td.sl{width:32%}
+.stdtab td.sc{text-align:right;width:56px;color:var(--ink-2);white-space:nowrap}
+.stdtab td.pt{text-align:right;width:112px;white-space:nowrap}
+.stdtab td.pt b{font-size:14px}
+.stdtab td.pt .pill{margin-left:6px;min-width:52px;display:inline-block;text-align:center}
+.tcslot{display:flex;align-items:center;gap:6px;width:100%;text-align:left;font:inherit;font-size:12.5px;
+  padding:5px 8px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--ink);
+  cursor:pointer;position:relative;z-index:2}
+.tcslot:hover{border-color:var(--line);background:var(--surface-2)}
+.tcslot .nm{flex:1 1 auto;min-width:0;overflow-wrap:anywhere;line-height:1.3}
+.tcslot .sv{flex:none;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+  font-size:11px;color:var(--muted)}
+.tcslot .tier{flex:none;font-size:9.5px;min-width:22px;padding:1px 4px}
+.tcslot.sel{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.tcslot.sel .sv{color:rgba(255,255,255,.8)}
+.tcslot.cand{background:var(--accent-soft);border-color:var(--accent);border-style:dashed}
+.tcslot.cand .sv{color:var(--accent-ink)}
+.tcslot{cursor:grab;-webkit-user-select:none;user-select:none}
+.tcslot:active{cursor:grabbing}
+.tcslot.dragging{opacity:.4;cursor:grabbing}
+.tcslot.drop{border-color:var(--accent);border-style:dashed;background:var(--accent-soft)}
+.tcslot.drop::after{content:"⇄";margin-left:2px;font-size:11px;color:var(--accent-ink);flex:none}
+.tcslot.over{background:var(--accent);border-style:solid;border-color:var(--accent);color:#fff;font-weight:600}
+.tcslot.over .sv,.tcslot.over::after{color:rgba(255,255,255,.85)}
+.bench{display:flex;flex-wrap:wrap;align-items:center;gap:7px;padding:10px 14px;
+  border-top:1px solid var(--line-soft);background:var(--surface-2)}
+.bench .lb{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.bench em{font-style:normal;font-size:11.5px;color:var(--muted)}
+.bchip{display:inline-flex;align-items:center;gap:5px;font:inherit;font-size:11.5px;padding:4px 9px;
+  border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer}
+.bchip:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink)}
+.bchip .tier{font-size:9.5px;min-width:20px;padding:1px 4px}
+.bchip i{font-style:normal;font-size:9.5px;color:var(--muted);margin-left:2px}
+@media (max-width:640px){
+  .stdtab{min-width:520px}
+  .stdtab td.nd i{display:none}
+}
+
 /* ---------- io ---------- */
 .io{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px;box-shadow:var(--shadow)}
 .io textarea{width:100%;min-height:90px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;padding:9px;border-radius:8px;
@@ -306,6 +454,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-si
       <button id="tabBoard" role="tab" aria-selected="true" aria-controls="viewBoard">Xếp đôi</button>
       <button id="tabAnalysis" role="tab" aria-selected="false" aria-controls="viewAnalysis">Tương quan</button>
       <button id="tabRoster" role="tab" aria-selected="false" aria-controls="viewRoster">Suất & VĐV</button>
+      <button id="tabTamco" role="tab" aria-selected="false" aria-controls="viewTamco" hidden>Tâm Cơ</button>
     </div>
     <span class="status" id="statusChip"><span class="dot"></span><span id="statusText">Chưa xếp</span></span>
   </div>
@@ -331,8 +480,10 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-si
         <span>mạnh → yếu</span>
       </div>
       <div class="spacer"></div>
-      <button class="btn" id="btnFill">Xếp nháp theo điểm</button>
-      <button class="btn" id="btnClear">Xoá toàn bộ</button>
+      <span class="lockinfo" id="lockInfo" hidden></span>
+      <button class="btn" id="btnUnlock" hidden>Mở khoá tất cả</button>
+      <button class="btn" id="btnFill" title="Chỉ điền vào các ô chưa khoá">Xếp nháp theo điểm</button>
+      <button class="btn" id="btnClear" title="Giữ nguyên các ô đã khoá">Xoá đội hình</button>
     </div>
 
     <div class="board-scroll">
@@ -363,6 +514,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-si
       </label>
       <span class="hint" style="margin:0">Số nhỏ = chênh lệch điểm quyết định mạnh hơn; số lớn = giải đấu nhiều bất ngờ hơn.</span>
     </div>
+    <div class="tcverdict lock" id="ovNote" hidden></div>
     <div class="eyebrow">Dự báo điểm đội toàn giải</div>
     <div class="proj" id="proj" style="margin-top:8px"></div>
     <div class="eyebrow" style="margin-top:20px">Dự báo điểm đội theo từng nội dung</div>
@@ -389,6 +541,32 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-si
     </div>
     <p class="hint" style="margin:0 0 12px">Mỗi đội có 18 suất (9 nội dung × 2 VĐV). Mỗi VĐV tối thiểu 1, tối đa 2 nội dung. Nền vàng = chưa được xếp nội dung nào; nền đỏ = quá 2 nội dung.</p>
     <div class="rost" id="roster"></div>
+  </section>
+
+  <!-- ============ TAB ẨN: TÂM CƠ ============ -->
+  <section id="viewTamco" role="tabpanel" aria-labelledby="tabTamco" hidden>
+    <div class="toolrow">
+      <label class="field" for="tcTeam">Tính cho đội
+        <select id="tcTeam">
+          <option value="team1">Đội 1</option>
+          <option value="team2" selected>Đội 2</option>
+          <option value="team3">Đội 3</option>
+          <option value="team4">Đội 4</option>
+        </select>
+      </label>
+      <label class="field" for="tcDepth">Độ sâu dò
+        <select id="tcDepth">
+          <option value="40">Nhanh</option>
+          <option value="90" selected>Vừa</option>
+          <option value="200">Kỹ</option>
+        </select>
+      </label>
+      <button class="btn primary" id="tcRun">Dò phương án</button>
+      <div class="spacer"></div>
+      <button class="btn" id="tcHide">Ẩn tab này</button>
+    </div>
+    <p class="hint" style="margin:0 0 14px">Chỉ xét đội hình <b>hợp lệ hoàn toàn</b> của đội được chọn, đối thủ giữ nguyên như đang xếp ở tab Xếp đôi. Đổi đội hình đối thủ rồi dò lại sẽ ra kết quả khác.</p>
+    <div id="tcBody"></div>
   </section>
 
   <footer>
@@ -497,16 +675,34 @@ TEAMS.forEach(t => t.players.forEach(p => byId.set(p.id, Object.assign({team:t.i
 
 /** lineup[teamId][eventId] = [playerId|null, playerId|null] */
 let lineup = {};
+/** locks[teamId][eventId] = true khi đôi đã chốt, không cho sửa và không bị ghi đè */
+let locks = {};
+function blankLocks(){
+  const K = {};
+  TEAMS.forEach(t => { K[t.id] = {}; EVENTS.forEach(e => K[t.id][e.id] = false); });
+  return K;
+}
+function isLocked(teamId, evId){ return !!(locks[teamId] && locks[teamId][evId]); }
+function lockCount(teamId){ return EVENTS.filter(e => isLocked(teamId, e.id)).length; }
+function totalLocks(){ return TEAMS.reduce((a,t) => a + lockCount(t.id), 0); }
 function blankLineup(){
   const L = {};
   TEAMS.forEach(t => { L[t.id] = {}; EVENTS.forEach(e => L[t.id][e.id] = [null,null]); });
   return L;
 }
 function loadState(){
-  lineup = blankLineup();
+  lineup = blankLineup(); locks = blankLocks();
   try{
     const raw = localStorage.getItem(KEY);
     if(raw) merge(JSON.parse(raw));
+    const rawL = localStorage.getItem(KEY + "_locks");
+    if(rawL){
+      const d = JSON.parse(rawL);
+      TEAMS.forEach(t => EVENTS.forEach(e => {
+        // chỉ giữ khoá cho ô thực sự đã xếp đủ đôi
+        if(d?.[t.id]?.[e.id] && lineup[t.id][e.id].every(x => x != null)) locks[t.id][e.id] = true;
+      }));
+    }
   }catch(err){ /* riêng tư / bị chặn — dùng đội hình rỗng */ }
 }
 function merge(data){
@@ -522,7 +718,16 @@ function merge(data){
   }));
 }
 function saveState(){
-  try{ localStorage.setItem(KEY, JSON.stringify(lineup)); }catch(err){}
+  try{
+    localStorage.setItem(KEY, JSON.stringify(lineup));
+    localStorage.setItem(KEY + "_locks", JSON.stringify(locks));
+  }catch(err){}
+}
+/** Ghi một đôi mới vào ô, bỏ qua nếu ô đang khoá. */
+function setPair(teamId, evId, pair){
+  if(isLocked(teamId, evId)) return false;
+  lineup[teamId][evId] = [...pair];
+  return true;
 }
 
 /* ===================== LUẬT ===================== */
@@ -618,6 +823,10 @@ function teamReport(teamId){
 <script>
 /* ===================== BẢNG XẾP ĐÔI ===================== */
 const boardEl = document.getElementById("board");
+const LOCK_SVG =
+  '<svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">' +
+  '<path class="shackle" d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>' +
+  '<rect x="5" y="10" width="14" height="10" rx="2" fill="currentColor"/></svg>';
 const TEAM_VAR = {team1:"--t1", team2:"--t2", team3:"--t3", team4:"--t4"};
 
 function buildBoard(){
@@ -674,9 +883,21 @@ function buildBoard(){
         slot.appendChild(chip); slot.appendChild(sel);
         cell.appendChild(slot);
       });
+      const foot = document.createElement("div");
+      foot.className = "cellfoot";
       const sum = document.createElement("div");
       sum.className = "sum";
-      cell.appendChild(sum);
+      const lk = document.createElement("button");
+      lk.className = "lk";
+      lk.type = "button";
+      lk.innerHTML = LOCK_SVG;
+      lk.addEventListener("click", () => {
+        if(lineup[t.id][ev.id].some(x => x == null)) return;   // chưa đủ đôi thì chưa khoá được
+        locks[t.id][ev.id] = !locks[t.id][ev.id];
+        refresh();
+      });
+      foot.appendChild(sum); foot.appendChild(lk);
+      cell.appendChild(foot);
       frag.appendChild(cell);
     });
   });
@@ -735,8 +956,19 @@ function renderBoard(){
     const teamId = cell.dataset.team, evId = cell.dataset.ev;
     const ev = EVENTS.find(e => e.id === evId);
     cell.classList.toggle("focus", !!focus && focus === teamId);
+    const locked = isLocked(teamId, evId);
+    const full = lineup[teamId][evId].every(x => x != null);
+    cell.classList.toggle("locked", locked);
+    const lk = cell.querySelector(".lk");
+    lk.classList.toggle("on", locked);
+    lk.disabled = !full && !locked;
+    lk.setAttribute("aria-pressed", String(locked));
+    lk.title = locked ? "Đang khoá — bấm để mở"
+             : full  ? "Khoá đôi này lại"
+                     : "Xếp đủ 2 VĐV rồi mới khoá được";
     const sels = cell.querySelectorAll("select");
     sels.forEach((sel,i) => {
+      sel.disabled = locked;
       fillOptions(sel, teamId, ev, i);
       const pid = lineup[teamId][evId][i];
       const p = pid == null ? null : byId.get(pid);
@@ -776,6 +1008,13 @@ function renderIssues(){
     </div>`;
   }).join("");
 
+  const nLock = totalLocks();
+  const info = document.getElementById("lockInfo"), unlock = document.getElementById("btnUnlock");
+  if(info){
+    info.hidden = unlock.hidden = nLock === 0;
+    info.innerHTML = LOCK_SVG + ` ${nLock} ô đã khoá`;
+  }
+
   const allErr = TEAMS.reduce((a,t) => a + teamReport(t.id).errors.length, 0);
   const filled = TEAMS.reduce((a,t) => a + teamReport(t.id).filled, 0);
   const chip = document.getElementById("statusChip"), txt = document.getElementById("statusText");
@@ -787,34 +1026,113 @@ function renderIssues(){
 <script>
 /* ===================== MÔ PHỎNG TƯƠNG QUAN ===================== */
 let K = 1.5;                                   // độ nhạy chênh lệch điểm
-const SIMS = 3000;
 const RR = [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]];
 
 function winProb(a, b){ return 1 / (1 + Math.pow(10, (b - a) / K)); }
 
-/** Mô phỏng một nội dung. entries = [{team, score}] đúng 4 đội và đủ đôi. */
+/** Hoán vị của một mảng nhỏ (dùng để chia đều khi hoàn toàn hoà). */
+function perms(arr){
+  if(arr.length <= 1) return [arr];
+  const out = [];
+  arr.forEach((x,i) => perms(arr.slice(0,i).concat(arr.slice(i+1))).forEach(r => out.push([x,...r])));
+  return out;
+}
+
+/**
+ * Tính CHÍNH XÁC kết quả một nội dung bằng cách duyệt đủ 64 khả năng của vòng tròn 6 trận,
+ * rồi cộng tiếp hai trận tranh huy chương. Không mô phỏng ngẫu nhiên nên số liệu tất định.
+ */
 function simulate(entries){
   const n = entries.length;
-  const pts = new Array(n).fill(0), gold = new Array(n).fill(0), pod = new Array(n).fill(0);
-  const place = entries.map(() => [0,0,0,0]);          // xác suất về nhất / nhì / ba / tư
-  const p = RR.map(([i,j]) => winProb(entries[i].score, entries[j].score));
-  for(let s = 0; s < SIMS; s++){
-    const w = new Array(n).fill(0);
-    RR.forEach(([i,j], m) => { if(Math.random() < p[m]) w[i]++; else w[j]++; });
-    const order = entries.map((e,i) => i).sort((x,y) =>
-      (w[y] - w[x]) || (entries[y].score - entries[x].score) || (Math.random() - .5));
-    const [r0,r1,r2,r3] = order;
-    const f1 = Math.random() < winProb(entries[r0].score, entries[r1].score) ? [r0,r1] : [r1,r0];
-    const f2 = Math.random() < winProb(entries[r2].score, entries[r3].score) ? [r2,r3] : [r3,r2];
-    pts[f1[0]] += MEDAL[0]; pts[f1[1]] += MEDAL[1]; pts[f2[0]] += MEDAL[2]; pts[f2[1]] += MEDAL[3];
-    gold[f1[0]]++; pod[f1[0]]++; pod[f1[1]]++; pod[f2[0]]++;
-    place[f1[0]][0]++; place[f1[1]][1]++; place[f2[0]][2]++; place[f2[1]][3]++;
+  const pw = RR.map(([i,j]) => winProb(entries[i].score, entries[j].score));
+  const exp = new Array(n).fill(0);
+  const place = entries.map(() => [0,0,0,0]);
+
+  for(let m = 0; m < 64; m++){
+    let pr = 1; const w = new Array(n).fill(0);
+    for(let k = 0; k < 6; k++){
+      const [i,j] = RR[k];
+      if(m >> k & 1){ w[i]++; pr *= pw[k]; } else { w[j]++; pr *= 1 - pw[k]; }
+    }
+    if(pr <= 0) continue;
+
+    // Xếp hạng vòng tròn: nhiều trận thắng hơn, rồi điểm đôi cao hơn.
+    // Trùng cả hai thì chia đều xác suất cho mọi thứ tự có thể.
+    const groups = [];
+    [...Array(n).keys()]
+      .sort((x,y) => (w[y]-w[x]) || (entries[y].score - entries[x].score))
+      .forEach(i => {
+        const g = groups[groups.length-1];
+        if(g && w[g[0]] === w[i] && entries[g[0]].score === entries[i].score) g.push(i);
+        else groups.push([i]);
+      });
+    let orders = [[]];
+    groups.forEach(g => { const ps = perms(g); orders = orders.flatMap(o => ps.map(p => o.concat(p))); });
+    const share = pr / orders.length;
+
+    orders.forEach(([r0,r1,r2,r3]) => {
+      const p1 = winProb(entries[r0].score, entries[r1].score);   // tranh HCV
+      const p2 = winProb(entries[r2].score, entries[r3].score);   // tranh HCĐ
+      exp[r0] += share*(p1*MEDAL[0] + (1-p1)*MEDAL[1]);
+      exp[r1] += share*((1-p1)*MEDAL[0] + p1*MEDAL[1]);
+      exp[r2] += share*(p2*MEDAL[2] + (1-p2)*MEDAL[3]);
+      exp[r3] += share*((1-p2)*MEDAL[2] + p2*MEDAL[3]);
+      place[r0][0] += share*p1;      place[r0][1] += share*(1-p1);
+      place[r1][0] += share*(1-p1);  place[r1][1] += share*p1;
+      place[r2][2] += share*p2;      place[r2][3] += share*(1-p2);
+      place[r3][2] += share*(1-p2);  place[r3][3] += share*p2;
+    });
   }
   return entries.map((e,i) => ({
-    team:e.team, score:e.score,
-    exp: pts[i] / SIMS, gold: gold[i] / SIMS, podium: pod[i] / SIMS,
-    place: place[i].map(x => x / SIMS)
+    team:e.team, score:e.score, exp:exp[i],
+    gold: place[i][0], podium: place[i][0]+place[i][1]+place[i][2],
+    place: place[i]
   }));
+}
+
+/* Người dùng có thể tự kéo đổi thứ hạng 4 đôi trong một nội dung khi thấy
+   mô hình đoán sai. Chỉ áp dụng cho tab Tương quan, không ảnh hưởng tab Tâm Cơ
+   (ở đó thuật toán phải so các đội hình giả định nên không dùng được thứ hạng tay). */
+let rankOverride = {};
+const RK_KEY = KEY + "_rank";
+function loadOverrides(){
+  try{
+    const raw = localStorage.getItem(RK_KEY);
+    if(raw){
+      const d = JSON.parse(raw);
+      EVENTS.forEach(ev => {
+        const v = d?.[ev.id];
+        if(Array.isArray(v) && v.length === 4 && TEAMS.every(t => v.includes(t.id)))
+          rankOverride[ev.id] = v;
+      });
+    }
+  }catch(e){}
+}
+function saveOverrides(){
+  try{ localStorage.setItem(RK_KEY, JSON.stringify(rankOverride)); }catch(e){}
+}
+function overrideCount(){ return Object.keys(rankOverride).length; }
+
+/**
+ * Điều 15.2 — bằng điểm thì xét lần lượt: số HCV, số HCB, số HCĐ,
+ * rồi tổng trận thắng, hiệu số set, hiệu số điểm.
+ * Ba tiêu chí cuối phải có kết quả trận thật mới tính được, nên ở đây
+ * dùng điểm kỳ vọng làm mốc tạm và báo rõ là "chưa phân định".
+ */
+function cmpStanding(a, b){
+  return (b.pts - a.pts)
+      || (b.gold - a.gold)
+      || (b.silver - a.silver)
+      || (b.bronze - a.bronze)
+      || (b.expPts - a.expPts);
+}
+/** Tiêu chí nào tách `lo` khỏi `hi` khi hai đội bằng điểm. */
+function tieBreak(hi, lo){
+  if(hi.pts !== lo.pts) return null;
+  if(hi.gold   !== lo.gold)   return "HCV";
+  if(hi.silver !== lo.silver) return "HCB";
+  if(hi.bronze !== lo.bronze) return "HCĐ";
+  return "?";
 }
 
 function analyse(){
@@ -827,17 +1145,24 @@ function analyse(){
       // Nhờ vậy mỗi nội dung luôn chia đúng 6 + 4 + 2 + 1 = 13 điểm, không có số lẻ.
       [...rows].sort((x,y) => (y.exp - x.exp) || (y.score - x.score))
         .forEach((r,k) => { r.rank = k; r.pts = MEDAL[k]; r.conf = r.place[k]; });
+      const ov = rankOverride[ev.id];
+      if(ov) ov.forEach((tid,k) => {
+        const r = rows.find(x => x.team === tid);
+        if(r){ r.rank = k; r.pts = MEDAL[k]; r.conf = r.place[k]; }
+      });
     }
-    return {ev, entries, ready, rows};
+    return {ev, entries, ready, rows, manual: !!rankOverride[ev.id]};
   });
   const totals = {};
-  TEAMS.forEach(t => totals[t.id] = {pts:0, gold:0, expPts:0, done:0});
+  TEAMS.forEach(t => totals[t.id] = {pts:0, gold:0, silver:0, bronze:0, expPts:0, done:0});
   perEvent.forEach(pe => {
     if(!pe.ready) return;
     pe.rows.forEach(r => {
       totals[r.team].pts    += r.pts;        // điểm nguyên theo thứ hạng dự báo
       totals[r.team].expPts += r.exp;        // kỳ vọng xác suất, giữ để tham chiếu
       totals[r.team].gold   += (r.rank === 0 ? 1 : 0);
+      totals[r.team].silver += (r.rank === 1 ? 1 : 0);
+      totals[r.team].bronze += (r.rank === 2 ? 1 : 0);
       totals[r.team].done++;
     });
   });
@@ -858,14 +1183,31 @@ function renderAnalysis(){
   const {perEvent, totals} = analyse();
   const nameOf = id => TEAMS.find(t => t.id === id).name;
 
-  const ranked = TEAMS.map(t => ({t, ...totals[t.id]})).sort((a,b) => b.pts - a.pts);
+  const nOv = overrideCount();
+  const ovBox = document.getElementById("ovNote");
+  if(ovBox){
+    ovBox.hidden = nOv === 0;
+    ovBox.innerHTML = `Đang dùng thứ hạng bạn tự đặt cho <b>${nOv}</b> nội dung
+      (${Object.keys(rankOverride).map(id => "ND" + EVENTS.find(e=>e.id===id).no).join(", ")}).
+      Điểm nguyên tính theo thứ hạng đó; cột kỳ vọng vẫn là số của mô hình.
+      <button class="btn xsm" id="ovClear">Khôi phục toàn bộ dự báo</button>`;
+  }
+  const ranked = TEAMS.map(t => ({t, ...totals[t.id]})).sort(cmpStanding);
   document.getElementById("proj").innerHTML = ranked.map((r,i) => `
     <div class="pcard" style="--tc:var(${TEAM_VAR[r.t.id]})">
-      <div class="rk">Dự báo hạng ${i+1}</div>
+      <div class="rk">Dự báo hạng ${i+1}${(() => {
+        const up = ranked[i-1], dn = ranked[i+1];
+        const a = up && tieBreak(up, r), b = dn && tieBreak(r, dn);
+        if(b) return b === "?" ? ` <em class="tb warn">bằng điểm ${dn.t.name} — chưa phân định</em>`
+                               : ` <em class="tb">hơn ${dn.t.name} nhờ ${b}</em>`;
+        if(a) return a === "?" ? ` <em class="tb warn">bằng điểm ${up.t.name} — chưa phân định</em>`
+                               : ` <em class="tb">kém ${up.t.name} ở ${a}</em>`;
+        return "";
+      })()}</div>
       <h3>${r.t.name}</h3>
       <div class="big">${r.pts}<small>/ 54 điểm</small></div>
       <div class="kv">
-        <span>Huy chương dự báo · <b class="num">${r.gold}</b> HCV</span>
+        <span>Huy chương · <b class="num">${r.gold}</b> HCV · <b class="num">${r.silver}</b> HCB · <b class="num">${r.bronze}</b> HCĐ</span>
         <span>Kỳ vọng xác suất · <b class="num">${r.expPts.toFixed(1)}</b> điểm</span>
         <span>Nội dung đã xếp đủ · <b class="num">${r.done}/9</b></span>
         ${r.done < 9 ? `<span style="color:var(--warn)">Chưa tính ${9 - r.done} nội dung còn thiếu</span>` : ""}
@@ -892,8 +1234,8 @@ function renderAnalysis(){
       <thead><tr><th class="ev">Nội dung</th>
         ${TEAMS.map(t => `<th style="color:var(${TEAM_VAR[t.id]})">${t.name}</th>`).join("")}</tr></thead>
       <tbody>
-        ${perEvent.map(pe => `<tr>
-          <th class="ev"><span class="no">ND${pe.ev.no}</span> ${pe.ev.name}</th>
+        ${perEvent.map(pe => `<tr class="${pe.manual ? "manualrow" : ""}">
+          <th class="ev"><span class="no">ND${pe.ev.no}</span> ${pe.ev.name}${pe.manual ? ' <i class="mk" title="Thứ hạng do bạn đặt">tay</i>' : ""}</th>
           ${TEAMS.map(t => cell(pe, t.id)).join("")}
         </tr>`).join("")}
       </tbody>
@@ -925,7 +1267,9 @@ function renderAnalysis(){
     const order = pe.entries.map(e => e.team);
 
     const rankHtml = rows.map((r,i) => `
-      <div class="rrow ${focus === r.team ? "me" : ""}" style="--tc:var(${TEAM_VAR[r.team]})">
+      <div class="rrow ${focus === r.team ? "me" : ""}" style="--tc:var(${TEAM_VAR[r.team]})"
+           draggable="true" data-ev="${ev.id}" data-team="${r.team}" data-pos="${i}"
+           title="Kéo lên hoặc xuống để tự đặt lại thứ hạng nội dung này">
         <div class="pos">${i+1}</div>
         <div class="who">
           <div class="tm">${nameOf(r.team)} · <span class="num">${r.score.toFixed(2)}</span>đ
@@ -949,6 +1293,8 @@ function renderAnalysis(){
     return `<div class="ecard">
       <header>
         <span class="no">ND ${ev.no}</span><h3>${ev.name}</h3>
+        ${pe.manual ? `<span class="manualtag">thứ hạng chỉnh tay</span>
+          <button class="btn xsm rkreset" data-ev="${ev.id}">Khôi phục dự báo</button>` : ""}
         <span class="gap">Chênh lệch mạnh–yếu <b class="num">${spread}</b>đ · ${ev.note}</span>
       </header>
       <div class="ebody">
@@ -963,6 +1309,50 @@ function renderAnalysis(){
       </div>
     </div>`;
   }).join("");
+
+  wireRankDrag();
+}
+
+/* Kéo thả để tự đặt thứ hạng 4 đôi trong một nội dung. */
+let rkDrag = null;
+function wireRankDrag(){
+  const host = document.getElementById("events");
+  host.querySelectorAll(".rrow").forEach(row => {
+    row.addEventListener("dragstart", e => {
+      rkDrag = {ev: row.dataset.ev, team: row.dataset.team};
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("text/plain", row.dataset.team);
+      row.classList.add("dragging");
+    });
+    row.addEventListener("dragend", () => {
+      rkDrag = null;
+      host.querySelectorAll(".rrow").forEach(x => x.classList.remove("dragging","over"));
+    });
+    row.addEventListener("dragover", e => {
+      if(rkDrag && rkDrag.ev === row.dataset.ev){ e.preventDefault(); e.dataTransfer.dropEffect = "move"; }
+    });
+    row.addEventListener("dragenter", () => {
+      if(rkDrag && rkDrag.ev === row.dataset.ev && rkDrag.team !== row.dataset.team)
+        row.classList.add("over");
+    });
+    row.addEventListener("dragleave", () => row.classList.remove("over"));
+    row.addEventListener("drop", e => {
+      e.preventDefault();
+      if(!rkDrag || rkDrag.ev !== row.dataset.ev) return;
+      const evId = row.dataset.ev;
+      const cur = [...host.querySelectorAll(`.rrow[data-ev="${evId}"]`)].map(x => x.dataset.team);
+      const from = cur.indexOf(rkDrag.team), to = cur.indexOf(row.dataset.team);
+      if(from < 0 || to < 0 || from === to) return;
+      cur.splice(to, 0, cur.splice(from, 1)[0]);     // chuyển tới vị trí thả
+      rankOverride[evId] = cur;
+      saveOverrides(); renderAnalysis();
+    });
+  });
+  host.querySelectorAll(".rkreset").forEach(b => b.addEventListener("click", () => {
+    delete rankOverride[b.dataset.ev]; saveOverrides(); renderAnalysis();
+  }));
+  const clr = document.getElementById("ovClear");
+  if(clr) clr.addEventListener("click", () => { rankOverride = {}; saveOverrides(); renderAnalysis(); });
 }
 
 /* ===================== TAB SUẤT & VĐV ===================== */
@@ -991,6 +1381,725 @@ function renderRoster(){
 }
 </script>
 <script>
+/* ===================================================================
+   TÂM CƠ — dò các phương án xếp đôi cho một đội, đối thủ giữ nguyên
+   =================================================================== */
+function slotOK(ev, i, p){
+  return p.g === ev.slots[i] && (tierOK(ev, p) || excOK(ev, p));
+}
+function pairOK(ev, a, b){
+  if(a == null || b == null || a === b) return false;
+  const pa = byId.get(a), pb = byId.get(b);
+  if(!slotOK(ev,0,pa) || !slotOK(ev,1,pb)) return false;
+  if(ev.exc){
+    const bs = [pa,pb].filter(p => p.g === "M" && p.t === ev.exc.tier);
+    if(bs.length > 1) return false;
+    if(bs.some(p => p.s > ev.exc.maxScore)) return false;
+    if(bs.length && (pa.s + pb.s) > ev.exc.maxPair) return false;
+  }
+  return true;
+}
+function legalLineup(teamId, L){
+  const use = new Map();
+  for(const ev of EVENTS){
+    const [a,b] = L[ev.id];
+    if(!pairOK(ev,a,b)) return false;
+    if(byId.get(a).team !== teamId || byId.get(b).team !== teamId) return false;
+    use.set(a,(use.get(a)||0)+1); use.set(b,(use.get(b)||0)+1);
+  }
+  const roster = TEAMS.find(t => t.id === teamId).players;
+  for(const p of roster){ const c = use.get(p.id)||0; if(c < 1 || c > 2) return false; }
+  return true;
+}
+function lineupKey(L){ return EVENTS.map(e => [...L[e.id]].sort((x,y)=>x-y).join("-")).join("|"); }
+
+/** Các nội dung dùng đúng một cặp giống hệt nhau (chiêu "nhân đôi"). */
+function doubledEvents(L){
+  const seen = new Map(), out = [];
+  EVENTS.forEach(ev => {
+    const k = [...L[ev.id]].sort((x,y)=>x-y).join("-");
+    if(seen.has(k)) out.push([seen.get(k), ev.id]); else seen.set(k, ev.id);
+  });
+  return out;
+}
+
+/** Sinh ngẫu nhiên một đội hình hợp lệ, giữ nguyên các nội dung đã chốt trong `fixed`. */
+function randomLineup(teamId, tries = 300, fixed = null){
+  const roster = TEAMS.find(t => t.id === teamId).players.map(p => p.id);
+  const order = EVENTS.map(e => e.id)
+    .filter(e => !(fixed && fixed[e]))
+    .sort((a,b) =>
+      roster.filter(p => slotOK(EV_(a),0,byId.get(p))).length -
+      roster.filter(p => slotOK(EV_(b),0,byId.get(p))).length);
+  for(let attempt = 0; attempt < tries; attempt++){
+    const L = {}, use = new Map(roster.map(p => [p,0]));
+    let ok = true;
+    if(fixed) for(const [eid,pair] of Object.entries(fixed)){
+      L[eid] = [...pair];
+      pair.forEach(p => use.set(p, (use.get(p)||0) + 1));
+    }
+    if([...use.values()].some(v => v > 2)) return null;
+    for(const eid of order){
+      const ev = EV_(eid);
+      const c0 = shuffle(roster.filter(p => slotOK(ev,0,byId.get(p)) && use.get(p) < 2));
+      let done = false;
+      for(const a of c0){
+        const c1 = roster.filter(p => p !== a && use.get(p) < 2 && pairOK(ev,a,p));
+        if(!c1.length) continue;
+        const b = c1[(Math.random()*c1.length)|0];
+        L[eid] = [a,b]; use.set(a,use.get(a)+1); use.set(b,use.get(b)+1); done = true; break;
+      }
+      if(!done){ ok = false; break; }
+    }
+    if(!ok) continue;
+    for(const p of roster){                       // ai chưa được xếp thì chen vào chỗ của người đang đánh 2
+      if(use.get(p) !== 0) continue;
+      const spots = shuffle(EVENTS.flatMap(ev => [0,1].map(i => [ev.id,i])))
+        .filter(([e,i]) => !(fixed && fixed[e]) && slotOK(EV_(e),i,byId.get(p)) && use.get(L[e][i]) === 2);
+      for(const [e,i] of spots){
+        const n = [...L[e]], old = n[i]; n[i] = p;
+        if(pairOK(EV_(e),n[0],n[1])){ L[e] = n; use.set(old,use.get(old)-1); use.set(p,1); break; }
+      }
+    }
+    if(legalLineup(teamId,L)) return L;
+  }
+  return null;
+}
+const EV_ = id => EVENTS.find(e => e.id === id);
+function shuffle(a){ a = [...a]; for(let i=a.length-1;i>0;i--){ const j=(Math.random()*(i+1))|0; [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+/** Hàm mục tiêu: điểm kỳ vọng của đội, đối thủ lấy nguyên từ bảng hiện tại. */
+function makeScorer(teamId){
+  const others = TEAMS.filter(t => t.id !== teamId).map(t => t.id);
+  const idx = TEAMS.findIndex(t => t.id === teamId);
+  const cache = new Map();
+  return {
+    event(eid, sc){
+      const key = eid + ":" + sc.toFixed(3);
+      let v = cache.get(key);
+      if(v === undefined){
+        const arr = [];
+        TEAMS.forEach(t => arr.push(t.id === teamId ? sc : pairScore(t.id, eid)));
+        v = simulate(arr.map((s,i) => ({team:TEAMS[i].id, score:s})))[idx].exp;
+        cache.set(key, v);
+      }
+      return v;
+    },
+    total(L){
+      let s = 0;
+      for(const ev of EVENTS) s += this.event(ev.id, byId.get(L[ev.id][0]).s + byId.get(L[ev.id][1]).s);
+      return s;
+    }
+  };
+}
+
+/** Leo đồi dốc nhất trong không gian đội hình hợp lệ thoả ràng buộc. */
+function climb(teamId, L0, scorer, allow){
+  const roster = TEAMS.find(t => t.id === teamId).players.map(p => p.id);
+  const slots = EVENTS.flatMap(e => [0,1].map(i => [e.id,i]));
+  let cur = {...L0}, curv = scorer.total(cur);
+  for(let guard = 0; guard < 40; guard++){
+    let bestC = null, bestV = curv;
+    const test = c => {
+      if(!legalLineup(teamId,c) || !allow(c)) return;
+      const v = scorer.total(c);
+      if(v > bestV + 1e-9){ bestV = v; bestC = c; }
+    };
+    for(const [e,i] of slots) for(const p of roster){
+      if(p === cur[e][i]) continue;
+      const c = {...cur}; const n = [...cur[e]]; n[i] = p; c[e] = n; test(c);
+    }
+    for(let x = 0; x < slots.length; x++) for(let y = x+1; y < slots.length; y++){
+      const [e1,i1] = slots[x], [e2,i2] = slots[y]; const c = {...cur};
+      if(e1 === e2){ const n = [...cur[e1]]; [n[i1],n[i2]] = [n[i2],n[i1]]; c[e1] = n; }
+      else { const n1 = [...cur[e1]], n2 = [...cur[e2]]; [n1[i1],n2[i2]] = [n2[i2],n1[i1]]; c[e1] = n1; c[e2] = n2; }
+      test(c);
+    }
+    if(!bestC) break;
+    cur = bestC; curv = bestV;
+  }
+  return {L:cur, v:curv};
+}
+
+
+/** Đôi mạnh nhất đội có thể tung ra ở một nội dung (bỏ qua ràng buộc số suất). */
+const _bestPair = new Map();
+function bestPairScore(teamId, eid){
+  const key = teamId + ":" + eid;
+  if(_bestPair.has(key)) return _bestPair.get(key);
+  const ps = TEAMS.find(t => t.id === teamId).players;
+  const ev = EV_(eid);
+  let best = 0;
+  for(let i = 0; i < ps.length; i++) for(let j = 0; j < ps.length; j++){
+    if(i === j) continue;
+    if(pairOK(ev, ps[i].id, ps[j].id)) best = Math.max(best, ps[i].s + ps[j].s);
+  }
+  _bestPair.set(key, best);
+  return best;
+}
+/** Hạng 4 vì bị bỏ chủ động (tung đôi yếu hơn hẳn khả năng) hay vì thua thế? */
+const SAC_GAP = 0.80;
+function sacKind(teamId, eid, row){
+  if(row.rank !== 3) return "";
+  return (bestPairScore(teamId, eid) - row.score) >= SAC_GAP ? "drop" : "out";
+}
+
+
+/** Xếp tiêu chuẩn: mỗi nội dung lấy đôi mạnh nhất còn khả dụng.
+    Duyệt nội dung bị trần hạng siết chặt trước để không bị kẹt ở cuối. */
+function greedyLineup(teamId, start){
+  const order = ["E6","E5","E9","E8","E4","E3","E2","E7","E1"];
+  const team = TEAMS.find(t => t.id === teamId);
+  const L = {};
+  EVENTS.forEach(ev => L[ev.id] = (start && start[ev.id]) ? [...start[ev.id]] : [null,null]);
+  const useMap = () => {
+    const m = new Map();
+    EVENTS.forEach(ev => L[ev.id].forEach(x => { if(x != null) m.set(x, (m.get(x)||0)+1); }));
+    return m;
+  };
+  order.forEach(evId => {
+    const ev = EV_(evId);
+    [0,1].forEach(i => {
+      if(L[evId][i] != null) return;
+      const u = useMap();
+      const partner = L[evId][1-i];
+      const cand = team.players.filter(p =>
+        slotOK(ev,i,p) && p.id !== partner && (u.get(p.id)||0) < 2);
+      if(!cand.length) return;
+      cand.sort((a,b) => ((u.get(a.id)||0) - (u.get(b.id)||0)) || (b.s - a.s));
+      let pick = cand[0];
+      if(ev.exc){
+        const other = partner ? byId.get(partner) : null;
+        const fit = cand.find(p => {
+          const isB = p.g === "M" && p.t === ev.exc.tier;
+          if(isB && p.s > ev.exc.maxScore) return false;
+          if(other){
+            const oB = other.g === "M" && other.t === ev.exc.tier;
+            if(isB && oB) return false;
+            if((isB || oB) && (other.s + p.s) > ev.exc.maxPair) return false;
+          }
+          return true;
+        });
+        if(fit) pick = fit;
+      }
+      L[evId][i] = pick.id;
+    });
+  });
+  return L;
+}
+
+/** Đổi chỗ hai VĐV giữa hai ô có hợp lệ không? (số nội dung mỗi người không đổi) */
+function canSwap(teamId, L, a, b){
+  if(a[0] === b[0]) return false;                       // đổi trong cùng một đôi thì vô nghĩa
+  if(L[a[0]][a[1]] === L[b[0]][b[1]]) return false;     // cùng một người, đổi cũng như không
+  const c = {}; EVENTS.forEach(ev => c[ev.id] = [...L[ev.id]]);
+  const t = c[a[0]][a[1]]; c[a[0]][a[1]] = c[b[0]][b[1]]; c[b[0]][b[1]] = t;
+  return legalLineup(teamId, c);
+}
+/** Thay VĐV ở một ô bằng người khác có hợp lệ không? */
+function canPlace(teamId, L, slot, pid){
+  if(L[slot[0]][slot[1]] === pid) return false;
+  const c = {}; EVENTS.forEach(ev => c[ev.id] = [...L[ev.id]]);
+  c[slot[0]][slot[1]] = pid;
+  return legalLineup(teamId, c);
+}
+
+/** Chấm điểm nguyên + thứ hạng của một phương án trên bảng hiện tại. */
+function gradeOption(teamId, L){
+  const rows = EVENTS.map(ev => {
+    const entries = TEAMS.map(t => ({
+      team: t.id,
+      score: t.id === teamId ? byId.get(L[ev.id][0]).s + byId.get(L[ev.id][1]).s : pairScore(t.id, ev.id)
+    }));
+    const sim = simulate(entries);
+    [...sim].sort((a,b) => (b.exp - a.exp) || (b.score - a.score))
+            .forEach((r,k) => { r.rank = k; r.pts = MEDAL[k]; r.conf = r.place[k]; });
+    const me = sim.find(r => r.team === teamId);
+    return {ev, me};
+  });
+  return {
+    rows,
+    pts: rows.reduce((a,r) => a + r.me.pts, 0),
+    exp: rows.reduce((a,r) => a + r.me.exp, 0),
+    doubles: doubledEvents(L),
+    L
+  };
+}
+</script>
+<script>
+/* ===================== TÂM CƠ — chạy tìm & hiển thị ===================== */
+/* Mỗi lần dò mang một số thứ tự. Đổi đội hoặc bấm dò lại sẽ tăng số này, và
+   lần dò cũ đang chạy dở sẽ tự dừng thay vì ghi đè kết quả của lần mới. */
+let tcGen = 0;
+let tamcoBusy = false;
+
+function opponentsReady(teamId){
+  return TEAMS.filter(t => t.id !== teamId)
+              .every(t => EVENTS.every(ev => pairScore(t.id, ev.id) != null));
+}
+
+function lockedPairs(teamId){
+  const f = {};
+  EVENTS.forEach(ev => {
+    if(isLocked(teamId, ev.id) && lineup[teamId][ev.id].every(x => x != null))
+      f[ev.id] = [...lineup[teamId][ev.id]];
+  });
+  return Object.keys(f).length ? f : null;
+}
+/* Chiêu nhân đôi chỉ có nghĩa ở ND3 + ND4: hai nội dung duy nhất cùng trần hạng A
+   mà điều lệ cho "đội tự bố trí". Và phải là cặp hạng A thì mới đáng đánh đổi. */
+function maleA(teamId){
+  return TEAMS.find(t => t.id === teamId).players.filter(p => p.g === "M" && p.t === "A");
+}
+function isAPair(pair){ return pair.every(id => byId.get(id).t === "A"); }
+function isADouble(L){
+  const d = doubledEvents(L);
+  if(d.length !== 1) return false;                       // chỉ được trùng đúng một chỗ
+  const [x,y] = d[0];
+  return x === "E3" && y === "E4" && isAPair(L.E3);
+}
+/** Mầm cho nhánh nhân đôi: ép ND3 = ND4 = một cặp hạng A. */
+function seedADouble(teamId, fixed, extra){
+  const f = {...(fixed || {}), ...(extra || {})};
+  if(f.E3 && f.E4){
+    if(String(f.E3) !== String(f.E4) || !isAPair(f.E3)) return null;
+  } else if(f.E3 || f.E4){
+    const src = f.E3 || f.E4;
+    if(!isAPair(src)) return null;
+    f.E3 = [...src]; f.E4 = [...src];
+  } else {
+    const As = maleA(teamId);
+    if(As.length < 2) return null;
+    const [a,b] = shuffle(As).slice(0,2);
+    if(!pairOK(EV_("E3"), a.id, b.id)) return null;
+    f.E3 = [a.id, b.id]; f.E4 = [a.id, b.id];
+  }
+  return randomLineup(teamId, 300, f);
+}
+/** Vì sao đội này không nhân đôi cặp A được. */
+function aWhy(teamId){
+  const nm = TEAMS.find(t => t.id === teamId).name;
+  const As = maleA(teamId);
+  if(As.length < 2)
+    return `${nm} chỉ có ${As.length} nam hạng A${As.length ? " (" + As.map(p=>p.n).join(", ") + ")" : ""} nên không ghép được cặp A để nhân đôi.`;
+  if(isLocked(teamId,"E3") || isLocked(teamId,"E4"))
+    return `ND3 hoặc ND4 của ${nm} đang khoá bằng đôi không phải cặp A. Mở khoá rồi dò lại nếu muốn xét chiêu này.`;
+  return `Không tìm được đội hình hợp lệ nào cho ${nm} khi ép cặp A đánh cả ND3 lẫn ND4.`;
+}
+
+/**
+ * Dò các phương án nhân đôi cặp A.
+ * Giai đoạn 1: dò tự do, tìm phương án điểm cao nhất.
+ * Giai đoạn 2: với TỪNG nội dung có thể bỏ, ép bỏ đúng nội dung đó rồi dò tiếp,
+ *              để người dùng thấy đủ các lựa chọn đánh đổi chứ không chỉ một.
+ */
+function searchADoubles(teamId, restarts, gen, onDone){
+  const scorer = makeScorer(teamId);
+  const fixed = lockedPairs(teamId);
+  const keepsLocks = L => !fixed || Object.entries(fixed)
+    .every(([e,p]) => L[e][0] === p[0] && L[e][1] === p[1]);
+  const baseAllow = L => isADouble(L) && keepsLocks(L);
+  const roster = TEAMS.find(t => t.id === teamId).players;
+  const DROPPABLE = EVENTS.filter(e => e.id !== "E3" && e.id !== "E4").map(e => e.id);
+
+  const pairSc = (L,eid) => byId.get(L[eid][0]).s + byId.get(L[eid][1]).s;
+  const dropOK = (L,eid) => pairSc(L,eid) <= bestPairScore(teamId,eid) - SAC_GAP;
+
+  /** Mọi đôi hợp lệ ở `eid` yếu hơn đôi mạnh nhất ít nhất SAC_GAP điểm. */
+  function weakPairs(eid){
+    const ev = EV_(eid), cap = bestPairScore(teamId, eid) - SAC_GAP, out = [];
+    for(let x = 0; x < roster.length; x++) for(let y = 0; y < roster.length; y++){
+      if(x === y) continue;
+      const a = roster[x], b = roster[y];
+      if(a.s + b.s > cap) continue;
+      if(pairOK(ev, a.id, b.id)) out.push([a.id, b.id]);
+    }
+    return out;
+  }
+  /** Sinh hẳn một đội hình mới quanh đôi yếu đã chọn ở `eid`. */
+  function dropSeed(eid){
+    const wp = weakPairs(eid);
+    if(!wp.length) return null;
+    const pick = wp[(Math.random()*wp.length)|0];
+    return seedADouble(teamId, fixed, {[eid]: pick});
+  }
+
+  /** Đổi đôi ở `eid` sang đôi hợp lệ yếu nhất, giữ nguyên phần còn lại. */
+  function weaken(L, eid){
+    const ev = EV_(eid);
+    let best = null, bestSc = Infinity;
+    for(const a of roster) for(const b of roster){
+      if(!pairOK(ev, a.id, b.id) || a.s + b.s >= bestSc) continue;
+      const c = {}; EVENTS.forEach(e => c[e.id] = [...L[e.id]]);
+      c[eid] = [a.id, b.id];
+      if(!legalLineup(teamId,c) || !baseAllow(c)) continue;
+      bestSc = a.s + b.s; best = c;
+    }
+    return best;
+  }
+
+  const pool = [];                       // phương án thu được ở giai đoạn 1
+  const all  = new Map();                // mọi phương án hợp lệ tìm được
+  const jobs = [];                       // hàng đợi việc
+  for(let k = 0; k < restarts; k++) jobs.push({kind:"free"});
+
+  let phase2 = false, done = 0;
+  const total = () => jobs.length;
+
+  function runJob(job){
+    let L, allow = baseAllow;
+    if(job.kind === "free"){
+      L = seedADouble(teamId, fixed);
+    } else {
+      allow = x => baseAllow(x) && dropOK(x, job.eid);
+      L = job.seed ? weaken(job.seed, job.eid) : dropSeed(job.eid);
+      if(L && !dropOK(L, job.eid)) L = null;      // không thể làm yếu nội dung này
+    }
+    if(!L || !allow(L)) return;
+    const r = climb(teamId, L, scorer, allow);
+    if(!allow(r.L)) return;
+    all.set(lineupKey(r.L), r.L);
+    if(job.kind === "free") pool.push({L:r.L, v:r.v});
+  }
+
+  (function chunk(){
+    if(gen !== tcGen) return;
+    const t0 = performance.now();
+    while(done < jobs.length && performance.now() - t0 < 45) runJob(jobs[done++]);
+
+    if(done >= jobs.length && !phase2){          // hết giai đoạn 1 -> xếp việc giai đoạn 2
+      phase2 = true;
+      pool.sort((a,b) => b.v - a.v);
+      const seeds = pool.slice(0, 3).map(x => x.L);
+      DROPPABLE.forEach(eid => {
+        seeds.forEach(seed => jobs.push({kind:"drop", eid, seed}));   // làm yếu từ phương án tốt
+        for(let k = 0; k < 4; k++) jobs.push({kind:"drop", eid});      // và sinh mới quanh nội dung đó
+      });
+    }
+    const prog = document.getElementById("tcProgress");
+    if(prog) prog.style.width = Math.round(done / Math.max(total(),1) * 100) + "%";
+    if(done < jobs.length) return setTimeout(chunk, 0);
+
+    // Gộp theo NỘI DUNG BỎ CHỦ ĐỘNG — mỗi thẻ là một lựa chọn đánh đổi khác nhau.
+    const bySig = new Map();
+    [...all.values()].map(L => gradeOption(teamId, L)).forEach(o => {
+      o.drops = o.rows.filter(r => sacKind(teamId, r.ev.id, r.me) === "drop").map(r => r.ev.id);
+      const sig = o.drops.join(",") || "none";
+      const cur = bySig.get(sig);
+      if(!cur || o.pts > cur.pts || (o.pts === cur.pts && o.exp > cur.exp)) bySig.set(sig, o);
+    });
+    // Loại phương án "lép vế": bỏ nhiều nội dung hơn mà điểm không cao hơn
+    // một phương án chỉ bỏ tập con của nó.
+    const list = [...bySig.values()];
+    const subset = (a,b) => a.every(x => b.includes(x)) && a.length < b.length;
+    const kept = list.filter(o => !list.some(q => q !== o && q.pts >= o.pts && subset(q.drops, o.drops)));
+    if(gen === tcGen)
+      onDone(kept.sort((a,b) => (b.pts - a.pts) || (a.drops.length - b.drops.length) || (b.exp - a.exp)));
+  })();
+}
+
+/* ---------- Mục 1: thẻ phương án nhân đôi ---------- */
+function optionCard(teamId, o, n){
+  const teamName = TEAMS.find(t => t.id === teamId).name;
+  const dbl = new Set(o.doubles.flat());
+  const kinds = new Map(o.rows.map(r => [r.ev.id, sacKind(teamId, r.ev.id, r.me)]));
+  const give = o.rows.filter(r => kinds.get(r.ev.id) === "drop");
+  const rows = o.rows.map(r => {
+    const [a,b] = o.L[r.ev.id], pa = byId.get(a), pb = byId.get(b);
+    const k = kinds.get(r.ev.id);
+    const gap = bestPairScore(teamId, r.ev.id) - r.me.score;
+    const note = k === "drop" ? `<span class="why" title="Đôi mạnh nhất có thể là ${bestPairScore(teamId,r.ev.id).toFixed(2)}">bỏ &minus;${gap.toFixed(2)}</span>`
+               : k === "out"  ? `<span class="why out">thua thế</span>` : "";
+    return `<tr class="${k} ${dbl.has(r.ev.id) ? "dbl" : ""}">
+      <td class="nd">ND${r.ev.no}${dbl.has(r.ev.id) ? '<i title="Cặp nhân đôi">×2</i>' : ""}</td>
+      <td class="pr">${pa.n} <span class="tier" data-t="${pa.t}">${pa.t}</span>
+                    <b>+</b> ${pb.n} <span class="tier" data-t="${pb.t}">${pb.t}</span>${note}</td>
+      <td class="sc num">${r.me.score.toFixed(2)}</td>
+      <td class="pt"><b class="num">${r.me.pts}</b>
+        <span class="pill ${MEDAL_CLASS[r.me.rank]}">${MEDAL_LABEL[r.me.rank]}</span></td>
+    </tr>`;
+  }).join("");
+  return `<article class="tcopt">
+    <header>
+      <span class="ix">Bỏ ${give.length ? give.map(r => "ND" + r.ev.no).join(" + ") : "không nội dung nào"}</span>
+      <b class="num big">${o.pts}</b><span class="of">/ 54 điểm</span>
+      <span class="ex">kỳ vọng ${o.exp.toFixed(2)}</span>
+      <span class="chip cap">Nhân đôi ND3+ND4</span>
+      <span class="spacer"></span>
+      <button class="btn apply" data-apply='${JSON.stringify(o.L)}' data-team="${teamId}">Áp dụng cho ${teamName}</button>
+    </header>
+    <div class="give${give.length ? "" : " none"}">Bỏ chủ động: ${give.length ? give.map(r => `<b>ND${r.ev.no} ${r.ev.name}</b>`).join(" · ") : "không bỏ nội dung nào"}</div>
+    <table>${rows}</table>
+  </article>`;
+}
+
+/* ---------- Mục 2: bảng tiêu chuẩn, sửa trực tiếp ---------- */
+let stdL = null, stdTeam = null, stdSel = null;
+
+function lockSeed(teamId){
+  const f = {};
+  EVENTS.forEach(ev => {
+    if(isLocked(teamId, ev.id) && lineup[teamId][ev.id].every(x => x != null))
+      f[ev.id] = [...lineup[teamId][ev.id]];
+  });
+  return f;
+}
+function stdGrade(){ return gradeOption(stdTeam, stdL); }
+
+/** Những ô có thể đổi chỗ với ô đang chọn, và những người dự bị có thể thay vào. */
+function swapTargets(){
+  if(!stdSel) return {slots:[], bench:[]};
+  const slots = [];
+  EVENTS.forEach(ev => [0,1].forEach(i => {
+    if(canSwap(stdTeam, stdL, stdSel, [ev.id,i])) slots.push(ev.id + ":" + i);
+  }));
+  const bench = TEAMS.find(t => t.id === stdTeam).players
+    .filter(p => canPlace(stdTeam, stdL, stdSel, p.id)).map(p => p.id);
+  return {slots, bench};
+}
+
+function standardHTML(){
+  const teamName = TEAMS.find(t => t.id === stdTeam).name;
+  const g = stdGrade();
+  const {slots, bench} = swapTargets();
+  const selKey = stdSel ? stdSel.join(":") : null;
+
+  const rows = g.rows.map(r => {
+    const cells = [0,1].map(i => {
+      const p = byId.get(stdL[r.ev.id][i]);
+      const key = r.ev.id + ":" + i;
+      const cls = key === selKey ? "sel" : slots.includes(key) ? "cand" : "";
+      return `<td class="sl"><button class="tcslot ${cls}" data-e="${r.ev.id}" data-i="${i}"
+        data-t="${p.t}" draggable="true"
+        title="${p.n} · hạng ${p.t} · ${p.s.toFixed(2)} điểm — kéo sang một VĐV cùng hạng để đổi chỗ">
+        <span class="tier" data-t="${p.t}">${p.t}</span><span class="nm">${p.n}</span>
+        <span class="sv">${p.s.toFixed(2)}</span></button></td>`;
+    }).join("");
+    return `<tr>
+      <td class="nd">ND${r.ev.no}<i>${r.ev.name.replace(/^Đôi /,"")}</i></td>
+      <td class="gut"></td>
+      ${cells}
+      <td class="sc num">${r.me.score.toFixed(2)}</td>
+      <td class="pt"><b class="num">${r.me.pts}</b>
+        <span class="pill ${MEDAL_CLASS[r.me.rank]}">${MEDAL_LABEL[r.me.rank]}</span></td>
+    </tr>`;
+  }).join("");
+
+  const benchHTML = !stdSel ? "" : `<div class="bench">
+      <span class="lb">Thay bằng</span>
+      ${bench.length ? bench.map(id => { const p = byId.get(id);
+          const c = EVENTS.filter(ev => stdL[ev.id].includes(id)).length;
+          return `<button class="bchip" data-p="${id}" title="${p.n} · ${p.s.toFixed(2)} điểm · đang đánh ${c} nội dung">
+            <span class="tier" data-t="${p.t}">${p.t}</span>${p.n}<i>${c ? c + " ND" : "chưa xếp"}</i></button>`;
+        }).join("") : `<em>không ai thay được ô này mà vẫn giữ đủ luật</em>`}
+      <button class="btn xsm" id="stdCancel">Bỏ chọn</button>
+    </div>`;
+
+  return `<article class="stdbox">
+    <header>
+      <span class="ix">Xếp tiêu chuẩn</span>
+      <b class="num big">${g.pts}</b><span class="of">/ 54 điểm</span>
+      <span class="ex">kỳ vọng ${g.exp.toFixed(2)}</span>
+      <span class="spacer"></span>
+      <button class="btn xsm" id="stdReset">Xếp lại từ đầu</button>
+      <button class="btn apply" id="stdApply">Áp dụng cho ${teamName}</button>
+    </header>
+    <div class="stdwrap">
+      <svg class="swaparrows" aria-hidden="true"></svg>
+      <table class="stdtab"><tbody>${rows}</tbody></table>
+    </div>
+    ${benchHTML}
+  </article>`;
+}
+
+function drawArrows(){
+  const wrap = document.querySelector(".stdwrap"), svg = document.querySelector(".swaparrows");
+  if(!wrap || !svg) return;
+  const R = wrap.getBoundingClientRect();
+  svg.setAttribute("width", R.width); svg.setAttribute("height", R.height);
+  svg.setAttribute("viewBox", `0 0 ${R.width} ${R.height}`);
+  const from = wrap.querySelector(".tcslot.sel");
+  const cands = [...wrap.querySelectorAll(".tcslot.cand")];
+  if(!from || !cands.length){ svg.innerHTML = ""; return; }
+  const gut = wrap.querySelector("td.gut");        // rãnh trống để luồn mũi tên
+  const gr = gut ? gut.getBoundingClientRect() : null;
+  const GX = gr ? (gr.left - R.left + gr.width/2) : 17;
+  const fr = from.getBoundingClientRect();
+  const fx = fr.left - R.left, fy = fr.top - R.top + fr.height/2;
+  const paths = cands.map(el => {
+    const r = el.getBoundingClientRect();
+    const tx = r.left - R.left, ty = r.top - R.top + r.height/2;
+    return `<path d="M${fx - 4} ${fy} C ${GX} ${fy}, ${GX} ${ty}, ${tx - 6} ${ty}"/>`;
+  }).join("");
+  svg.innerHTML =
+    `<defs><marker id="tcArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5"
+       orient="auto"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>
+     <g class="arr" marker-end="url(#tcArrow)">${paths}</g>`;
+}
+
+/* Kéo thả: chỉ cho thả vào VĐV CÙNG HẠNG và phép đổi phải hợp lệ. */
+let dragFrom = null, dragEndAt = 0;
+
+function markDropTargets(host, from){
+  const src = byId.get(stdL[from[0]][from[1]]);
+  host.querySelectorAll(".tcslot").forEach(el => {
+    const to = [el.dataset.e, +el.dataset.i];
+    const p = byId.get(stdL[to[0]][to[1]]);
+    const ok = p.t === src.t && canSwap(stdTeam, stdL, from, to);
+    el.classList.toggle("drop", ok);
+  });
+}
+function applySwap(a, b){
+  const t = stdL[a[0]][a[1]];
+  stdL[a[0]][a[1]] = stdL[b[0]][b[1]];
+  stdL[b[0]][b[1]] = t;
+  stdSel = null;
+  paintStandard();
+}
+
+function wireDrag(host){
+  host.querySelectorAll(".tcslot").forEach(btn => {
+    btn.addEventListener("dragstart", e => {
+      dragFrom = [btn.dataset.e, +btn.dataset.i];
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("text/plain", dragFrom.join(":"));
+      btn.classList.add("dragging");
+      stdSel = null;                                   // gỡ chế độ chọn bằng bấm
+      host.querySelectorAll(".tcslot").forEach(x => x.classList.remove("sel","cand"));
+      const svg = host.querySelector(".swaparrows"); if(svg) svg.innerHTML = "";
+      markDropTargets(host, dragFrom);
+    });
+    btn.addEventListener("dragend", () => {
+      dragFrom = null; dragEndAt = Date.now();
+      host.querySelectorAll(".tcslot").forEach(x => x.classList.remove("dragging","drop","over"));
+    });
+    btn.addEventListener("dragover", e => {
+      if(dragFrom && btn.classList.contains("drop")){ e.preventDefault(); e.dataTransfer.dropEffect = "move"; }
+    });
+    btn.addEventListener("dragenter", () => { if(btn.classList.contains("drop")) btn.classList.add("over"); });
+    btn.addEventListener("dragleave", () => btn.classList.remove("over"));
+    btn.addEventListener("drop", e => {
+      e.preventDefault();
+      if(!dragFrom || !btn.classList.contains("drop")) return;
+      applySwap(dragFrom, [btn.dataset.e, +btn.dataset.i]);
+    });
+  });
+}
+
+function wireStandard(host){
+  wireDrag(host);
+  host.querySelectorAll(".tcslot").forEach(btn => btn.addEventListener("click", () => {
+    if(Date.now() - dragEndAt < 250) return;           // vừa thả xong, bỏ qua cú bấm kèm theo
+    const key = [btn.dataset.e, +btn.dataset.i];
+    if(stdSel && stdSel[0] === key[0] && stdSel[1] === key[1]) stdSel = null;
+    else if(stdSel && canSwap(stdTeam, stdL, stdSel, key)){ applySwap(stdSel, key); return; }
+    else stdSel = key;
+    paintStandard();
+  }));
+  host.querySelectorAll(".bchip").forEach(btn => btn.addEventListener("click", () => {
+    if(!stdSel) return;
+    stdL[stdSel[0]][stdSel[1]] = +btn.dataset.p;
+    stdSel = null; paintStandard();
+  }));
+  const c = host.querySelector("#stdCancel");
+  if(c) c.addEventListener("click", () => { stdSel = null; paintStandard(); });
+  host.querySelector("#stdReset").addEventListener("click", () => {
+    stdL = greedyLineup(stdTeam, lockSeed(stdTeam)); stdSel = null; paintStandard();
+  });
+  host.querySelector("#stdApply").addEventListener("click", e => {
+    EVENTS.forEach(ev => setPair(stdTeam, ev.id, stdL[ev.id]));
+    refresh(); renderAnalysis();
+    e.target.textContent = "Đã áp dụng"; e.target.disabled = true;
+  });
+}
+
+function paintStandard(){
+  const host = document.getElementById("tcStd");
+  if(!host) return;
+  host.innerHTML = standardHTML();
+  wireStandard(host);
+  requestAnimationFrame(drawArrows);
+}
+window.addEventListener("resize", () => { if(document.querySelector(".stdwrap")) drawArrows(); });
+
+/* ---------- vì sao không nhân đôi được ---------- */
+function aWhy(teamId){
+  const nm = TEAMS.find(t => t.id === teamId).name;
+  const As = maleA(teamId);
+  if(As.length < 2)
+    return `${nm} chỉ có ${As.length} nam hạng A${As.length ? " (" + As.map(p=>p.n).join(", ") + ")" : ""} nên không ghép được cặp A để nhân đôi.`;
+  if(isLocked(teamId,"E3") || isLocked(teamId,"E4"))
+    return `ND3 hoặc ND4 của ${nm} đang khoá bằng đôi không phải cặp A. Mở khoá rồi dò lại nếu muốn xét chiêu này.`;
+  return `Không tìm được đội hình hợp lệ nào cho ${nm} khi ép cặp A đánh cả ND3 lẫn ND4.`;
+}
+
+function renderTamco(){
+  const gen = ++tcGen;
+  tamcoBusy = true;
+  const teamId = document.getElementById("tcTeam").value;
+  const host = document.getElementById("tcBody");
+  if(!opponentsReady(teamId)){
+    tamcoBusy = false;
+    host.innerHTML = `<div class="tcnote">Ba đội còn lại chưa xếp đủ đôi, chưa tính tương quan được.
+      <button class="btn primary" id="tcFill">Xếp nháp cho 3 đội còn lại</button></div>`;
+    document.getElementById("tcFill").addEventListener("click", () => {
+      autoFillTeams(TEAMS.filter(t => t.id !== teamId).map(t => t.id));
+      renderTamco();
+    });
+    return;
+  }
+  const nLk = lockCount(teamId);
+  const restarts = +document.getElementById("tcDepth").value;
+  const teamName = TEAMS.find(t => t.id === teamId).name;
+
+  // Mục 2 là bảng tất định nên vẽ ngay, không phải chờ dò.
+  stdTeam = teamId; stdSel = null;
+  stdL = greedyLineup(teamId, lockSeed(teamId));
+
+  host.innerHTML =
+    (nLk ? `<div class="tcverdict lock">Đang giữ nguyên <b>${nLk}</b> nội dung đã khoá của ${teamName}; mục 1 chỉ dò các nội dung còn lại.</div>` : "") +
+    `<div id="tcVerdict"></div>
+     <section class="tcsec">
+       <h3>1 · Nhân đôi cặp A ở ND3 + ND4</h3>
+       <p class="tcinfo">Chỉ xét đúng một chiêu: đưa <b>cùng một cặp hạng A</b> vào cả ND3 và ND4
+         (đánh dấu <i class="x2">×2</i>) — hai nội dung duy nhất cùng trần hạng A mà điều lệ cho
+         "đội tự bố trí". Mỗi người vẫn đúng 2 nội dung nên hợp luật, nhưng buộc phải bỏ nội dung khác.
+         <b>Đỏ</b> = bỏ chủ động. <b>Xám</b> = thua thế (đã tung đôi mạnh nhất mà vẫn hạng 4).</p>
+       <div id="tcSec1"><div class="tcnote">Đang dò phương án…<div class="tcbar"><i id="tcProgress"></i></div></div></div>
+     </section>
+     <section class="tcsec">
+       <h3>2 · Xếp tiêu chuẩn</h3>
+       <p class="tcinfo">Mỗi nội dung lấy đôi mạnh nhất còn khả dụng, lần lượt từ trên xuống.
+         <b>Kéo thả</b> một VĐV sang VĐV <b>cùng hạng</b> để đổi chỗ nhanh — chỉ những ô cùng hạng và hợp lệ mới nhận.
+         Hoặc <b>bấm</b> vào một VĐV để xem đủ mọi ô đổi chỗ được, kể cả khác hạng — các ô sáng lên kèm mũi tên, bấm tiếp để đổi.
+         Hàng "Thay bằng" liệt kê người còn suất có thể vào thẳng ô đó.</p>
+       <div id="tcStd"></div>
+     </section>`;
+  paintStandard();
+
+  searchADoubles(teamId, restarts, gen, dbl => {
+    if(gen !== tcGen) return;
+    tamcoBusy = false;
+    const sec1 = document.getElementById("tcSec1");
+    sec1.innerHTML = dbl.length ? dbl.slice(0,8).map((o,i) => optionCard(teamId,o,i+1)).join("")
+                                : `<div class="tcnote">${aWhy(teamId)}</div>`;
+    sec1.querySelectorAll("button.apply").forEach(b =>
+      b.addEventListener("click", () => {
+        const L = JSON.parse(b.dataset.apply);
+        EVENTS.forEach(ev => setPair(b.dataset.team, ev.id, L[ev.id]));
+        refresh(); renderAnalysis();
+        b.textContent = "Đã áp dụng"; b.disabled = true;
+      }));
+    const capD = dbl.length ? dbl[0].pts : null, capS = stdGrade().pts;
+    document.getElementById("tcVerdict").innerHTML =
+      capD == null ? ""
+      : capD > capS ? `<div class="tcverdict win">Nhân đôi tốt nhất được <b>${capD}</b> điểm, xếp tiêu chuẩn được <b>${capS}</b>. Khoảng cách ${capD - capS} điểm này thường thu hẹp được bằng vài lần đổi chỗ ở mục 2 — thử trước khi quyết dùng chiêu.</div>`
+      : capD === capS ? `<div class="tcverdict same">Nhân đôi và xếp tiêu chuẩn đều <b>${capS}</b> điểm — không cần dùng chiêu, chọn mục 2 cho an toàn về luật.</div>`
+      : `<div class="tcverdict lose">Nhân đôi chỉ được <b>${capD}</b> điểm, kém xếp tiêu chuẩn (<b>${capS}</b>) — không nên dùng.</div>`;
+  });
+}
+</script>
+<script>
 /* ===================== ĐIỀU PHỐI ===================== */
 let refreshTimer = null;
 function refresh(){
@@ -1002,7 +2111,7 @@ function refresh(){
 }
 
 /* --- tabs --- */
-const TABS = [["tabBoard","viewBoard"],["tabAnalysis","viewAnalysis"],["tabRoster","viewRoster"]];
+const TABS = [["tabBoard","viewBoard"],["tabAnalysis","viewAnalysis"],["tabRoster","viewRoster"],["tabTamco","viewTamco"]];
 TABS.forEach(([btnId, viewId]) => {
   document.getElementById(btnId).addEventListener("click", () => {
     TABS.forEach(([b,v]) => {
@@ -1011,6 +2120,7 @@ TABS.forEach(([btnId, viewId]) => {
       document.getElementById(v).hidden = !on;
     });
     if(viewId === "viewAnalysis") renderAnalysis();
+    if(viewId === "viewTamco") renderTamco();
     try{ localStorage.setItem(KEY + "_tab", btnId); }catch(e){}
   });
 });
@@ -1024,7 +2134,11 @@ document.getElementById("kSlider").addEventListener("input", e => {
 });
 
 document.getElementById("btnClear").addEventListener("click", () => {
-  lineup = blankLineup();
+  TEAMS.forEach(t => EVENTS.forEach(e => setPair(t.id, e.id, [null,null])));
+  refresh();
+});
+document.getElementById("btnUnlock").addEventListener("click", () => {
+  locks = blankLocks();
   refresh();
 });
 
@@ -1032,42 +2146,17 @@ document.getElementById("btnClear").addEventListener("click", () => {
  * Xếp nháp: điền các ô còn trống bằng VĐV hợp lệ mạnh nhất còn suất,
  * ưu tiên nội dung có trần hạng chặt nhất để không "khoá" người ở cuối.
  */
-document.getElementById("btnFill").addEventListener("click", () => {
-  const order = ["E6","E5","E9","E8","E4","E3","E2","E7","E1"];
-  TEAMS.forEach(t => {
-    order.forEach(evId => {
-      const ev = EVENTS.find(e => e.id === evId);
-      [0,1].forEach(i => {
-        if(lineup[t.id][ev.id][i] != null) return;
-        const u = usage(t.id);
-        const partner = lineup[t.id][ev.id][1 - i];
-        const cand = t.players.filter(p =>
-          p.g === ev.slots[i] && p.id !== partner &&
-          (u.get(p.id) || 0) < 2 && (tierOK(ev, p) || excOK(ev, p)));
-        if(!cand.length) return;
-        // ưu tiên người chưa đánh nội dung nào, rồi tới điểm cao
-        cand.sort((a,b) => ((u.get(a.id)||0) - (u.get(b.id)||0)) || (b.s - a.s));
-        let pick = cand[0];
-        if(ev.exc){                       // tôn trọng trần tổng đôi của ND6
-          const other = partner ? byId.get(partner) : null;
-          const fit = cand.find(p => {
-            const isB = p.g === "M" && p.t === ev.exc.tier;
-            if(isB && p.s > ev.exc.maxScore) return false;
-            if(other){
-              const oB = other.g === "M" && other.t === ev.exc.tier;
-              if(isB && oB) return false;                                 // tối đa 1 Nam B
-              if((isB || oB) && (other.s + p.s) > ev.exc.maxPair) return false;  // trần tổng đôi
-            }
-            return true;
-          });
-          if(fit) pick = fit;
-        }
-        lineup[t.id][ev.id][i] = pick.id;
-      });
-    });
+function autoFillTeams(ids){
+  TEAMS.filter(t => ids.includes(t.id)).forEach(t => {
+    const start = {};
+    EVENTS.forEach(ev => start[ev.id] = [...lineup[t.id][ev.id]]);
+    const L = greedyLineup(t.id, start);
+    EVENTS.forEach(ev => { if(!isLocked(t.id, ev.id)) lineup[t.id][ev.id] = L[ev.id]; });
   });
   refresh();
-});
+}
+document.getElementById("btnFill").addEventListener("click",
+  () => autoFillTeams(TEAMS.map(t => t.id)));
 
 /* --- JSON --- */
 const ioBox = document.getElementById("ioBox"), ioMsg = document.getElementById("ioMsg");
@@ -1084,16 +2173,52 @@ document.getElementById("btnCopy").addEventListener("click", async () => {
 document.getElementById("btnImport").addEventListener("click", () => {
   try{
     const data = JSON.parse(ioBox.value);
-    lineup = blankLineup(); merge(data); refresh();
-    say("Đã nạp đội hình.");
+    const keep = {};
+    TEAMS.forEach(t => EVENTS.forEach(e => { if(isLocked(t.id,e.id)) keep[t.id+e.id] = [...lineup[t.id][e.id]]; }));
+    lineup = blankLineup(); merge(data);
+    Object.entries(keep).forEach(([k,v]) => {
+      const t = k.slice(0,5), e = k.slice(5);
+      lineup[t][e] = v;
+    });
+    refresh();
+    const n = totalLocks();
+    say(n ? `Đã nạp đội hình, giữ nguyên ${n} ô khoá.` : "Đã nạp đội hình.");
   }catch(e){ say("JSON không hợp lệ.", true); }
 });
 
+/* --- TÂM CƠ: tab ẩn --- */
+const TC_KEY = KEY + "_tamco";
+function setTamco(on){
+  document.getElementById("tabTamco").hidden = !on;
+  try{ on ? localStorage.setItem(TC_KEY,"1") : localStorage.removeItem(TC_KEY); }catch(e){}
+  if(!on){
+    document.getElementById("viewTamco").hidden = true;
+    if(document.getElementById("tabTamco").getAttribute("aria-selected") === "true")
+      document.getElementById("tabBoard").click();
+  }
+}
+let tcTyped = "";
+window.addEventListener("keydown", e => {
+  if(e.target.matches("input, textarea, select")) return;
+  tcTyped = (tcTyped + e.key.toLowerCase()).slice(-5);
+  if(tcTyped === "tamco".slice(-5) || tcTyped === "tamco"){
+    setTamco(true);
+    document.getElementById("tabTamco").click();
+  }
+});
+document.getElementById("tcRun").addEventListener("click", renderTamco);
+document.getElementById("tcTeam").addEventListener("change", renderTamco);
+document.getElementById("tcHide").addEventListener("click", () => setTamco(false));
+
 /* --- khởi động --- */
 loadState();
+loadOverrides();
 buildBoard();
 refresh();
 renderAnalysis();
+try{
+  if(localStorage.getItem(TC_KEY) === "1" || location.hash.toLowerCase() === "#tamco") setTamco(true);
+}catch(e){ if(location.hash.toLowerCase() === "#tamco") setTamco(true); }
 try{
   const tab = localStorage.getItem(KEY + "_tab");
   if(tab && document.getElementById(tab)) document.getElementById(tab).click();
