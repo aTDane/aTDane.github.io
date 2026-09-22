@@ -374,8 +374,6 @@ select.pick.bad{border-color:var(--err);background:var(--err-bg)}
 .stdbox .spacer{flex:1 1 auto}
 .btn.xsm{padding:5px 10px;font-size:11.5px}
 .stdbox .apply{padding:5px 11px;font-size:11.5px}
-.stdwarn{padding:9px 14px;font-size:11.5px;line-height:1.5;background:var(--warn-bg);color:var(--warn);
-  border-bottom:1px solid var(--line-soft)}
 .stdwrap{position:relative;overflow-x:auto}
 .swaparrows{position:absolute;inset:0;pointer-events:none;z-index:3;overflow:visible}
 .swaparrows .arr path{fill:none;stroke:var(--accent);stroke-width:1.7;stroke-dasharray:5 4;opacity:.85}
@@ -1655,60 +1653,42 @@ function topDownLineup(teamId, start){
     return m;
   };
 
-  // Danh sách ô theo thứ tự điền: trần cao trước.
-  const slots = [];
-  fillOrder().forEach(ev => [0,1].forEach(i => slots.push([ev,i])));
-
-  slots.forEach(([ev,i]) => {
-    if(L[ev.id][i] != null) return;
-    const u = useMap(), partner = L[ev.id][1-i];
-    const cand = team
-      .filter(p => slotOK(ev,i,p) && p.id !== partner && (u.get(p.id)||0) < 2)
-      .sort((a,b) => b.s - a.s);
-    const fit = cand.find(p => {
-      const t = [...L[ev.id]]; t[i] = p.id;
-      return t[0] == null || t[1] == null || pairOK(ev, t[0], t[1]);
+  fillOrder().forEach(ev => {                  // trần cao trước, mỗi ô lấy người mạnh nhất còn suất
+    [0,1].forEach(i => {
+      if(L[ev.id][i] != null) return;
+      const u = useMap(), partner = L[ev.id][1-i];
+      const cand = team
+        .filter(p => slotOK(ev,i,p) && p.id !== partner && (u.get(p.id)||0) < 2)
+        .sort((a,b) => b.s - a.s);
+      const fit = cand.find(p => {
+        const t = [...L[ev.id]]; t[i] = p.id;
+        return t[0] == null || t[1] == null || pairOK(ev, t[0], t[1]);
+      });
+      if(fit) L[ev.id][i] = fit.id;
     });
-    if(fit) L[ev.id][i] = fit.id;
   });
 
-  // Chen người chưa được xếp vào chỗ mất điểm ít nhất. Ưu tiên thay người đang đánh
-  // 2 nội dung; nếu không có thì thay người đánh 1 nội dung rồi xếp tiếp cho người đó
-  // (sửa dây chuyền), nhờ vậy hiếm khi phải bỏ cuộc.
-  const queue = team.filter(p => !(useMap().get(p.id) > 0)).map(p => p.id);
-  for(let step = 0; queue.length && step < 60; step++){
-    const pid = queue.shift();
-    if(useMap().get(pid) > 0) continue;
-    const p = byId.get(pid);
-    let best = null, bestLoss = Infinity, bestAt = -1, bestKicked = null, bestFree = false;
+  for(const p of team){                        // chen người chưa được xếp vào chỗ rẻ nhất
+    if((useMap().get(p.id)||0) > 0) continue;
+    let best = null, bestLoss = Infinity, bestAt = -1;
     EVENTS.forEach((ev,k) => [0,1].forEach(i => {
       const cur = L[ev.id][i];
-      if(cur == null || cur === pid || !slotOK(ev,i,p)) return;
-      const curUse = useMap().get(cur) || 0;
+      if(cur == null || !slotOK(ev,i,p)) return;
+      if((useMap().get(cur)||0) <= 1) return;  // bỏ ra thì người đó còn 0 nội dung
       const c = {}; EVENTS.forEach(e => c[e.id] = [...L[e.id]]);
-      c[ev.id][i] = pid;
+      c[ev.id][i] = p.id;
       if(!pairsAndCapOK(teamId,c)) return;
-      const free = curUse >= 2;               // thay xong người đó vẫn còn nội dung khác
       const loss = byId.get(cur).s - p.s;
-      // ưu tiên: không tạo ra người bị bỏ mới > mất ít điểm > nội dung ở dưới
-      const better = (free && !bestFree)
-        || (free === bestFree && (loss < bestLoss - 1e-9
-             || (Math.abs(loss - bestLoss) < 1e-9 && k > bestAt)));
-      if(best === null || better){
-        best = c; bestLoss = loss; bestAt = k; bestKicked = cur; bestFree = free;
+      // mất điểm ít nhất; nếu bằng nhau thì dồn xuống nội dung dưới cho đúng thứ tự mạnh–yếu
+      if(loss < bestLoss - 1e-9 || (Math.abs(loss - bestLoss) < 1e-9 && k > bestAt)){
+        bestLoss = loss; bestAt = k; best = c;
       }
     }));
-    if(!best) continue;
-    EVENTS.forEach(ev => L[ev.id] = best[ev.id]);
-    if(!bestFree) queue.push(bestKicked);     // người bị đẩy ra giờ cần chỗ mới
+    if(best) EVENTS.forEach(ev => L[ev.id] = best[ev.id]);
   }
-  // Nếu vẫn chưa hợp lệ (thường do khoá quá nhiều ô nên nội dung trần thấp hết người)
-  // thì lùi về cách điền cũ: duyệt nội dung bị siết chặt trước. Có đánh dấu để báo cho người dùng.
-  if(legalLineup(teamId, L)){ topDownFellBack = false; return L; }
-  topDownFellBack = true;
-  return greedyLineup(teamId, start);
+  // Nếu vẫn chưa hợp lệ thì lùi về cách điền cũ (duyệt nội dung bị siết chặt trước).
+  return legalLineup(teamId, L) ? L : greedyLineup(teamId, start);
 }
-let topDownFellBack = false;
 
 /** Đổi chỗ hai VĐV giữa hai ô có hợp lệ không? (số nội dung mỗi người không đổi) */
 function canSwap(teamId, L, a, b){
@@ -2027,8 +2007,6 @@ function standardHTML(){
       <button class="btn xsm" id="stdReset">Xếp lại từ đầu</button>
       <button class="btn apply" id="stdApply">Áp dụng cho ${teamName}</button>
     </header>
-    ${topDownFellBack ? `<div class="stdwarn">Không xếp được theo trần hạng cao trước vì số ô đang khoá
-      làm nội dung trần thấp hết người. Đã lùi về cách điền cũ — mở bớt khoá rồi bấm "Xếp lại từ đầu".</div>` : ""}
     <div class="stdwrap">
       <svg class="swaparrows" aria-hidden="true"></svg>
       <table class="stdtab"><tbody>${rows}</tbody></table>
