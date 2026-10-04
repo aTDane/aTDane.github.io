@@ -2,12 +2,9 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Bàn cờ xếp đôi 9 nội dung NAB Hanoi Badminton Championship 2026 — xếp đôi, kiểm tra luật, dự báo điểm đội.">
 <title>Bàn cờ đội hình NAB Hà Nội</title>
-<style>:root{color-scheme:light dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-img{max-width:100%}[hidden]{display:none!important}</style>
-</head>
-<body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -74,6 +71,7 @@ img{max-width:100%}[hidden]{display:none!important}</style>
   --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.28);
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}   /* thuộc tính hidden luôn thắng display của lớp */
 body{margin:0;background:var(--ground);color:var(--ink);
   font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -456,6 +454,41 @@ select.pick.bad{border-color:var(--err);background:var(--err-bg)}
   border-radius:6px;height:26px;cursor:pointer;font-size:16px;line-height:1;padding:0;justify-self:end;width:28px}
 .pe .f-del:hover{border-color:var(--err);background:var(--err-bg);color:var(--err)}
 
+/* ---------- chỉnh điểm VĐV ---------- */
+.bandrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:11px;padding:9px 13px;
+  background:var(--surface-2);border:1px solid var(--line-soft);border-radius:var(--r);font-size:11.5px}
+.bandrow>b{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.bandrow label{display:inline-flex;align-items:center;gap:5px;color:var(--muted)}
+.bandrow .f-band{width:56px;font:inherit;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+  text-align:right;padding:3px 5px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.bandrow .f-band:focus{outline:2px solid var(--accent);outline-offset:1px}
+.bandrow .spacer{flex:1}
+
+.rost.tuning{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.pt{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 8px;align-items:center;
+  padding:6px 11px;border-top:1px solid var(--line-soft);font-size:12.5px}
+.pt:first-child{border-top:0}
+.pt.moved{background:var(--warn-bg)}
+.pt .nm{overflow-wrap:anywhere;line-height:1.3;font-weight:500}
+.pt .nm i{font-style:normal;color:var(--muted);font-size:10.5px;margin-left:4px}
+.pt .tier{cursor:pointer;border:1px solid transparent}
+.pt .tier.manual{border-style:dashed;border-color:currentColor}
+.pt .ctl{display:inline-flex;align-items:center;gap:3px}
+.pt .step{appearance:none;width:24px;height:24px;flex:none;border-radius:6px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink-2);font-size:14px;line-height:1;cursor:pointer;padding:0}
+.pt .step:hover{border-color:var(--accent);color:var(--accent)}
+.pt .f-sc{width:58px;font:inherit;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+  text-align:right;padding:3px 5px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.pt .f-sc:focus{outline:2px solid var(--accent);outline-offset:1px}
+.pt .undo{appearance:none;width:22px;height:22px;flex:none;border:0;background:transparent;color:var(--muted);
+  cursor:pointer;font-size:13px;line-height:1;padding:0;border-radius:5px}
+.pt .undo:hover{color:var(--accent);background:var(--surface-2)}
+.pt .meta{grid-column:2/4;display:flex;flex-wrap:wrap;gap:4px 9px;align-items:center;
+  font-size:10.5px;color:var(--muted);margin-top:-2px}
+.dlt{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-weight:600;font-size:10.5px}
+.dlt.up{color:var(--ok)} .dlt.dn{color:var(--err)}
+.p .sc .dlt{margin-left:4px}
+
 /* ---------- io ---------- */
 .io{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px;box-shadow:var(--shadow)}
 .io textarea{width:100%;min-height:90px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;padding:9px;border-radius:8px;
@@ -480,6 +513,8 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-si
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
+</head>
+<body>
 <div class="topbar">
   <div class="topbar-in">
     <div class="brand">
@@ -552,6 +587,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-si
       <span class="hint" style="margin:0">Số nhỏ = chênh lệch điểm quyết định mạnh hơn; số lớn = giải đấu nhiều bất ngờ hơn.</span>
     </div>
     <div class="tcverdict lock" id="ovNote" hidden></div>
+    <div class="tcverdict lock" id="scoreNote" hidden></div>
     <div class="eyebrow">Dự báo điểm đội toàn giải</div>
     <div class="proj" id="proj" style="margin-top:8px"></div>
     <div class="eyebrow" style="margin-top:20px">Dự báo điểm đội theo từng nội dung</div>
@@ -577,13 +613,28 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-si
       <span>mạnh → yếu</span>
     </div>
     <div class="toolrow" style="margin-top:14px">
-      <button class="btn primary" id="btnEditRoster">Sửa danh sách</button>
+      <button class="btn primary" id="btnTuneScore">Chỉnh điểm</button>
+      <button class="btn" id="btnEditRoster">Sửa danh sách</button>
       <button class="btn" id="btnAddPlayer" hidden>+ Thêm VĐV</button>
+      <span class="lockinfo" id="scoreTuned" hidden></span>
+      <button class="btn" id="btnResetScores" hidden>Khôi phục điểm BTC</button>
       <span class="lockinfo" id="rosterEdited" hidden>danh sách đã sửa</span>
       <button class="btn" id="btnResetRoster" hidden>Khôi phục danh sách BTC</button>
       <div class="spacer"></div>
       <button class="btn" id="btnRosterJson">JSON danh sách</button>
     </div>
+    <div class="bandrow" id="bandRow" hidden>
+      <b>Mốc hạng</b>
+      <label><span class="tier" data-t="S">S</span> ≥ <input class="f-band" type="number" step="0.01" min="0" max="9.99" data-t="S" aria-label="Mốc điểm hạng S"></label>
+      <label><span class="tier" data-t="A+">A+</span> ≥ <input class="f-band" type="number" step="0.01" min="0" max="9.99" data-t="A+" aria-label="Mốc điểm hạng A+"></label>
+      <label><span class="tier" data-t="A">A</span> ≥ <input class="f-band" type="number" step="0.01" min="0" max="9.99" data-t="A" aria-label="Mốc điểm hạng A"></label>
+      <label><span class="tier" data-t="B">B</span> ≥ <input class="f-band" type="number" step="0.01" min="0" max="9.99" data-t="B" aria-label="Mốc điểm hạng B"></label>
+      <label><span class="tier" data-t="C">C</span> ≥ <input class="f-band" type="number" step="0.01" min="0" max="9.99" data-t="C" aria-label="Mốc điểm hạng C"></label>
+      <span class="hint" style="margin:0">dưới mốc C là hạng D</span>
+      <div class="spacer"></div>
+      <button class="btn xsm" id="btnResetBands" hidden>Mốc gốc</button>
+    </div>
+    <p class="hint" id="tuneHint" hidden style="margin:10px 0 0">Sửa điểm thì hạng tự đổi theo mốc trên. Bấm vào ô hạng để khoá hạng lại (điểm đổi nhưng hạng giữ nguyên) — hữu ích khi BTC xếp hạng khác với điểm.</p>
     <div class="io" id="rosterIo" hidden style="margin:0 0 14px">
       <div class="eyebrow">Danh sách VĐV dạng JSON</div>
       <p class="hint">Dán vào đây để nạp danh sách khác, hoặc sao chép để gửi đi. Mã VĐV phải không trùng nhau.</p>
@@ -706,6 +757,18 @@ let TEAMS = JSON.parse(JSON.stringify(DEFAULT_TEAMS));
 const TIERS = ["S","A+","A","B","C","D"];
 const below = cap => TIERS.slice(TIERS.indexOf(cap));   // hạng từ trần trở xuống
 
+/* Mốc điểm của từng hạng — suy từ bảng điểm BTC (mọi VĐV hiện tại đều khớp).
+   BTC không công bố mốc chính thức nên người dùng chỉnh lại được trong tab "Suất & VĐV". */
+const DEFAULT_BANDS = {"S":4.00, "A+":3.30, "A":2.80, "B":2.15, "C":1.60};
+let BANDS = Object.assign({}, DEFAULT_BANDS);
+
+/** Hạng suy ra từ điểm, theo mốc đang dùng. */
+function tierFromScore(s){
+  const n = +s || 0;
+  for(const t of TIERS){ if(BANDS[t] == null) return t; if(n >= BANDS[t]) return t; }
+  return "D";
+}
+
 const EVENTS = [
   {id:"E1", no:1, name:"Đôi nam cao cấp 1",   slots:["M","M"], capM:"S",  note:"Nội dung đỉnh cao, mở cho mọi trình độ nam"},
   {id:"E2", no:2, name:"Đôi nam cao cấp 2",   slots:["M","M"], capM:"A+", note:"Không dành cho VĐV hạng S"},
@@ -729,6 +792,7 @@ const MEDAL_CLASS = ["g","s","b","f"];
 /* ===================== TRẠNG THÁI ===================== */
 const KEY = "nab_lineup_v1";
 const ROSTER_KEY = "nab_roster_v1";
+const BANDS_KEY  = "nab_bands_v1";
 let byId = new Map();
 const onRosterChange = [];        // nơi các phần khác đăng ký dọn cache của mình
 
@@ -752,7 +816,8 @@ function loadRoster(){
                      g: p.g === "F" ? "F" : "M",
                      t: TIERS.includes(p.t) ? p.t : "C",
                      s: Math.min(9.99, Math.max(0, +p.s || 0)),
-                     ...(p.backup ? {backup:true} : {}) }))
+                     ...(p.backup ? {backup:true} : {}),
+                     ...(p.tm ? {tm:true} : {}) }))
     }));
     const ids = clean.flatMap(t => t.players.map(p => p.id));
     if(new Set(ids).size !== ids.length) return;            // trùng mã thì bỏ qua bản lưu
@@ -774,6 +839,61 @@ function nextPlayerId(){
   return TEAMS.reduce((m,t) => t.players.reduce((n,p) => Math.max(n,p.id), m), 0) + 1;
 }
 
+/* ---------- mốc hạng ---------- */
+function loadBands(){
+  try{
+    const d = JSON.parse(localStorage.getItem(BANDS_KEY) || "null");
+    if(!d || typeof d !== "object") return;
+    const b = {};
+    for(const t of Object.keys(DEFAULT_BANDS)){
+      const v = +d[t];
+      b[t] = Number.isFinite(v) ? Math.min(9.99, Math.max(0, v)) : DEFAULT_BANDS[t];
+    }
+    // mốc phải giảm dần theo hạng, nếu không thì bỏ bản lưu
+    const ord = Object.keys(DEFAULT_BANDS).map(t => b[t]);
+    for(let i = 1; i < ord.length; i++) if(ord[i] >= ord[i-1]) return;
+    BANDS = b;
+  }catch(e){}
+}
+function saveBands(){
+  try{ localStorage.setItem(BANDS_KEY, JSON.stringify(BANDS)); }catch(e){}
+}
+function resetBands(){
+  BANDS = Object.assign({}, DEFAULT_BANDS);
+  try{ localStorage.removeItem(BANDS_KEY); }catch(e){}
+}
+function bandsAreEdited(){
+  return Object.keys(DEFAULT_BANDS).some(t => BANDS[t] !== DEFAULT_BANDS[t]);
+}
+/** Gán lại hạng cho mọi VĐV chưa bị khoá hạng thủ công. */
+function applyBands(){
+  TEAMS.forEach(t => t.players.forEach(p => { if(!p.tm) p.t = tierFromScore(p.s); }));
+}
+
+/* ---------- điểm tự chỉnh ---------- */
+const ORIG = new Map();
+DEFAULT_TEAMS.forEach(t => t.players.forEach(p => ORIG.set(p.id, {s:p.s, t:p.t, n:p.n})));
+/** Bản gốc BTC của một VĐV, hoặc null nếu là VĐV do người dùng thêm. */
+function origOf(id){ return ORIG.get(id) || null; }
+/** Chênh lệch điểm so với bản BTC; null nếu không so được. */
+function scoreDelta(p){
+  const o = origOf(p.id);
+  return o ? +(p.s - o.s).toFixed(2) : null;
+}
+function tunedCount(){
+  let n = 0;
+  TEAMS.forEach(t => t.players.forEach(p => { const d = scoreDelta(p); if(d) n++; }));
+  return n;
+}
+/** Trả điểm mọi VĐV về bản BTC (giữ nguyên VĐV tự thêm và việc chuyển đội). */
+function resetScores(){
+  TEAMS.forEach(t => t.players.forEach(p => {
+    const o = origOf(p.id);
+    if(!o) return;
+    p.s = o.s; p.t = o.t; delete p.tm;
+  }));
+}
+
 /** Gỡ khỏi đội hình những VĐV không còn thuộc đội đó nữa. */
 function sanitizeLineups(){
   TEAMS.forEach(t => EVENTS.forEach(ev => {
@@ -788,6 +908,7 @@ function sanitizeLineups(){
   }));
 }
 
+loadBands();
 loadRoster();
 rebuildIndex();
 
@@ -1310,6 +1431,16 @@ function renderAnalysis(){
       Điểm nguyên tính theo thứ hạng đó; cột kỳ vọng vẫn là số của mô hình.
       <button class="btn xsm" id="ovClear">Khôi phục toàn bộ dự báo</button>`;
   }
+  const nTune = tunedCount();
+  const scBox = document.getElementById("scoreNote");
+  if(scBox){
+    scBox.hidden = nTune === 0 && !bandsAreEdited();
+    const bits = [];
+    if(nTune) bits.push(`điểm tự chỉnh của <b>${nTune}</b> VĐV`);
+    if(bandsAreEdited()) bits.push("mốc hạng tự đặt");
+    scBox.innerHTML = `Dự báo đang tính theo ${bits.join(" và ")}, không phải số gốc của BTC.
+      Sửa lại ở tab <b>Suất &amp; VĐV</b> → <b>Chỉnh điểm</b>.`;
+  }
   const ranked = TEAMS.map(t => ({t, ...totals[t.id]})).sort(cmpStanding);
   document.getElementById("proj").innerHTML = ranked.map((r,i) => `
     <div class="pcard" style="--tc:var(${TEAM_VAR[r.t.id]})">
@@ -1477,6 +1608,9 @@ function wireRankDrag(){
 
 /* ===================== TAB SUẤT & VĐV ===================== */
 let rosterEdit = false;
+let rosterTune = false;
+/** Khi đang vẽ lại tại chỗ một dòng chỉnh điểm thì refresh() không dựng lại cả bảng VĐV. */
+let suppressRoster = false;
 
 /** Một dòng VĐV ở chế độ sửa: tên, giới tính, hạng, điểm, đội, nút xoá. */
 function rosterEditRow(t, p){
@@ -1495,10 +1629,66 @@ function rosterEditRow(t, p){
     </div>`;
 }
 
-function renderRoster(){
-  if(rosterEdit) return renderRosterEdit();
+/** Nhãn chênh lệch điểm so với bản BTC. */
+function deltaTag(p){
+  const d = scoreDelta(p);
+  if(!d) return "";
+  return `<span class="dlt ${d > 0 ? "up" : "dn"}" title="BTC: ${origOf(p.id).s.toFixed(2)}">${d > 0 ? "+" : "−"}${Math.abs(d).toFixed(2)}</span>`;
+}
+
+const TIER_TIP = p => p.tm
+  ? "Hạng đang khoá thủ công — bấm để trả về tự động theo điểm"
+  : "Hạng tự theo điểm — bấm để khoá lại";
+
+/** Dòng phụ dưới mỗi VĐV: chênh lệch điểm, hạng khoá tay, nội dung đang đánh. */
+function tuneMetaHTML(teamId, p){
+  const bits = [];
+  const d = deltaTag(p);
+  if(d) bits.push(d);
+  if(p.tm) bits.push(`<span>hạng khoá tay — theo điểm sẽ là <b>${tierFromScore(p.s)}</b></span>`);
+  const evs = eventsOf(teamId, p.id);
+  if(evs.length) bits.push(`<span>${evs.map(e => "ND" + e.no).join(" · ")}</span>`);
+  return bits.join("");
+}
+
+/** Một dòng VĐV ở chế độ chỉnh điểm. */
+function rosterTuneRow(t, p){
+  const o = origOf(p.id);
+  return `<div class="pt" data-id="${p.id}">
+      <span class="tier${p.tm ? " manual" : ""}" data-t="${p.t}" role="button" tabindex="0"
+        title="${TIER_TIP(p)}">${p.t}</span>
+      <span class="nm">${p.n}${p.g === "F" ? ' <i>nữ</i>' : ""}</span>
+      <span class="ctl">
+        <button class="step" data-d="-0.05" title="Giảm 0,05" aria-label="Giảm điểm ${p.n}">−</button>
+        <input class="f-sc" type="number" step="0.01" min="0" max="9.99" value="${p.s.toFixed(2)}" aria-label="Điểm ${p.n}">
+        <button class="step" data-d="0.05" title="Tăng 0,05" aria-label="Tăng điểm ${p.n}">+</button>
+        <button class="undo"${o && scoreDelta(p) ? "" : " hidden"} title="Trả về điểm BTC${o ? " " + o.s.toFixed(2) : ""}" aria-label="Trả về điểm BTC">↺</button>
+      </span>
+      <span class="meta"${tuneMetaHTML(t.id,p) ? "" : " hidden"}>${tuneMetaHTML(t.id,p)}</span>
+    </div>`;
+}
+
+function renderRosterTune(){
   const host = document.getElementById("roster");
   host.classList.remove("editing");
+  host.classList.add("tuning");
+  host.innerHTML = TEAMS.map(t => {
+    const n = t.players.filter(p => scoreDelta(p)).length;
+    const tot = t.players.reduce((a,p) => a + p.s, 0);
+    return `<div class="rcard" style="--tc:var(${TEAM_VAR[t.id]})">
+      <header><h3>${t.name}</h3><span>${t.players.length} VĐV · tổng ${tot.toFixed(2)}đ${n ? ` · <b style="color:var(--accent)">${n} đã chỉnh</b>` : ""}</span></header>
+      <div class="plist">${t.players.map(p => rosterTuneRow(t,p)).join("")}</div>
+    </div>`;
+  }).join("");
+  wireRosterTune();
+}
+
+function renderRoster(){
+  if(suppressRoster) return;
+  if(rosterTune) return renderRosterTune();
+  if(rosterEdit) return renderRosterEdit();
+  const host = document.getElementById("roster");
+  host.classList.remove("editing", "tuning");
   host.innerHTML = TEAMS.map(t => {
     const u = usage(t.id);
     const rows = t.players.map(p => {
@@ -1509,7 +1699,7 @@ function renderRoster(){
       return `<div class="p ${c === 0 ? "unused" : ""} ${c > 2 ? "over" : ""}">
           <span class="tier" data-t="${p.t}" title="Hạng ${p.t}">${p.t}</span>
           <span class="nm">${p.n}${p.g === "F" ? ' <i>nữ</i>' : ""}${p.backup ? ' <i>dự bị</i>' : ""}</span>
-          <span class="sc">${p.s.toFixed(2)}</span>
+          <span class="sc">${p.s.toFixed(2)}${deltaTag(p)}</span>
           <span class="dots" title="${c} nội dung">${dots}</span>
           ${evs.length ? `<span class="pev">${evs.map(e => `ND${e.no} ${e.name}`).join(" · ")}</span>` : ""}
         </div>`;
@@ -1524,6 +1714,7 @@ function renderRoster(){
 
 function renderRosterEdit(){
   const host = document.getElementById("roster");
+  host.classList.remove("tuning");
   host.classList.add("editing");
   host.innerHTML = TEAMS.map(t => {
     const men = t.players.filter(p => p.g === "M").length;
@@ -2389,9 +2580,40 @@ function updateRosterBar(){
   if(tag) tag.hidden = !ed;
   if(rs)  rs.hidden  = !ed;
   const btn = document.getElementById("btnEditRoster");
-  if(btn){ btn.textContent = rosterEdit ? "Xong" : "Sửa danh sách"; btn.classList.toggle("primary", !rosterEdit); }
+  if(btn){
+    btn.textContent = rosterEdit ? "Xong" : "Sửa danh sách";
+    btn.classList.toggle("primary", rosterEdit);
+    btn.hidden = rosterTune;
+  }
   const add = document.getElementById("btnAddPlayer");
   if(add) add.hidden = !rosterEdit;
+
+  const tn = document.getElementById("btnTuneScore");
+  if(tn){
+    tn.textContent = rosterTune ? "Xong" : "Chỉnh điểm";
+    tn.classList.toggle("primary", !rosterEdit);
+    tn.hidden = rosterEdit;
+  }
+  const band = document.getElementById("bandRow");
+  if(band) band.hidden = !rosterTune;
+  const hint = document.getElementById("tuneHint");
+  if(hint) hint.hidden = !rosterTune;
+  if(rosterTune) paintBandRow();
+
+  const n = tunedCount();
+  const st = document.getElementById("scoreTuned");
+  if(st){ st.hidden = !n; st.textContent = `${n} VĐV đã chỉnh điểm`; }
+  const sr = document.getElementById("btnResetScores");
+  if(sr) sr.hidden = !n;
+}
+
+/** Đổ mốc hạng hiện hành vào thanh mốc. */
+function paintBandRow(){
+  document.querySelectorAll("#bandRow .f-band").forEach(inp => {
+    if(document.activeElement !== inp) inp.value = BANDS[inp.dataset.t].toFixed(2);
+  });
+  const rb = document.getElementById("btnResetBands");
+  if(rb) rb.hidden = !bandsAreEdited();
 }
 
 function findPlayer(id){
@@ -2425,10 +2647,17 @@ function wireRosterEdit(){
       commit("n", v);
     });
     row.querySelector(".f-g").addEventListener("change", e => commit("g", e.target.value));
-    row.querySelector(".f-t").addEventListener("change", e => commit("t", e.target.value));
+    row.querySelector(".f-t").addEventListener("change", e => {
+      const f = findPlayer(id); if(!f) return;
+      // chọn hạng khác với hạng suy từ điểm = khoá hạng thủ công
+      if(e.target.value === tierFromScore(f.p.s)) delete f.p.tm; else f.p.tm = true;
+      commit("t", e.target.value);
+    });
     row.querySelector(".f-s").addEventListener("change", e => {
       const v = Math.min(9.99, Math.max(0, parseFloat(e.target.value)));
       if(!isFinite(v)){ e.target.value = findPlayer(id).p.s.toFixed(2); return; }
+      const f = findPlayer(id);
+      if(f && !f.p.tm) f.p.t = tierFromScore(v);   // hạng chạy theo điểm
       commit("s", +v.toFixed(2));
     });
     row.querySelector(".f-team").addEventListener("change", e => commit("team", e.target.value));
@@ -2444,9 +2673,146 @@ function wireRosterEdit(){
   });
 }
 
+/* ===================== CHỈNH ĐIỂM ===================== */
+
+/** Ghi điểm mới cho một VĐV; hạng tự đổi theo mốc trừ khi hạng đang khoá tay. */
+function setScore(id, v){
+  const f = findPlayer(id); if(!f) return false;
+  const s = Math.min(9.99, Math.max(0, +(+v).toFixed(2)));
+  if(!Number.isFinite(s) || s === f.p.s) return false;
+  f.p.s = s;
+  if(!f.p.tm) f.p.t = tierFromScore(s);
+  rebuildIndex();
+  saveRoster();
+  return true;
+}
+
+/** Vẽ lại tại chỗ một dòng chỉnh điểm (không dựng lại cả bảng để không mất con trỏ). */
+function paintTuneRow(id){
+  const row = document.querySelector(`#roster .pt[data-id="${id}"]`);
+  const f = findPlayer(id);
+  if(!row || !f) return;
+  const p = f.p, o = origOf(id);
+  const chip = row.querySelector(".tier");
+  chip.textContent = p.t;
+  chip.dataset.t = p.t;
+  chip.classList.toggle("manual", !!p.tm);
+  chip.title = TIER_TIP(p);
+  const inp = row.querySelector(".f-sc");
+  if(document.activeElement !== inp) inp.value = p.s.toFixed(2);
+  row.querySelector(".undo").hidden = !(o && scoreDelta(p));
+  const meta = row.querySelector(".meta");
+  const html = tuneMetaHTML(f.team.id, p);
+  meta.innerHTML = html;
+  meta.hidden = !html;
+}
+/** Cập nhật dòng tổng của mỗi thẻ đội. */
+function paintTuneHeaders(){
+  document.querySelectorAll("#roster .rcard").forEach((card, i) => {
+    const t = TEAMS[i]; if(!t) return;
+    const n = t.players.filter(p => scoreDelta(p)).length;
+    const tot = t.players.reduce((a,x) => a + x.s, 0);
+    const sp = card.querySelector("header span");
+    if(sp) sp.innerHTML = `${t.players.length} VĐV · tổng ${tot.toFixed(2)}đ${n ? ` · <b style="color:var(--accent)">${n} đã chỉnh</b>` : ""}`;
+  });
+}
+/** Sau khi điểm đổi: tính lại mọi thứ, nhưng chỉ vẽ lại đúng dòng vừa sửa. */
+function afterScoreChange(id){
+  sanitizeLineups();
+  suppressRoster = true;            // giữ nguyên DOM để không mất con trỏ / tiêu điểm
+  refresh();
+  suppressRoster = false;
+  if(!document.getElementById("viewTamco").hidden) renderTamco();
+  if(id != null) paintTuneRow(id);
+  paintTuneHeaders();
+  updateRosterBar();
+}
+
+function wireRosterTune(){
+  document.getElementById("roster").querySelectorAll(".pt").forEach(row => {
+    const id = +row.dataset.id;
+    const inp = row.querySelector(".f-sc");
+
+    row.querySelectorAll(".step").forEach(b => b.addEventListener("click", () => {
+      const f = findPlayer(id); if(!f) return;
+      if(setScore(id, f.p.s + parseFloat(b.dataset.d))) afterScoreChange(id);
+    }));
+    const commit = () => {
+      const f = findPlayer(id); if(!f) return;
+      const v = parseFloat(inp.value);
+      if(!Number.isFinite(v)){ inp.value = f.p.s.toFixed(2); return; }
+      if(setScore(id, v)) afterScoreChange(id); else inp.value = f.p.s.toFixed(2);
+    };
+    inp.addEventListener("change", commit);
+    inp.addEventListener("keydown", e => { if(e.key === "Enter"){ e.preventDefault(); inp.blur(); } });
+
+    row.querySelector(".undo").addEventListener("click", () => {
+      const f = findPlayer(id), o = origOf(id);
+      if(!f || !o) return;
+      delete f.p.tm;
+      f.p.t = o.t;
+      f.p.s = o.s;
+      rebuildIndex(); saveRoster();
+      afterScoreChange(id);
+    });
+
+    const chip = row.querySelector(".tier");
+    const toggle = () => {
+      const f = findPlayer(id); if(!f) return;
+      if(f.p.tm) { delete f.p.tm; f.p.t = tierFromScore(f.p.s); }
+      else f.p.tm = true;
+      rebuildIndex(); saveRoster();
+      afterScoreChange(id);
+    };
+    chip.addEventListener("click", toggle);
+    chip.addEventListener("keydown", e => {
+      if(e.key === "Enter" || e.key === " "){ e.preventDefault(); toggle(); }
+    });
+  });
+}
+
+document.getElementById("btnTuneScore").addEventListener("click", () => {
+  rosterTune = !rosterTune;
+  if(rosterTune) rosterEdit = false;
+  else { sortTeams(); saveRoster(); rebuildIndex(); }   // xong thì xếp lại theo điểm mới
+  renderRoster();
+  updateRosterBar();
+});
+document.getElementById("btnResetScores").addEventListener("click", () => {
+  if(!confirm("Trả điểm mọi VĐV về bản BTC? VĐV bạn tự thêm và việc chuyển đội vẫn giữ nguyên.")) return;
+  resetScores();
+  rebuildIndex(); saveRoster();
+  applyRosterChange();
+  renderRoster();
+});
+
+/* ---------- mốc hạng ---------- */
+document.querySelectorAll("#bandRow .f-band").forEach(inp => {
+  inp.addEventListener("change", () => {
+    const t = inp.dataset.t;
+    const v = parseFloat(inp.value);
+    if(!Number.isFinite(v)){ paintBandRow(); return; }
+    const keep = Object.assign({}, BANDS);
+    BANDS[t] = Math.min(9.99, Math.max(0, +v.toFixed(2)));
+    const ord = Object.keys(DEFAULT_BANDS).map(k => BANDS[k]);
+    for(let i = 1; i < ord.length; i++){
+      if(ord[i] >= ord[i-1]){ BANDS = keep; paintBandRow(); return alert("Mốc của hạng dưới phải thấp hơn hạng trên."); }
+    }
+    saveBands(); applyBands();
+    applyRosterChange();
+    renderRoster();
+  });
+});
+document.getElementById("btnResetBands").addEventListener("click", () => {
+  resetBands(); applyBands();
+  applyRosterChange();
+  renderRoster();
+});
+
 /* ---------- nút trên thanh công cụ ---------- */
 document.getElementById("btnEditRoster").addEventListener("click", () => {
   rosterEdit = !rosterEdit;
+  if(rosterEdit) rosterTune = false;
   renderRoster();
   updateRosterBar();
 });
@@ -2637,6 +3003,5 @@ try{
   if(tab && document.getElementById(tab)) document.getElementById(tab).click();
 }catch(e){}
 </script>
-
 </body>
 </html>
