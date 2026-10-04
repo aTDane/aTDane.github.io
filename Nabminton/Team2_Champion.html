@@ -432,6 +432,30 @@ select.pick.bad{border-color:var(--err);background:var(--err-bg)}
   .stdtab td.nd i{display:none}
 }
 
+/* ---------- sửa danh sách VĐV ---------- */
+/* Thẻ rộng hơn khi đang sửa, và mỗi VĐV chiếm hai dòng: tên ở trên, thuộc tính ở dưới. */
+.rost.editing{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.rcard.editing .plist{padding:0 0 6px}
+.pehead{display:none}
+.pe{display:grid;gap:5px 6px;padding:7px 11px;border-top:1px solid var(--line-soft);
+  grid-template-columns:minmax(0,1fr) 62px 62px 76px;
+  grid-template-areas:"name name name del" "g t s team"}
+.pe:first-child{border-top:0}
+.pe .f-n{grid-area:name}
+.pe .f-del{grid-area:del}
+.pe .f-g{grid-area:g}
+.pe .f-t{grid-area:t}
+.pe .f-s{grid-area:s}
+.pe .f-team{grid-area:team}
+.pe input,.pe select{font:inherit;font-size:11.5px;padding:4px 6px;border-radius:6px;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);min-width:0;width:100%}
+.pe .f-n{font-weight:600;font-size:12.5px}
+.pe input:focus,.pe select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.pe .f-s{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;text-align:right}
+.pe .f-del{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--muted);
+  border-radius:6px;height:26px;cursor:pointer;font-size:16px;line-height:1;padding:0;justify-self:end;width:28px}
+.pe .f-del:hover{border-color:var(--err);background:var(--err-bg);color:var(--err)}
+
 /* ---------- io ---------- */
 .io{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:13px 14px;box-shadow:var(--shadow)}
 .io textarea{width:100%;min-height:90px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;padding:9px;border-radius:8px;
@@ -552,6 +576,25 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-si
       <span class="tier" data-t="S">S</span><span class="tier" data-t="A+">A+</span><span class="tier" data-t="A">A</span><span class="tier" data-t="B">B</span><span class="tier" data-t="C">C</span><span class="tier" data-t="D">D</span>
       <span>mạnh → yếu</span>
     </div>
+    <div class="toolrow" style="margin-top:14px">
+      <button class="btn primary" id="btnEditRoster">Sửa danh sách</button>
+      <button class="btn" id="btnAddPlayer" hidden>+ Thêm VĐV</button>
+      <span class="lockinfo" id="rosterEdited" hidden>danh sách đã sửa</span>
+      <button class="btn" id="btnResetRoster" hidden>Khôi phục danh sách BTC</button>
+      <div class="spacer"></div>
+      <button class="btn" id="btnRosterJson">JSON danh sách</button>
+    </div>
+    <div class="io" id="rosterIo" hidden style="margin:0 0 14px">
+      <div class="eyebrow">Danh sách VĐV dạng JSON</div>
+      <p class="hint">Dán vào đây để nạp danh sách khác, hoặc sao chép để gửi đi. Mã VĐV phải không trùng nhau.</p>
+      <textarea id="rosterBox" spellcheck="false" aria-label="JSON danh sách VĐV"></textarea>
+      <div class="row">
+        <button class="btn" id="btnRosterExport">Kết xuất</button>
+        <button class="btn" id="btnRosterCopy">Sao chép</button>
+        <button class="btn primary" id="btnRosterImport">Nạp danh sách</button>
+        <span class="msg" id="rosterMsg"></span>
+      </div>
+    </div>
     <p class="hint" style="margin:0 0 12px">Mỗi đội có 18 suất (9 nội dung × 2 VĐV). Mỗi VĐV tối thiểu 1, tối đa 2 nội dung. Nền vàng = chưa được xếp nội dung nào; nền đỏ = quá 2 nội dung.</p>
     <div class="rost" id="roster"></div>
   </section>
@@ -592,7 +635,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-si
    DỮ LIỆU — sửa trực tiếp ở đây khi danh sách đội thay đổi
    g: "M" nam | "F" nữ   ·   t: hạng S / A+ / A / B / C / D   ·   s: điểm
    ===================================================================== */
-const TEAMS = [
+const DEFAULT_TEAMS = [
   { id:"team1", name:"Đội 1", color:"var(--t1)", players:[
     {id:1,  n:"Harris Nguyen Khoa", g:"M", t:"S",  s:4.40},
     {id:2,  n:"Andy Ho",            g:"M", t:"A+", s:3.93},
@@ -628,14 +671,13 @@ const TEAMS = [
     {id:28, n:"Tuyen Bui",          g:"M", t:"S",  s:4.53},
     {id:29, n:"Andy Bui",           g:"M", t:"A+", s:3.77},
     {id:30, n:"Ross Nguyen",        g:"M", t:"A+", s:3.33},
-    {id:31, n:"Thuan Ngo Xuan",     g:"M", t:"A",  s:3.23},
     {id:32, n:"Anh Pham",           g:"F", t:"A",  s:3.07},
     {id:34, n:"Kent Le",            g:"M", t:"B",  s:2.76},
+    {id:48, n:"Kien Ly",            g:"M", t:"B",  s:2.74},
     {id:36, n:"Tung Duong",         g:"M", t:"B",  s:2.73},
     {id:35, n:"Thái Hữu Công",      g:"M", t:"B",  s:2.61},
     {id:33, n:"Hung Luong",         g:"M", t:"B",  s:2.25},
     {id:37, n:"Hanh Ngo",           g:"F", t:"B",  s:2.20},
-    {id:38, n:"Duy Le",             g:"M", t:"C",  s:2.18},
     {id:39, n:"Hieu Bach",          g:"M", t:"C",  s:2.07},
     {id:40, n:"Tony Tran",          g:"M", t:"C",  s:2.00}
   ]},
@@ -645,7 +687,6 @@ const TEAMS = [
     {id:42, n:"Ethan Trinh",        g:"M", t:"A+", s:3.48},
     {id:45, n:"Viet Vu",            g:"M", t:"A",  s:3.29},
     {id:44, n:"Ngô Chiên",          g:"M", t:"A",  s:3.16},
-    {id:48, n:"Kien Ly",            g:"M", t:"B",  s:2.74},
     {id:49, n:"Ellie Nguyen",       g:"F", t:"B",  s:2.74},
     {id:47, n:"Dat Pham",           g:"M", t:"B",  s:2.64},
     {id:50, n:"Phạm Quỳnh Giang",   g:"F", t:"B",  s:2.50},
@@ -656,6 +697,10 @@ const TEAMS = [
     {id:54, n:"Hai Nguyen",         g:"M", t:"D",  s:1.00}
   ]}
 ];
+
+/* Danh sách đang dùng. Người dùng sửa được ngay trong tab "Suất & VĐV";
+   bản sửa lưu trong trình duyệt, DEFAULT_TEAMS ở trên luôn là bản gốc của BTC. */
+let TEAMS = JSON.parse(JSON.stringify(DEFAULT_TEAMS));
 
 /* Thứ tự trình độ: S > A+ > A > B > C > D. Được đánh lên, cấm đánh xuống. */
 const TIERS = ["S","A+","A","B","C","D"];
@@ -683,8 +728,68 @@ const MEDAL_CLASS = ["g","s","b","f"];
 <script>
 /* ===================== TRẠNG THÁI ===================== */
 const KEY = "nab_lineup_v1";
-const byId = new Map();
-TEAMS.forEach(t => t.players.forEach(p => byId.set(p.id, Object.assign({team:t.id}, p))));
+const ROSTER_KEY = "nab_roster_v1";
+let byId = new Map();
+const onRosterChange = [];        // nơi các phần khác đăng ký dọn cache của mình
+
+/** Dựng lại chỉ mục VĐV sau mỗi lần danh sách thay đổi. */
+function rebuildIndex(){
+  byId = new Map();
+  TEAMS.forEach(t => t.players.forEach(p => byId.set(p.id, Object.assign({team:t.id}, p))));
+  onRosterChange.forEach(fn => { try{ fn(); }catch(e){} });
+}
+
+function loadRoster(){
+  try{
+    const raw = localStorage.getItem(ROSTER_KEY);
+    if(!raw) return;
+    const d = JSON.parse(raw);
+    if(!Array.isArray(d) || d.length !== 4) return;
+    const clean = d.map((t,i) => ({
+      id: DEFAULT_TEAMS[i].id, name: DEFAULT_TEAMS[i].name, color: DEFAULT_TEAMS[i].color,
+      players: (t.players||[]).filter(p => p && Number.isFinite(+p.id) && p.n)
+        .map(p => ({ id:+p.id, n:String(p.n).slice(0,40),
+                     g: p.g === "F" ? "F" : "M",
+                     t: TIERS.includes(p.t) ? p.t : "C",
+                     s: Math.min(9.99, Math.max(0, +p.s || 0)),
+                     ...(p.backup ? {backup:true} : {}) }))
+    }));
+    const ids = clean.flatMap(t => t.players.map(p => p.id));
+    if(new Set(ids).size !== ids.length) return;            // trùng mã thì bỏ qua bản lưu
+    TEAMS = clean;
+  }catch(e){}
+}
+function saveRoster(){
+  try{ localStorage.setItem(ROSTER_KEY, JSON.stringify(TEAMS)); }catch(e){}
+}
+function resetRoster(){
+  TEAMS = JSON.parse(JSON.stringify(DEFAULT_TEAMS));
+  try{ localStorage.removeItem(ROSTER_KEY); }catch(e){}
+}
+function rosterIsEdited(){
+  return JSON.stringify(TEAMS) !== JSON.stringify(DEFAULT_TEAMS);
+}
+/** Mã mới cho VĐV thêm vào. */
+function nextPlayerId(){
+  return TEAMS.reduce((m,t) => t.players.reduce((n,p) => Math.max(n,p.id), m), 0) + 1;
+}
+
+/** Gỡ khỏi đội hình những VĐV không còn thuộc đội đó nữa. */
+function sanitizeLineups(){
+  TEAMS.forEach(t => EVENTS.forEach(ev => {
+    const slot = lineup[t.id] && lineup[t.id][ev.id];
+    if(!slot) return;
+    let changed = false;
+    [0,1].forEach(i => {
+      const p = slot[i] == null ? null : byId.get(slot[i]);
+      if(slot[i] != null && (!p || p.team !== t.id)){ slot[i] = null; changed = true; }
+    });
+    if(changed && locks[t.id]) locks[t.id][ev.id] = false;   // ô khuyết thì không khoá được
+  }));
+}
+
+loadRoster();
+rebuildIndex();
 
 /** lineup[teamId][eventId] = [playerId|null, playerId|null] */
 let lineup = {};
@@ -1371,8 +1476,30 @@ function wireRankDrag(){
 }
 
 /* ===================== TAB SUẤT & VĐV ===================== */
+let rosterEdit = false;
+
+/** Một dòng VĐV ở chế độ sửa: tên, giới tính, hạng, điểm, đội, nút xoá. */
+function rosterEditRow(t, p){
+  const tierOpts = TIERS.map(x => `<option value="${x}"${x===p.t?" selected":""}>${x}</option>`).join("");
+  const teamOpts = TEAMS.map(x => `<option value="${x.id}"${x.id===t.id?" selected":""}>${x.name}</option>`).join("");
+  return `<div class="pe" data-id="${p.id}">
+      <input class="f-n" type="text" value="${p.n.replace(/"/g,"&quot;")}" aria-label="Tên VĐV" maxlength="40">
+      <select class="f-g" aria-label="Giới tính">
+        <option value="M"${p.g==="M"?" selected":""}>Nam</option>
+        <option value="F"${p.g==="F"?" selected":""}>Nữ</option>
+      </select>
+      <select class="f-t" aria-label="Hạng">${tierOpts}</select>
+      <input class="f-s" type="number" step="0.01" min="0" max="9.99" value="${p.s.toFixed(2)}" aria-label="Điểm">
+      <select class="f-team" aria-label="Đội">${teamOpts}</select>
+      <button class="f-del" title="Xoá VĐV này" aria-label="Xoá ${p.n}">&times;</button>
+    </div>`;
+}
+
 function renderRoster(){
-  document.getElementById("roster").innerHTML = TEAMS.map(t => {
+  if(rosterEdit) return renderRosterEdit();
+  const host = document.getElementById("roster");
+  host.classList.remove("editing");
+  host.innerHTML = TEAMS.map(t => {
     const u = usage(t.id);
     const rows = t.players.map(p => {
       const c = u.get(p.id) || 0;
@@ -1393,6 +1520,19 @@ function renderRoster(){
       <div class="plist">${rows}</div>
     </div>`;
   }).join("");
+}
+
+function renderRosterEdit(){
+  const host = document.getElementById("roster");
+  host.classList.add("editing");
+  host.innerHTML = TEAMS.map(t => {
+    const men = t.players.filter(p => p.g === "M").length;
+    return `<div class="rcard editing" style="--tc:var(${TEAM_VAR[t.id]})">
+      <header><h3>${t.name}</h3><span>${t.players.length} VĐV · ${men} nam / ${t.players.length-men} nữ</span></header>
+      <div class="plist">${t.players.map(p => rosterEditRow(t,p)).join("")}</div>
+    </div>`;
+  }).join("");
+  wireRosterEdit();
 }
 </script>
 <script>
@@ -1553,6 +1693,7 @@ function climb(teamId, L0, scorer, allow){
 
 /** Đôi mạnh nhất đội có thể tung ra ở một nội dung (bỏ qua ràng buộc số suất). */
 const _bestPair = new Map();
+onRosterChange.push(() => _bestPair.clear());   // đôi mạnh nhất phụ thuộc danh sách VĐV
 function bestPairScore(teamId, eid){
   const key = teamId + ":" + eid;
   if(_bestPair.has(key)) return _bestPair.get(key);
@@ -2225,6 +2366,151 @@ function renderTamco(){
       : `<div class="tcverdict lose">Nhân đôi chỉ được <b>${capD}</b> điểm, kém xếp tiêu chuẩn (<b>${capS}</b>) — không nên dùng.</div>`;
   });
 }
+</script>
+<script>
+/* ===================================================================
+   SỬA DANH SÁCH VĐV — ghi thẳng vào TEAMS rồi dựng lại mọi thứ
+   =================================================================== */
+
+/** Áp dụng một thay đổi danh sách: lưu, dựng lại chỉ mục, dọn đội hình, vẽ lại. */
+function applyRosterChange(){
+  rebuildIndex();
+  sanitizeLineups();
+  saveRoster();
+  refresh();
+  if(!document.getElementById("viewAnalysis").hidden) renderAnalysis();
+  if(!document.getElementById("viewTamco").hidden) renderTamco();
+  updateRosterBar();
+}
+function updateRosterBar(){
+  const ed = rosterIsEdited();
+  const tag = document.getElementById("rosterEdited");
+  const rs  = document.getElementById("btnResetRoster");
+  if(tag) tag.hidden = !ed;
+  if(rs)  rs.hidden  = !ed;
+  const btn = document.getElementById("btnEditRoster");
+  if(btn){ btn.textContent = rosterEdit ? "Xong" : "Sửa danh sách"; btn.classList.toggle("primary", !rosterEdit); }
+  const add = document.getElementById("btnAddPlayer");
+  if(add) add.hidden = !rosterEdit;
+}
+
+function findPlayer(id){
+  for(const t of TEAMS){
+    const i = t.players.findIndex(p => p.id === id);
+    if(i >= 0) return {team:t, idx:i, p:t.players[i]};
+  }
+  return null;
+}
+/** Giữ danh sách mỗi đội theo điểm giảm dần cho dễ đọc. */
+function sortTeams(){ TEAMS.forEach(t => t.players.sort((a,b) => b.s - a.s)); }
+
+function wireRosterEdit(){
+  const host = document.getElementById("roster");
+  host.querySelectorAll(".pe").forEach(row => {
+    const id = +row.dataset.id;
+    const commit = (field, val) => {
+      const f = findPlayer(id); if(!f) return;
+      if(field === "team"){
+        if(val === f.team.id) return;
+        const [moved] = f.team.players.splice(f.idx, 1);
+        TEAMS.find(t => t.id === val).players.push(moved);
+      } else f.p[field] = val;
+      sortTeams();
+      applyRosterChange();
+      renderRosterEdit();
+    };
+    row.querySelector(".f-n").addEventListener("change", e => {
+      const v = e.target.value.trim().slice(0,40);
+      if(!v){ e.target.value = findPlayer(id).p.n; return; }
+      commit("n", v);
+    });
+    row.querySelector(".f-g").addEventListener("change", e => commit("g", e.target.value));
+    row.querySelector(".f-t").addEventListener("change", e => commit("t", e.target.value));
+    row.querySelector(".f-s").addEventListener("change", e => {
+      const v = Math.min(9.99, Math.max(0, parseFloat(e.target.value)));
+      if(!isFinite(v)){ e.target.value = findPlayer(id).p.s.toFixed(2); return; }
+      commit("s", +v.toFixed(2));
+    });
+    row.querySelector(".f-team").addEventListener("change", e => commit("team", e.target.value));
+    row.querySelector(".f-del").addEventListener("click", () => {
+      const f = findPlayer(id); if(!f) return;
+      const used = eventsOf(f.team.id, id).length;
+      const warn = used ? `\n${f.p.n} đang được xếp ở ${used} nội dung, các ô đó sẽ bị bỏ trống.` : "";
+      if(!confirm(`Xoá ${f.p.n} khỏi ${f.team.name}?${warn}`)) return;
+      f.team.players.splice(f.idx, 1);
+      applyRosterChange();
+      renderRosterEdit();
+    });
+  });
+}
+
+/* ---------- nút trên thanh công cụ ---------- */
+document.getElementById("btnEditRoster").addEventListener("click", () => {
+  rosterEdit = !rosterEdit;
+  renderRoster();
+  updateRosterBar();
+});
+document.getElementById("btnAddPlayer").addEventListener("click", () => {
+  const t = TEAMS[0];
+  t.players.push({id: nextPlayerId(), n: "VĐV mới", g: "M", t: "C", s: 2.00});
+  sortTeams();
+  applyRosterChange();
+  renderRosterEdit();
+  const rows = document.querySelectorAll("#roster .pe .f-n");
+  if(rows.length) rows[rows.length-1].focus();
+});
+document.getElementById("btnResetRoster").addEventListener("click", () => {
+  if(!confirm("Khôi phục danh sách gốc của BTC? Mọi sửa đổi về VĐV sẽ mất.")) return;
+  resetRoster();
+  applyRosterChange();
+  renderRoster();
+});
+
+/* ---------- JSON danh sách ---------- */
+const rBox = () => document.getElementById("rosterBox");
+function rSay(m, bad){
+  const el = document.getElementById("rosterMsg");
+  el.textContent = m; el.style.color = bad ? "var(--err)" : "var(--ok)";
+  setTimeout(() => el.textContent = "", 4000);
+}
+document.getElementById("btnRosterJson").addEventListener("click", () => {
+  const io = document.getElementById("rosterIo");
+  io.hidden = !io.hidden;
+  if(!io.hidden && !rBox().value) rBox().value = JSON.stringify(TEAMS, null, 1);
+});
+document.getElementById("btnRosterExport").addEventListener("click", () => {
+  rBox().value = JSON.stringify(TEAMS, null, 1); rSay("Đã kết xuất danh sách hiện tại.");
+});
+document.getElementById("btnRosterCopy").addEventListener("click", async () => {
+  if(!rBox().value) rBox().value = JSON.stringify(TEAMS, null, 1);
+  try{ await navigator.clipboard.writeText(rBox().value); rSay("Đã sao chép."); }
+  catch(e){ rBox().select(); rSay("Hãy nhấn Ctrl/Cmd + C.", true); }
+});
+document.getElementById("btnRosterImport").addEventListener("click", () => {
+  let d;
+  try{ d = JSON.parse(rBox().value); }catch(e){ return rSay("JSON không hợp lệ.", true); }
+  if(!Array.isArray(d) || d.length !== 4) return rSay("Cần đúng 4 đội.", true);
+  const ids = d.flatMap(t => (t.players||[]).map(p => +p.id));
+  if(!ids.length) return rSay("Không có VĐV nào.", true);
+  if(new Set(ids).size !== ids.length) return rSay("Có mã VĐV bị trùng.", true);
+  const keep = JSON.stringify(TEAMS);
+  try{
+    localStorage.setItem(ROSTER_KEY, JSON.stringify(d));
+    TEAMS = JSON.parse(JSON.stringify(DEFAULT_TEAMS));
+    loadRoster();
+    if(JSON.stringify(TEAMS) === JSON.stringify(DEFAULT_TEAMS) && JSON.stringify(d) !== keep){
+      throw new Error("bị từ chối");
+    }
+  }catch(e){
+    TEAMS = JSON.parse(keep); saveRoster();
+    return rSay("Danh sách không hợp lệ, đã giữ nguyên bản cũ.", true);
+  }
+  sortTeams();
+  applyRosterChange();
+  renderRoster();
+  rSay(`Đã nạp ${ids.length} VĐV.`);
+});
+updateRosterBar();
 </script>
 <script>
 /* ===================== ĐIỀU PHỐI ===================== */
